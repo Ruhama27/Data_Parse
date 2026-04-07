@@ -1,0 +1,1094 @@
+<!doctype html>
+
+<html class="dark" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>About Us | Data Parse</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Inter:wght@300;400;500;600&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "on-tertiary": "#263143",
+              "surface-container-high": "#222a3d",
+              "on-secondary": "#0d1b35",
+              background: "#080f1e",
+              "on-background": "#F0F3FA",
+              "on-tertiary-fixed-variant": "#3c475a",
+              "surface-tint": "#7bd0ff",
+              "on-secondary-fixed-variant": "#005236",
+              "on-primary-fixed": "#001e2c",
+              "tertiary-fixed-dim": "#bcc7de",
+              "surface-variant": "#1f3a6d",
+              "inverse-surface": "#dae2fd",
+              "primary-fixed": "#c4e7ff",
+              "on-secondary-fixed": "#002113",
+              "inverse-primary": "#00668a",
+              "secondary-container": "#00a572",
+              "on-primary-fixed-variant": "#004c69",
+              "on-surface-variant": "#bdc8d1",
+              primary: "#8AAEE0",
+              "surface-container-lowest": "#050c18",
+              "outline-variant": "#395886",
+              tertiary: "#B1C9EF",
+              "surface-container-low": "#0e1f3a",
+              "primary-fixed-dim": "#7bd0ff",
+              "surface-dim": "#0b1326",
+              "tertiary-container": "#a7b2c9",
+              "primary-container": "#628ECB",
+              surface: "#080f1e",
+              "inverse-on-surface": "#283044",
+              "surface-container": "#12274a",
+              "secondary-fixed-dim": "#8AAEE0",
+              "on-error": "#690005",
+              "on-surface": "#F0F3FA",
+              "on-error-container": "#ffdad6",
+              "error-container": "#93000a",
+              "surface-container-highest": "#1f3a6d",
+              error: "#ffb4ab",
+              "tertiary-fixed": "#d8e3fb",
+              "on-primary": "#080f1e",
+              "on-tertiary-fixed": "#111c2d",
+              "on-primary-container": "#F0F3FA",
+              "on-secondary-container": "#00311f",
+              "on-tertiary-container": "#394458",
+              outline: "#87929a",
+              "secondary-fixed": "#6ffbbe",
+              "surface-bright": "#31394d",
+              secondary: "#D5DEEF",
+            },
+            fontFamily: {
+              headline: ["Space Grotesk"],
+              body: ["Inter"],
+              label: ["Inter"],
+            },
+            borderRadius: {
+              DEFAULT: "0.125rem",
+              lg: "0.25rem",
+              xl: "0.5rem",
+              full: "0.75rem",
+            },
+          },
+        },
+      };
+    </script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+    <link href="animations.css" rel="stylesheet" />
+    <style>
+      /* Logo — never use mix-blend-mode so it's visible in both modes */
+      .logo-img { mix-blend-mode: normal; }
+      html.light .logo-img { filter: drop-shadow(0 0 6px rgba(98,142,203,0.4)) !important; }
+
+      /* Member card modal animation */
+      .member-modal-card {
+        background: #0e1f3a;
+        transform: translateY(40px) scale(0.92);
+        opacity: 0;
+        transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.4s ease;
+      }
+      html.light .member-modal-card {
+        background: #f0f4ff;
+        border: 1px solid rgba(98,142,203,0.2);
+      }
+      .member-modal-card.modal-in {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+      }
+      .member-card { 
+        transition: transform 0.3s cubic-bezier(0.22,1,0.36,1), box-shadow 0.3s ease;
+      }
+      .member-card:hover { 
+        transform: translateY(-8px);
+        box-shadow: 0 12px 30px rgba(98, 142, 203, 0.15);
+      }
+
+      /* Staggered Content Animation */
+      .stagger-item {
+        opacity: 0;
+        transform: translateY(16px);
+        transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+      }
+      .modal-in .stagger-item {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      .delay-1 { transition-delay: 0.1s; }
+      .delay-2 { transition-delay: 0.18s; }
+      .delay-3 { transition-delay: 0.26s; }
+      .delay-4 { transition-delay: 0.34s; }
+
+      #modal-backdrop {
+        transition: opacity 0.4s ease;
+        backdrop-filter: blur(0px);
+        -webkit-backdrop-filter: blur(0px);
+      }
+      .modal-in-backdrop {
+        backdrop-filter: blur(8px) !important;
+        -webkit-backdrop-filter: blur(8px) !important;
+      }
+
+      html.light body {
+        background-color: #f0f4ff !important;
+        color: #0b1326 !important;
+      }
+      html.light .glass-card {
+        background: rgba(255, 255, 255, 0.75);
+        border-top-color: rgba(98, 142, 203, 0.2);
+      }
+      html.light #main-nav {
+        background: rgba(240, 244, 255, 0.96) !important;
+        border-bottom: 1px solid rgba(98, 142, 203, 0.12);
+      }
+      html.light .text-tertiary {
+        color: #4a5568;
+      }
+      html.light .bg-surface-container-low {
+        background-color: #e2eaf8;
+      }
+      html.light .bg-surface-container-lowest {
+        background-color: #d4ddf5;
+      }
+
+      /* ── Light mode: footer ── */
+      html.light footer {
+        background-color: #e8edf8 !important;
+        border-top-color: rgba(98, 142, 203, 0.25) !important;
+      }
+      html.light footer .text-\[\#628ECB\] {
+        color: #1e4a8a !important;
+      }
+      html.light footer .text-\[\#c2cde5\] {
+        color: #2d3a5a !important;
+      }
+      html.light footer a.hover\:text-\[\#8AAEE0\]:hover {
+        color: #00668a !important;
+      }
+      html.light footer span.text-primary-container {
+        color: #1e4a8a !important;
+      }
+
+      /* ── Light mode: hero section ── */
+      html.light header h1 {
+        color: #0b1326 !important;
+      }
+      html.light header span.text-primary-container {
+        color: #2056a8 !important;
+      }
+      html.light header p.text-tertiary {
+        color: #3a4a6b !important;
+      }
+      html.light header .bg-primary-container {
+        background-color: #628ecb !important;
+      }
+
+      /* ── Light mode: bento / stat cards ── */
+      html.light .bg-surface-container-high {
+        background-color: #dde5f7 !important;
+      }
+      html.light .bg-surface-container {
+        background-color: #e2eaf8 !important;
+      }
+      html.light .text-primary-container {
+        color: #2056a8 !important;
+      }
+      html.light .text-secondary {
+        color: #1a5c44 !important;
+      }
+
+      /* ── Light mode: core values & team sections ── */
+      html.light section h2,
+      html.light section h3,
+      html.light section h4 {
+        color: #0b1326 !important;
+      }
+      html.light section p.text-tertiary,
+      html.light section span.text-tertiary {
+        color: #3a4a6b !important;
+      }
+      html.light section span.text-primary {
+        color: #1a5fa8 !important;
+      }
+      html.light .bg-primary-container\/10 {
+        background-color: rgba(98, 142, 203, 0.15) !important;
+      }
+      html.light .bg-secondary\/10 {
+        background-color: rgba(26, 92, 68, 0.1) !important;
+      }
+
+      /* ── Light mode: mobile menu ── */
+      html.light #mobile-menu {
+        background-color: #f0f4ff !important;
+        border-color: rgba(98, 142, 203, 0.2) !important;
+      }
+      html.light #mobile-menu a {
+        color: #2d3a5a !important;
+        border-color: rgba(98, 142, 203, 0.15) !important;
+      }
+      html.light #mobile-menu a:hover,
+      html.light #mobile-menu a.text-primary {
+        color: #1e4a8a !important;
+      }
+
+      /* ── Light mode: page loader ── */
+      html.light #page-loader {
+        background: #f0f4ff !important;
+      }
+      body {
+        background-color: #080f1e;
+        color: #dae2fd;
+        font-family: "Inter", sans-serif;
+        transition:
+          background 0.4s,
+          color 0.4s;
+      }
+      .glass-card {
+        background: rgba(18, 39, 74, 0.7);
+        backdrop-filter: blur(20px);
+        border: 1px solid rgba(57, 88, 134, 0.4);
+      }
+      .grid-bg {
+        background-image:
+          linear-gradient(rgba(62, 72, 79, 0.05) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(62, 72, 79, 0.05) 1px, transparent 1px);
+        background-size: 24px 24px;
+      }
+      .text-glow {
+        text-shadow: 0 0 15px rgba(98, 142, 203, 0.3);
+      }
+      .material-symbols-outlined {
+        font-variation-settings:
+          "FILL" 0,
+          "wght" 400,
+          "GRAD" 0,
+          "opsz" 24;
+      }
+      #page-loader {
+        position: fixed;
+        inset: 0;
+        z-index: 9999;
+        background: #060e20;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition:
+          opacity 0.6s,
+          visibility 0.6s;
+      }
+      #page-loader.hidden-loader {
+        opacity: 0;
+        visibility: hidden;
+      }
+      .loader-pulse {
+        animation: loaderPulse 1.2s ease-in-out infinite;
+      }
+      @keyframes loaderPulse {
+        0%,
+        100% {
+          opacity: 1;
+          transform: scale(1);
+        }
+        50% {
+          opacity: 0.5;
+          transform: scale(0.95);
+        }
+      }
+      #main-nav {
+        transition:
+          background 0.3s,
+          box-shadow 0.3s;
+      }
+      #main-nav.scrolled {
+        background: rgba(11, 19, 38, 0.96) !important;
+        backdrop-filter: blur(20px);
+        box-shadow: 0 1px 0 rgba(62, 72, 79, 0.3);
+      }
+      #mobile-menu {
+        transform: translateX(100%);
+        transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+      }
+      #mobile-menu.open {
+        transform: translateX(0);
+      }
+      .btn-primary {
+        position: relative;
+        overflow: hidden;
+      }
+      .btn-primary::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: rgba(255, 255, 255, 0.08);
+        opacity: 0;
+        transition: opacity 0.2s;
+      }
+      .btn-primary:hover::after {
+        opacity: 1;
+      }
+    
+      
+      /* ── FOOTER COLOR FIX ── */
+      html.light footer {
+        background-color: #060e20 !important;
+      }
+      html.light footer .text-\[\#628ECB\] {
+        color: #628ECB !important;
+      }
+      html.light footer .text-\[\#c2cde5\] {
+        color: #c2cde5 !important;
+      }
+      html.light footer a.hover\:text-\[\#8AAEE0\]:hover {
+        color: #8AAEE0 !important;
+      }
+      html.light footer .text-on-background,
+      html.light footer .text-on-surface,
+      html.light footer .text-on-primary,
+      html.light footer .text-on-secondary,
+      html.light footer .text-on-primary-container,
+      html.light footer .text-primary,
+      html.light footer .text-primary-container,
+      html.light footer .text-secondary,
+      html.light footer .text-tertiary,
+      html.light footer h1,
+      html.light footer h2,
+      html.light footer h3,
+      html.light footer h4 {
+        color: unset !important;
+      }
+      html.light footer .text-tertiary {
+        color: #c2cde5 !important;
+      }
+      html.light footer .text-secondary, 
+      html.light footer h4.text-secondary {
+        color: #4edea3 !important;
+      }
+      html.light footer h4 {
+        color: #4edea3 !important;
+      }
+      html.light footer a.hover\:text-secondary:hover {
+        color: #8aaee0 !important;
+      }
+      html.light footer span.text-primary-container {
+        color: #8aaee0 !important;
+      }
+
+    </style>
+  </head>
+  <body class="bg-background selection:bg-primary/30 overflow-x-hidden">
+    <!-- PAGE LOADER -->
+    <div id="page-loader">
+      <div class="loader-pulse text-center">
+        <span
+          class="font-headline text-2xl font-bold tracking-tighter"
+          style="
+            background: linear-gradient(to right, #8aaee0, #628ecb);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+          "
+          >Data Parse</span
+        >
+      </div>
+    </div>
+    <!-- NAV -->
+    <nav
+      id="main-nav"
+      class="fixed top-0 w-full z-50 bg-[#080f1e]/90 flex justify-between items-center px-6 md:px-8 h-20"
+    >
+      <div class="flex items-center gap-10">
+        <a href="index.html" class="flex items-center gap-3">
+          <img
+            src="logo.jpg"
+            alt="Data Parse Logo"
+            class="h-9 w-9 object-contain rounded-lg logo-img"
+            style="filter: drop-shadow(0 0 8px rgba(98, 142, 203, 0.5));"
+          />
+          <span
+            class="font-headline text-xl font-bold tracking-tighter text-primary"
+            >Data Parse</span
+          >
+        </a>
+        <div class="hidden md:flex items-center gap-7 text-sm">
+          <a
+            class="text-tertiary hover:text-[#628ECB] transition-colors font-body"
+            href="index.html"
+            >Home</a
+          >
+          <a
+            class="text-[#628ECB] border-b-2 border-[#628ECB] pb-1 font-bold font-body"
+            href="about.html"
+            >About</a
+          >
+          <a
+            class="text-tertiary hover:text-[#628ECB] transition-colors font-body"
+            href="work.html"
+            >Projects</a
+          >
+          <a
+            class="text-tertiary hover:text-[#628ECB] transition-colors font-body"
+            href="schedule.html"
+            >Schedule</a
+          >
+          <a
+            class="text-tertiary hover:text-[#628ECB] transition-colors font-body"
+            href="services.html"
+            >Resources</a
+          >
+          <a
+            class="text-tertiary hover:text-[#628ECB] transition-colors font-body"
+            href="blog.html"
+            >Blog</a
+          >
+        </div>
+      </div>
+      <div class="flex items-center gap-3">
+        <button
+          id="theme-toggle"
+          title="Toggle theme"
+          class="w-9 h-9 rounded-lg border border-outline-variant/30 flex items-center justify-center text-tertiary hover:text-primary transition-all"
+        >
+          <span id="theme-icon" class="material-symbols-outlined text-lg"
+            >dark_mode</span
+          >
+        </button>
+        <a
+          href="join.html"
+          class="hidden md:block btn-primary bg-gradient-to-br from-secondary to-primary-container text-on-secondary px-5 py-2.5 rounded-lg font-bold text-sm hover:scale-105 transition-all"
+          >Join the Club</a
+        >
+        <button
+          id="hamburger"
+          class="md:hidden w-9 h-9 flex flex-col items-center justify-center gap-1.5"
+        >
+          <span class="w-6 h-0.5 bg-primary"></span
+          ><span class="w-6 h-0.5 bg-primary"></span
+          ><span class="w-6 h-0.5 bg-primary"></span>
+        </button>
+      </div>
+    </nav>
+    <!-- MOBILE MENU -->
+    <div
+      id="mobile-menu"
+      class="fixed top-0 right-0 bottom-0 w-72 z-50 bg-[#050c18] border-l border-outline-variant/20 flex flex-col px-8 pt-24 pb-8 gap-6"
+    >
+      <button
+        id="close-menu"
+        class="absolute top-5 right-5 text-tertiary hover:text-primary"
+      >
+        <span class="material-symbols-outlined">close</span>
+      </button>
+      <a
+        class="text-tertiary hover:text-primary font-body text-lg border-b border-outline-variant/20 pb-4"
+        href="index.html"
+        >Home</a
+      >
+      <a
+        class="text-primary font-bold font-body text-lg border-b border-outline-variant/20 pb-4"
+        href="about.html"
+        >About Us</a
+      >
+      <a
+        class="text-tertiary hover:text-primary font-body text-lg border-b border-outline-variant/20 pb-4"
+        href="services.html"
+        >Services</a
+      >
+      <a
+        class="text-tertiary hover:text-primary font-body text-lg border-b border-outline-variant/20 pb-4"
+        href="work.html"
+        >Our Work</a
+      >
+      <a
+        class="text-tertiary hover:text-primary font-body text-lg border-b border-outline-variant/20 pb-4"
+        href="blog.html"
+        >Blog</a
+      >
+      <a
+        href="index.html#lead-capture"
+        class="mt-4 bg-gradient-to-br from-primary to-primary-container text-on-primary font-bold px-6 py-3 rounded-lg text-center"
+        >Get Started</a
+      >
+    </div>
+    <div id="menu-overlay" class="fixed inset-0 z-40 bg-black/60 hidden"></div>
+    <!-- Hero Section -->
+    <header class="relative pt-40 pb-24 px-8 grid-bg overflow-hidden">
+      <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-12">
+        <!-- Left: text -->
+        <div class="flex-1 flex flex-col items-start">
+          <span
+            class="font-label text-xs uppercase tracking-[0.3em] text-secondary mb-4"
+            >Establishing Truth</span
+          >
+          <h1
+            class="font-headline text-5xl md:text-7xl font-bold tracking-tighter text-glow max-w-3xl leading-[1.1]"
+          >
+            Deciphering the
+            <span class="text-primary-container">Complexity</span> of Tomorrow.
+          </h1>
+          <p
+            class="font-body text-tertiary mt-8 max-w-xl text-lg leading-relaxed"
+          >
+            Data Parse was founded on a singular premise: data is the most
+            valuable physical asset of the digital age. We build the
+            high-precision lenses needed to observe it.
+          </p>
+        </div>
+        <!-- Right: logo display -->
+        <div class="logo-display-container flex-shrink-0 flex items-center justify-center relative transition-all duration-700 hover:scale-105" style="min-width:320px;">
+          <!-- Outer glow ring -->
+          <div class="ring-cw absolute w-80 h-80 rounded-full bg-primary-container/10 blur-2xl animate-pulse pointer-events-none"></div>
+          <!-- Mid ring -->
+          <div class="ring-ccw absolute w-72 h-72 rounded-full border border-primary-container/20"></div>
+          <!-- Inner card -->
+          <div class="inner-card relative w-56 h-56 rounded-3xl flex items-center justify-center shadow-2xl logo-shimmer"
+               style="background: linear-gradient(135deg, rgba(18,39,74,0.95) 0%, rgba(14,31,58,0.98) 100%); border: 1px solid rgba(98,142,203,0.3); box-shadow: 0 0 60px rgba(98,142,203,0.2), inset 0 0 30px rgba(98,142,203,0.1);">
+            <img
+              src="logo.jpg"
+              alt="Data Parse Logo"
+              class="w-32 h-32 object-contain rounded-2xl"
+              style="filter: drop-shadow(0 0 20px rgba(98,142,203,0.8)) drop-shadow(0 0 8px rgba(98,142,203,0.5));"
+            />
+          </div>
+          <!-- Orbiting dot decoration -->
+          <div class="dot-orbit-1 absolute w-3 h-3 rounded-full bg-primary-container/70"
+               style="box-shadow:0 0 15px rgba(98,142,203,1);"></div>
+          <div class="dot-orbit-2 absolute w-2 h-2 rounded-full bg-secondary/60"
+               style="box-shadow:0 0 12px rgba(138,174,224,0.8);"></div>
+          <!-- Label -->
+          <div class="absolute -bottom-10 left-1/2 -translate-x-1/2 text-center">
+            <span class="font-headline text-sm font-bold tracking-widest text-primary-container/80 uppercase">Data Parse</span>
+          </div>
+        </div>
+      </div>
+    </header>
+    <!-- Mission & Story Bento Grid -->
+    <section class="py-24 px-8 bg-surface-container-low">
+      <div class="max-w-7xl mx-auto">
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-6">
+          <!-- Our Mission -->
+          <div
+            class="md:col-span-7 glass-card p-12 rounded-xl flex flex-col justify-between group"
+          >
+            <div>
+              <span
+                class="material-symbols-outlined text-primary-container text-4xl mb-6"
+                >explore</span
+              >
+              <h2 class="font-headline text-3xl font-bold mb-6">Our Mission</h2>
+              <p class="font-body text-tertiary text-lg leading-relaxed">
+                To empower organizations by transforming raw, unstructured noise
+                into actionable intelligence through sovereign data
+                architectures and cognitive analytics. We don't just process
+                data; we provide the clarity required for critical
+                decision-making in high-stakes environments.
+              </p>
+            </div>
+            <div
+              class="mt-12 h-1 w-24 bg-primary-container transition-all duration-500 group-hover:w-full"
+            ></div>
+          </div>
+          <!-- The Origin -->
+          <div
+            class="md:col-span-5 bg-surface-container-high p-8 rounded-xl border border-outline-variant/10 overflow-hidden relative"
+          >
+            <h3 class="font-headline text-xl font-bold mb-4">The Origin</h3>
+            <p class="font-body text-tertiary text-sm leading-relaxed mb-6">
+              Born from a clandestine research project in 2018, Data Parse
+              emerged to solve the "Observation Gap"—the space between data
+              collection and actual comprehension.
+            </p>
+            <div class="mt-8 rounded-lg overflow-hidden h-48">
+              <img
+                alt="Technology focus"
+                class="w-full h-full object-cover grayscale opacity-50 hover:grayscale-0 hover:opacity-100 transition-all duration-700"
+                data-alt="Close-up of highly detailed server components in a dark data center with cyan and blue neon lighting"
+                src="https://lh3.googleusercontent.com/aida-public/AB6AXuBXaDDGgtnOwbvHFV1n5FEkDuVKs0rR20Qx99ZsRlMdDNhZjNcKf3fzcuMwAOnxudhtwudwwDsUarfBruMkjhRnXiJ2mosriWGu3dTu7VwX5I-RdHAodnpKaW1OFji0FoDzW5zpf9K08TX6yfldSmOWnHx-UMrZfRgVNOOXOp6zFl0aYt0r_tUQw3TXXqKpFRi1guJsBxDHNmFKVo_LLw_1CKc3SsNJUJ0h-q1sQuBS-R-0GV8kIuCqyVEKcSbt99MS14wK-SVs3MY"
+              />
+            </div>
+          </div>
+          <!-- Strategic Stats -->
+          <div
+            class="md:col-span-4 bg-surface-container p-8 rounded-xl flex flex-col justify-center items-center text-center"
+          >
+            <span
+              class="font-headline text-5xl font-bold text-primary-container mb-2"
+              >99.9%</span
+            >
+            <span
+              class="font-label text-xs uppercase tracking-widest text-tertiary"
+              >Precision Rate</span
+            >
+          </div>
+          <div
+            class="md:col-span-4 bg-surface-container p-8 rounded-xl flex flex-col justify-center items-center text-center"
+          >
+            <span class="font-headline text-5xl font-bold text-secondary mb-2"
+              >12PB</span
+            >
+            <span
+              class="font-label text-xs uppercase tracking-widest text-tertiary"
+              >Parsed Annually</span
+            >
+          </div>
+          <div
+            class="md:col-span-4 bg-surface-container p-8 rounded-xl flex flex-col justify-center items-center text-center"
+          >
+            <span class="font-headline text-5xl font-bold text-tertiary mb-2"
+              >24/7</span
+            >
+            <span
+              class="font-label text-xs uppercase tracking-widest text-tertiary"
+              >Active Monitoring</span
+            >
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- Core Values -->
+    <section class="py-32 px-8">
+      <div class="max-w-7xl mx-auto">
+        <div class="mb-20">
+          <h2 class="font-headline text-4xl font-bold tracking-tight mb-4">
+            Our Core Values
+          </h2>
+          <div class="h-1 w-20 bg-secondary"></div>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-16">
+          <!-- Precision -->
+          <div class="flex flex-col space-y-6">
+            <div
+              class="w-12 h-12 flex items-center justify-center bg-primary-container/10 rounded-full"
+            >
+              <span class="material-symbols-outlined text-primary-container"
+                >biotech</span
+              >
+            </div>
+            <h3 class="font-headline text-2xl font-bold">Precision</h3>
+            <p class="font-body text-tertiary leading-relaxed">
+              In an industry where a single outlier can distort an entire
+              strategy, we obsess over the decimal. Our algorithms are tuned for
+              absolute fidelity.
+            </p>
+          </div>
+          <!-- Integrity -->
+          <div class="flex flex-col space-y-6">
+            <div
+              class="w-12 h-12 flex items-center justify-center bg-secondary/10 rounded-full"
+            >
+              <span class="material-symbols-outlined text-secondary"
+                >verified_user</span
+              >
+            </div>
+            <h3 class="font-headline text-2xl font-bold">Integrity</h3>
+            <p class="font-body text-tertiary leading-relaxed">
+              Data is the digital reflection of human activity. We handle it
+              with extreme ethical rigor, ensuring privacy and security are
+              woven into the code, not added as an afterthought.
+            </p>
+          </div>
+          <!-- Innovation -->
+          <div class="flex flex-col space-y-6">
+            <div
+              class="w-12 h-12 flex items-center justify-center bg-on-tertiary-fixed-variant/20 rounded-full"
+            >
+              <span class="material-symbols-outlined text-tertiary"
+                >wb_iridescent</span
+              >
+            </div>
+            <h3 class="font-headline text-2xl font-bold">Innovation</h3>
+            <p class="font-body text-tertiary leading-relaxed">
+              We don't follow industry standards; we set them. By constantly
+              iterating on our proprietary ParseEngine, we stay ahead of the
+              escalating data surge.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- Member Info Modal -->
+    <div id="member-modal" class="fixed inset-0 z-[200] flex items-center justify-center hidden" role="dialog" aria-modal="true">
+      <div class="absolute inset-0 bg-black/70 backdrop-blur-sm" id="modal-backdrop"></div>
+      <div class="relative z-10 max-w-lg w-full mx-4 member-modal-card rounded-2xl overflow-hidden shadow-2xl">
+        <!-- Top gradient bar -->
+        <div class="h-1 w-full bg-gradient-to-r from-primary to-primary-container"></div>
+        <div class="p-8">
+          <!-- Close -->
+          <button id="modal-close" class="absolute top-5 right-5 w-8 h-8 flex items-center justify-center rounded-lg bg-surface-container-high text-tertiary hover:text-primary transition-colors">
+            <span class="material-symbols-outlined text-lg">close</span>
+          </button>
+          <!-- Member avatar & name -->
+          <div class="flex items-start gap-6 mb-6 stagger-item delay-1">
+            <div class="w-20 h-20 rounded-xl overflow-hidden shrink-0 bg-surface-container-high border border-outline-variant/20">
+              <img id="modal-img" src="" alt="" class="w-full h-full object-cover">
+            </div>
+            <div class="flex-1 pt-1 text-on-surface">
+              <h3 id="modal-name" class="font-headline text-2xl font-bold mb-1"></h3>
+              <span id="modal-role" class="font-label text-xs uppercase tracking-widest text-primary-container"></span>
+              <div id="modal-location" class="flex items-center gap-1 mt-2 text-tertiary text-xs">
+                <span class="material-symbols-outlined text-sm">location_on</span>
+                <span id="modal-location-text"></span>
+              </div>
+            </div>
+          </div>
+          <!-- Bio -->
+          <p id="modal-bio" class="font-body text-tertiary text-sm leading-relaxed mb-5 stagger-item delay-2"></p>
+          <!-- Skills -->
+          <div class="mb-5 stagger-item delay-3">
+            <span class="font-label text-xs uppercase tracking-widest text-secondary mb-3 block">Skills</span>
+            <div id="modal-skills" class="flex flex-wrap gap-2"></div>
+          </div>
+          <!-- Fun Fact -->
+          <div class="rounded-xl bg-surface-container-high/60 border border-outline-variant/10 p-4 stagger-item delay-4">
+            <span class="font-label text-xs uppercase tracking-widest text-primary mb-2 block">Fun Fact</span>
+            <p id="modal-fact" class="font-body text-sm text-tertiary"></p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Our Team -->
+    <section class="py-32 px-8 bg-surface-container-lowest grid-bg">
+      <div class="max-w-7xl mx-auto">
+        <div
+          class="flex flex-col md:flex-row md:items-end justify-between mb-20 gap-8"
+        >
+          <div>
+            <span
+              class="font-label text-xs uppercase tracking-[0.3em] text-primary mb-4"
+              >The Architects</span
+            >
+            <h2
+              class="font-headline text-4xl md:text-5xl font-bold tracking-tighter"
+            >
+              Leadership
+            </h2>
+          </div>
+          <p class="font-body text-tertiary max-w-md text-sm">
+            A multi-disciplinary collective of mathematicians, software
+            engineers, and tactical analysts dedicated to technical excellence.
+            <span class="block mt-2 text-primary text-xs font-bold">↓ Tap a card to learn more</span>
+          </p>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+          <!-- Leader 1 -->
+          <div class="group member-card cursor-pointer" data-member="surafel" tabindex="0" role="button" aria-label="View Surafel Asfaweson profile">
+            <div
+              class="aspect-[3/4] rounded-lg overflow-hidden bg-surface-container-high mb-6 relative"
+            >
+              <img
+                alt="Surafel Asfaweson"
+                class="w-full h-full object-cover filter grayscale group-hover:grayscale-0 transition-all duration-500"
+                src="download(9).jpeg"
+              />
+              <div class="absolute inset-0 bg-gradient-to-t from-background to-transparent opacity-60"></div>
+              <!-- Hover overlay cta -->
+              <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300">
+                <span class="bg-primary-container/90 text-on-primary-container text-xs font-bold px-4 py-2 rounded-full flex items-center gap-1">
+                  <span class="material-symbols-outlined text-sm">info</span> View Profile
+                </span>
+              </div>
+            </div>
+            <h4 class="font-headline text-xl font-bold group-hover:text-primary-container transition-colors">Surafel Asfaweson</h4>
+            <span class="font-label text-xs uppercase tracking-widest text-primary-container">Founder</span>
+          </div>
+          <!-- Leader 2 -->
+          <div class="group member-card cursor-pointer" data-member="rita" tabindex="0" role="button" aria-label="View Rita Techale profile">
+            <div
+              class="aspect-[3/4] rounded-lg overflow-hidden bg-surface-container-high mb-6 relative"
+            >
+              <img
+                alt="Rita Techale"
+                class="w-full h-full object-cover filter grayscale group-hover:grayscale-0 transition-all duration-500"
+                src="download(9).jpeg"
+              />
+              <div class="absolute inset-0 bg-gradient-to-t from-background to-transparent opacity-60"></div>
+              <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300">
+                <span class="bg-primary-container/90 text-on-primary-container text-xs font-bold px-4 py-2 rounded-full flex items-center gap-1">
+                  <span class="material-symbols-outlined text-sm">info</span> View Profile
+                </span>
+              </div>
+            </div>
+            <h4 class="font-headline text-xl font-bold group-hover:text-primary-container transition-colors">Rita Techale</h4>
+            <span class="font-label text-xs uppercase tracking-widest text-primary-container">Founder &amp; Data Scientist</span>
+          </div>
+          <!-- Leader 3 -->
+          <div class="group member-card cursor-pointer" data-member="breket" tabindex="0" role="button" aria-label="View Breket Getaw profile">
+            <div
+              class="aspect-[3/4] rounded-lg overflow-hidden bg-surface-container-high mb-6 relative"
+            >
+              <img
+                alt="Breket Getaw"
+                class="w-full h-full object-cover filter grayscale group-hover:grayscale-0 transition-all duration-500"
+                src="download(9).jpeg"
+              />
+              <div class="absolute inset-0 bg-gradient-to-t from-background to-transparent opacity-60"></div>
+              <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300">
+                <span class="bg-primary-container/90 text-on-primary-container text-xs font-bold px-4 py-2 rounded-full flex items-center gap-1">
+                  <span class="material-symbols-outlined text-sm">info</span> View Profile
+                </span>
+              </div>
+            </div>
+            <h4 class="font-headline text-xl font-bold group-hover:text-primary-container transition-colors">Breket Getaw</h4>
+            <span class="font-label text-xs uppercase tracking-widest text-primary-container">Founder &amp; AI Developer</span>
+          </div>
+          <!-- Leader 4 -->
+          <div class="group member-card cursor-pointer" data-member="dagimawi" tabindex="0" role="button" aria-label="View Dagimawi Legese profile">
+            <div
+              class="aspect-[3/4] rounded-lg overflow-hidden bg-surface-container-high mb-6 relative"
+            >
+              <img
+                alt="Dagimawi Legese"
+                class="w-full h-full object-cover filter grayscale group-hover:grayscale-0 transition-all duration-500"
+                src="download(9).jpeg"
+              />
+              <div class="absolute inset-0 bg-gradient-to-t from-background to-transparent opacity-60"></div>
+              <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300">
+                <span class="bg-primary-container/90 text-on-primary-container text-xs font-bold px-4 py-2 rounded-full flex items-center gap-1">
+                  <span class="material-symbols-outlined text-sm">info</span> View Profile
+                </span>
+              </div>
+            </div>
+            <h4 class="font-headline text-xl font-bold group-hover:text-primary-container transition-colors">Nahom</h4>
+            <span class="font-label text-xs uppercase tracking-widest text-primary-container">Founder</span>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- Footer -->
+    <footer
+      class="bg-[#050c18] dark:bg-[#050c18] w-full pt-20 pb-10 border-t border-[#3e484f]/15"
+    >
+      <div
+        class="grid grid-cols-1 md:grid-cols-4 gap-12 px-8 max-w-7xl mx-auto"
+      >
+        <div class="flex flex-col gap-6">
+          <div class="text-lg font-bold text-[#628ECB] font-['Space_Grotesk']">
+            Data Parse
+          </div>
+          <p
+            class="font-['Inter'] text-xs uppercase tracking-widest text-[#c2cde5] leading-loose"
+          >
+            © 2026 Data Parse. Precision through data.
+          </p>
+        </div>
+        <div class="flex flex-col gap-4">
+          <span
+            class="font-['Space_Grotesk'] font-bold text-sm text-primary-container"
+            >Company</span
+          >
+          <nav class="flex flex-col gap-3">
+            <a
+              class="font-['Inter'] text-xs uppercase tracking-widest text-[#c2cde5] hover:text-[#8AAEE0] transition-colors"
+              href="#"
+              >Privacy Policy</a
+            >
+            <a
+              class="font-['Inter'] text-xs uppercase tracking-widest text-[#c2cde5] hover:text-[#8AAEE0] transition-colors"
+              href="#"
+              >Terms of Service</a
+            >
+          </nav>
+        </div>
+        <div class="flex flex-col gap-4">
+          <span
+            class="font-['Space_Grotesk'] font-bold text-sm text-primary-container"
+            >Connect</span
+          >
+          <nav class="flex flex-col gap-3">
+            <a
+              class="font-['Inter'] text-xs uppercase tracking-widest text-[#c2cde5] hover:text-[#8AAEE0] transition-colors"
+              href="mailto:dataparsee@gmail.com"
+              >Email Us</a
+            >
+            <a
+              class="font-['Inter'] text-xs uppercase tracking-widest text-[#c2cde5] hover:text-[#8AAEE0] transition-colors"
+              href="https://www.linkedin.com/company/data-parsee/"
+              target="_blank" rel="noopener"
+              >LinkedIn</a
+            >
+            <a
+              class="font-['Inter'] text-xs uppercase tracking-widest text-[#c2cde5] hover:text-[#8AAEE0] transition-colors"
+              href="https://t.me/DataparseEt"
+              target="_blank" rel="noopener"
+              >Telegram</a
+            >
+          </nav>
+        </div>
+        <div class="flex flex-col gap-4">
+          <span
+            class="font-['Space_Grotesk'] font-bold text-sm text-primary-container"
+            >Social</span
+          >
+          <nav class="flex flex-col gap-3">
+            <a
+              class="font-['Inter'] text-xs uppercase tracking-widest text-[#c2cde5] hover:text-[#8AAEE0] transition-colors"
+              href="https://web.facebook.com/profile.php?id=61575740000776"
+              target="_blank" rel="noopener"
+              >Facebook</a
+            >
+            <a
+              class="font-['Inter'] text-xs uppercase tracking-widest text-[#c2cde5] hover:text-[#8AAEE0] transition-colors"
+              href="https://github.com/DataParse-git"
+              target="_blank" rel="noopener"
+              >GitHub</a
+            >
+          </nav>
+        </div>
+      </div>
+    </footer>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="animations.js" defer></script>
+    <script>
+      window.addEventListener("load", () => {
+        setTimeout(
+          () =>
+            document
+              .getElementById("page-loader")
+              .classList.add("hidden-loader"),
+          700,
+        );
+      });
+      AOS.init({
+        duration: 900,
+        once: true,
+        easing: "ease-out-quart",
+        offset: 80,
+      });
+      const nav = document.getElementById("main-nav");
+      window.addEventListener("scroll", () =>
+        nav.classList.toggle("scrolled", window.scrollY > 50),
+      );
+      const themeToggle = document.getElementById("theme-toggle");
+      const themeIcon = document.getElementById("theme-icon");
+      let isDark = localStorage.getItem("theme") !== "light";
+      function applyTheme() {
+        document.documentElement.classList.toggle("dark", isDark);
+        document.documentElement.classList.toggle("light", !isDark);
+        themeIcon.textContent = isDark ? "dark_mode" : "light_mode";
+      }
+      applyTheme();
+      themeToggle.addEventListener("click", () => {
+        isDark = !isDark;
+        localStorage.setItem("theme", isDark ? "dark" : "light");
+        applyTheme();
+      });
+      const hamburger = document.getElementById("hamburger");
+      const mobileMenu = document.getElementById("mobile-menu");
+      const closeMenu = document.getElementById("close-menu");
+      const menuOverlay = document.getElementById("menu-overlay");
+      hamburger.addEventListener("click", () => {
+        mobileMenu.classList.add("open");
+        menuOverlay.classList.remove("hidden");
+        document.body.style.overflow = "hidden";
+      });
+      function closeFn() {
+        mobileMenu.classList.remove("open");
+        menuOverlay.classList.add("hidden");
+        document.body.style.overflow = "";
+      }
+      closeMenu.addEventListener("click", closeFn);
+      menuOverlay.addEventListener("click", closeFn);
+
+      // ── Member Card Modal ──────────────────────────────────────────────
+      const members = {
+        surafel: {
+          name: "Surafel Asfaweson",
+          role: "Founder",
+          location: "Debre Birhan, Ethiopia",
+          img: "download(9).jpeg",
+          bio: "Surafel is the visionary behind Data Parse. With a passion for data-driven innovation, he co-founded the club to bridge the gap between raw data and meaningful insight for students and professionals alike.",
+          skills: ["Leadership", "Strategy", "Python", "Data Architecture", "Project Management"],
+          fact: "Surafel once stayed up 36 hours straight to finish a data pipeline that cut reporting time from 3 hours to 4 minutes."
+        },
+        rita: {
+          name: "Rita Techale",
+          role: "Founder & Data Scientist",
+          location: "Debre Birhan, Ethiopia",
+          img: "download(9).jpeg",
+          bio: "Rita specializes in turning complex datasets into clear, actionable stories. She leads the club's data science workshops and mentors members through hands-on machine learning projects.",
+          skills: ["Machine Learning", "Python", "Pandas", "Data Visualization", "Statistics"],
+          fact: "Rita built her first predictive model at age 17 — it predicted Ethiopian coffee harvest yields with 89% accuracy."
+        },
+        breket: {
+          name: "Breket Getaw",
+          role: "Founder & AI Developer",
+          location: "Debre Birhan, Ethiopia",
+          img: "download(9).jpeg",
+          bio: "Breket drives the AI and automation side of Data Parse. He designs intelligent data pipelines and leads the club's AI development track, helping members build real-world intelligent systems.",
+          skills: ["AI Development", "Deep Learning", "TensorFlow", "Python", "Data Engineering"],
+          fact: "Breket is building an open-source Amharic NLP toolkit in his spare time to bring AI to Ethiopian-language applications."
+        },
+        dagimawi: {
+          name: "Nahom",
+          role: "Founder",
+          location: "Debre Birhan, Ethiopia",
+          img: "download(9).jpeg",
+          bio: "Nahom brings the operational backbone to Data Parse. He coordinates club activities, manages partnerships, and ensures every member has the resources they need to learn and grow.",
+          skills: ["Operations", "Communication", "SQL", "Excel", "Data Analysis"],
+          fact: "Nahom organized Data Parse's first hackathon in just 4 days, landing 40+ participants and 3 winning projects."
+        }
+      };
+
+      const modal        = document.getElementById('member-modal');
+      const modalBackdrop = document.getElementById('modal-backdrop');
+      const modalClose   = document.getElementById('modal-close');
+
+      function openMemberModal(key) {
+        const m = members[key];
+        if (!m) return;
+        document.getElementById('modal-img').src    = m.img;
+        document.getElementById('modal-img').alt    = m.name;
+        document.getElementById('modal-name').textContent = m.name;
+        document.getElementById('modal-role').textContent = m.role;
+        document.getElementById('modal-location-text').textContent = m.location;
+        document.getElementById('modal-bio').textContent  = m.bio;
+        document.getElementById('modal-fact').textContent = m.fact;
+        const skillsEl = document.getElementById('modal-skills');
+        skillsEl.innerHTML = '';
+        m.skills.forEach(skill => {
+          const badge = document.createElement('span');
+          badge.className = 'px-3 py-1 rounded-full text-xs font-bold border bg-primary-container/10 text-primary-container border-primary-container/20';
+          badge.textContent = skill;
+          skillsEl.appendChild(badge);
+        });
+        modal.classList.remove('hidden');
+        document.body.style.overflow = 'hidden';
+        requestAnimationFrame(() => {
+          modal.querySelector('.member-modal-card').classList.add('modal-in');
+          modalBackdrop.classList.add('modal-in-backdrop');
+        });
+      }
+
+      function closeMemberModal() {
+        const card = modal.querySelector('.member-modal-card');
+        card.classList.remove('modal-in');
+        modalBackdrop.classList.remove('modal-in-backdrop');
+        setTimeout(() => {
+          modal.classList.add('hidden');
+          document.body.style.overflow = '';
+        }, 500);
+      }
+
+      document.querySelectorAll('.member-card').forEach(card => {
+        card.addEventListener('click', () => openMemberModal(card.dataset.member));
+        card.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openMemberModal(card.dataset.member); } });
+      });
+      modalClose.addEventListener('click', closeMemberModal);
+      modalBackdrop.addEventListener('click', closeMemberModal);
+      document.addEventListener('keydown', e => { if (e.key === 'Escape') closeMemberModal(); });
+    </script>
+  </body>
+</html>

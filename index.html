@@ -1,0 +1,1416 @@
+<!doctype html>
+<html class="dark" lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>Data Parse Tech Club | Learn, Build & Analyze Real Data</title>
+  <meta name="description"
+    content="Data Parse is a student-led tech club focused on real data projects, Python, Machine Learning, and visualization. Join us to gain real experience and build your portfolio." />
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+    rel="stylesheet" />
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link href="animations.css" rel="stylesheet" />
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "surface-container-high": "#1a2d56",
+            background: "#080f1e",
+            "on-background": "#F0F3FA",
+            "surface-variant": "#1f3a6d",
+            primary: "#8AAEE0",
+            "surface-container-lowest": "#050c18",
+            "outline-variant": "#395886",
+            tertiary: "#B1C9EF",
+            "surface-container-low": "#0e1f3a",
+            "primary-container": "#628ECB",
+            surface: "#080f1e",
+            "surface-container": "#12274a",
+            "on-surface": "#F0F3FA",
+            "surface-container-highest": "#1f3a6d",
+            "on-primary": "#080f1e",
+            "on-primary-container": "#F0F3FA",
+            outline: "#628ECB",
+            secondary: "#D5DEEF",
+            "on-secondary": "#0d1b35",
+          },
+          fontFamily: {
+            headline: ["Space Grotesk"],
+            body: ["Inter"],
+            label: ["Inter"],
+          },
+          borderRadius: {
+            DEFAULT: "0.125rem",
+            lg: "0.25rem",
+            xl: "0.5rem",
+            full: "0.75rem",
+          },
+        },
+      },
+    };
+  </script>
+  <style>
+    html.light body {
+      background-color: #d5deef !important;
+      color: #080f1e !important;
+    }
+
+    html.light .glass-card {
+      background: rgba(240, 244, 255, 0.85);
+      border-top-color: rgba(98, 142, 203, 0.25);
+    }
+
+    html.light #main-nav {
+      background: rgba(213, 222, 239, 0.96) !important;
+      border-bottom: 1px solid rgba(98, 142, 203, 0.2);
+    }
+
+    html.light .text-tertiary {
+      color: #395886;
+    }
+
+    html.light .bg-surface-container-low {
+      background-color: #b1c9ef;
+    }
+
+    html.light .bg-surface-container-lowest {
+      background-color: #d5deef;
+    }
+
+    html.light .bg-surface-container {
+      background-color: #c5d6f0;
+    }
+
+    html.light footer {
+      background-color: #080f1e !important;
+    }
+
+    /* ── LIGHT MODE: Fix text visibility ── */
+    /* Headings & body text that inherit from dark config tokens */
+    html.light .text-on-background {
+      color: #080f1e !important;
+    }
+
+    html.light .text-on-surface {
+      color: #0d1b35 !important;
+    }
+
+    html.light .text-on-primary {
+      color: #f0f3fa !important;
+    }
+
+    /* keep white on blue buttons */
+    html.light .text-on-secondary {
+      color: #0d1b35 !important;
+    }
+
+    html.light .text-on-primary-container {
+      color: #f0f3fa !important;
+    }
+
+    /* Primary / secondary / accent colors — darken for readability on light bg */
+    html.light .text-primary {
+      color: #2a5ba8 !important;
+    }
+
+    html.light .text-primary-container {
+      color: #1f3a6d !important;
+    }
+
+    html.light .text-secondary {
+      color: #15406b !important;
+    }
+
+    /* .text-tertiary already overridden above → #395886 */
+
+    /* Force all headings dark regardless of inherited class */
+    html.light h1,
+    html.light h2,
+    html.light h3,
+    html.light h4 {
+      color: #080f1e !important;
+    }
+
+    /* Tech badges — unify to readable dark blue in light mode */
+    html.light .tech-badge {
+      color: #1f3a6d !important;
+      background: rgba(57, 88, 134, 0.12) !important;
+      border-color: rgba(57, 88, 134, 0.25) !important;
+    }
+
+    /* Glass cards — solid white background so content is clearly readable */
+    html.light .glass-card {
+      background: rgba(255, 255, 255, 0.93) !important;
+      border: 1px solid rgba(57, 88, 134, 0.2) !important;
+    }
+
+    /* Grid background — lighter lines for light mode */
+    html.light .grid-bg {
+      background-image:
+        linear-gradient(to right, rgba(57, 88, 134, 0.06) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(57, 88, 134, 0.06) 1px, transparent 1px);
+    }
+
+    /* Announce dot stays visible */
+    html.light .announce-dot {
+      opacity: 0.8;
+    }
+
+    /* Card hover shadow in light mode */
+    html.light .card-hover:hover {
+      box-shadow: 0 16px 48px rgba(57, 88, 134, 0.18);
+    }
+
+    body {
+      background-color: #080f1e;
+      color: #f0f3fa;
+      font-family: "Inter", sans-serif;
+      transition:
+        background 0.4s,
+        color 0.4s;
+    }
+
+    .material-symbols-outlined {
+      font-variation-settings:
+        "FILL" 0,
+        "wght" 400,
+        "GRAD" 0,
+        "opsz" 24;
+    }
+
+    .grid-bg {
+      background-image:
+        linear-gradient(to right,
+          rgba(57, 88, 134, 0.12) 1px,
+          transparent 1px),
+        linear-gradient(to bottom,
+          rgba(57, 88, 134, 0.12) 1px,
+          transparent 1px);
+      background-size: 28px 28px;
+    }
+
+    .glass-card {
+      background: rgba(18, 39, 74, 0.8);
+      backdrop-filter: blur(20px);
+      border-top: 1px solid rgba(138, 174, 224, 0.2);
+      border: 1px solid rgba(57, 88, 134, 0.4);
+    }
+
+    .text-glow {
+      text-shadow: 0 0 24px rgba(138, 174, 224, 0.4);
+    }
+
+    .hero-gradient {
+      background: radial-gradient(ellipse at 50% 40%,
+          rgba(98, 142, 203, 0.15) 0%,
+          rgba(57, 88, 134, 0.05) 50%,
+          transparent 70%);
+    }
+
+    #particle-canvas {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .typing-cursor::after {
+      content: "|";
+      animation: blink 0.8s step-end infinite;
+      color: #8aaee0;
+    }
+
+    @keyframes blink {
+
+      0%,
+      100% {
+        opacity: 1;
+      }
+
+      50% {
+        opacity: 0;
+      }
+    }
+
+    #page-loader {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      background: #050c18;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition:
+        opacity 0.6s,
+        visibility 0.6s;
+    }
+
+    #page-loader.hidden-loader {
+      opacity: 0;
+      visibility: hidden;
+    }
+
+    .loader-pulse {
+      animation: loaderPulse 1.2s ease-in-out infinite;
+    }
+
+    @keyframes loaderPulse {
+
+      0%,
+      100% {
+        opacity: 1;
+        transform: scale(1);
+      }
+
+      50% {
+        opacity: 0.5;
+        transform: scale(0.95);
+      }
+    }
+
+    #main-nav {
+      transition:
+        background 0.3s,
+        box-shadow 0.3s;
+    }
+
+    #main-nav.scrolled {
+      background: rgba(11, 19, 38, 0.96) !important;
+      backdrop-filter: blur(20px);
+      box-shadow: 0 1px 0 rgba(62, 72, 79, 0.3);
+    }
+
+    #mobile-menu {
+      transform: translateX(100%);
+      transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    #mobile-menu.open {
+      transform: translateX(0);
+    }
+
+    .btn-primary {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn-primary::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: rgba(255, 255, 255, 0.08);
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+
+    .btn-primary:hover::after {
+      opacity: 1;
+    }
+
+    .shimmer-card {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .shimmer-card::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 60%;
+      height: 100%;
+      background: linear-gradient(90deg,
+          transparent,
+          rgba(138, 174, 224, 0.1),
+          transparent);
+      transition: left 0.6s ease;
+    }
+
+    .shimmer-card:hover::before {
+      left: 150%;
+    }
+
+    .tech-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 3px 10px;
+      border-radius: 100px;
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .card-hover {
+      transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .card-hover:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 60px rgba(56, 189, 248, 0.12);
+    }
+
+    .announce-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      flex-shrink: 0;
+      margin-top: 5px;
+    }
+
+    @keyframes float {
+
+      0%,
+      100% {
+        transform: translateY(0);
+      }
+
+      50% {
+        transform: translateY(-12px);
+      }
+    }
+
+    .animate-float {
+      animation: float 4s ease-in-out infinite;
+    }
+  
+      
+      /* ── FOOTER COLOR FIX ── */
+      html.light footer {
+        background-color: #060e20 !important;
+      }
+      html.light footer .text-\[\#628ECB\] {
+        color: #628ECB !important;
+      }
+      html.light footer .text-\[\#c2cde5\] {
+        color: #c2cde5 !important;
+      }
+      html.light footer a.hover\:text-\[\#8AAEE0\]:hover {
+        color: #8AAEE0 !important;
+      }
+      html.light footer .text-on-background,
+      html.light footer .text-on-surface,
+      html.light footer .text-on-primary,
+      html.light footer .text-on-secondary,
+      html.light footer .text-on-primary-container,
+      html.light footer .text-primary,
+      html.light footer .text-primary-container,
+      html.light footer .text-secondary,
+      html.light footer .text-tertiary,
+      html.light footer h1,
+      html.light footer h2,
+      html.light footer h3,
+      html.light footer h4 {
+        color: unset !important;
+      }
+      html.light footer .text-tertiary {
+        color: #c2cde5 !important;
+      }
+      html.light footer .text-secondary, 
+      html.light footer h4.text-secondary {
+        color: #4edea3 !important;
+      }
+      html.light footer h4 {
+        color: #4edea3 !important;
+      }
+      html.light footer a.hover\:text-secondary:hover {
+        color: #8aaee0 !important;
+      }
+      html.light footer span.text-primary-container {
+        color: #8aaee0 !important;
+      }
+
+    </style>
+</head>
+
+<body class="bg-background selection:bg-primary/30">
+  <!-- PAGE LOADER -->
+  <div id="page-loader">
+    <div class="text-center loader-pulse">
+      <img src="logo.jpg" alt="Data Parse" class="h-14 w-14 object-contain mx-auto mb-3 rounded-xl"
+        style="filter: drop-shadow(0 0 12px rgba(98, 142, 203, 0.7));" />
+      <span class="font-headline text-2xl font-bold tracking-tighter" style="
+            background: linear-gradient(to right, #8aaee0, #628ecb);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+          ">Data Parse</span>
+    </div>
+  </div>
+
+  <!-- NAV -->
+  <nav id="main-nav"
+    class="fixed top-0 w-full z-50 bg-[#080f1e]/90 flex justify-between items-center px-6 md:px-8 h-20">
+    <div class="flex items-center gap-10">
+      <a href="index.html" class="flex items-center gap-3">
+        <img src="logo.jpg" alt="Data Parse Logo" class="h-9 w-9 object-contain rounded-lg"
+          style="filter: drop-shadow(0 0 8px rgba(98, 142, 203, 0.6));" />
+        <span class="font-headline text-xl font-bold tracking-tighter text-primary">Data Parse</span>
+      </a>
+      <div class="hidden md:flex gap-7 items-center">
+        <a class="text-[#38bdf8] border-b-2 border-[#38bdf8] pb-1 font-bold font-body text-sm"
+          href="index.html">Home</a>
+        <a class="text-tertiary hover:text-[#38bdf8] transition-colors font-body text-sm" href="about.html">About</a>
+        <a class="text-tertiary hover:text-[#38bdf8] transition-colors font-body text-sm" href="work.html">Projects</a>
+        <a class="text-tertiary hover:text-[#38bdf8] transition-colors font-body text-sm"
+          href="schedule.html">Schedule</a>
+        <a class="text-tertiary hover:text-[#38bdf8] transition-colors font-body text-sm"
+          href="services.html">Resources</a>
+        <a class="text-tertiary hover:text-[#38bdf8] transition-colors font-body text-sm" href="blog.html">Blog</a>
+      </div>
+    </div>
+    <div class="flex items-center gap-3">
+      <button id="theme-toggle" title="Toggle theme"
+        class="w-9 h-9 rounded-lg border border-outline-variant/30 flex items-center justify-center text-tertiary hover:text-primary transition-all">
+        <span id="theme-icon" class="material-symbols-outlined text-lg">dark_mode</span>
+      </button>
+      <a href="join.html"
+        class="hidden md:block btn-primary bg-gradient-to-br from-primary to-primary-container text-on-primary font-bold px-5 py-2.5 rounded-lg text-sm hover:scale-105 hover:shadow-[0_0_24px_rgba(98,142,203,0.6)] transition-all duration-300">Join
+        the Club</a>
+      <button id="hamburger" class="md:hidden w-9 h-9 flex flex-col items-center justify-center gap-1.5"
+        aria-label="Menu">
+        <span class="w-6 h-0.5 bg-primary transition-all duration-300"></span>
+        <span class="w-6 h-0.5 bg-primary transition-all duration-300"></span>
+        <span class="w-6 h-0.5 bg-primary transition-all duration-300"></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- MOBILE MENU -->
+  <div id="mobile-menu"
+    class="fixed top-0 right-0 bottom-0 w-72 z-50 bg-[#050c18] border-l border-[#395886]/40 flex flex-col px-8 pt-24 pb-8 gap-5">
+    <button id="close-menu" class="absolute top-5 right-5 text-tertiary hover:text-primary">
+      <span class="material-symbols-outlined">close</span>
+    </button>
+    <a class="text-primary font-bold font-body text-lg border-b border-outline-variant/20 pb-4"
+      href="index.html">Home</a>
+    <a class="text-tertiary hover:text-primary font-body text-lg border-b border-outline-variant/20 pb-4 transition-colors"
+      href="about.html">About</a>
+    <a class="text-tertiary hover:text-primary font-body text-lg border-b border-outline-variant/20 pb-4 transition-colors"
+      href="work.html">Projects</a>
+    <a class="text-tertiary hover:text-primary font-body text-lg border-b border-outline-variant/20 pb-4 transition-colors"
+      href="schedule.html">Schedule</a>
+    <a class="text-tertiary hover:text-primary font-body text-lg border-b border-outline-variant/20 pb-4 transition-colors"
+      href="services.html">Resources</a>
+    <a class="text-tertiary hover:text-primary font-body text-lg border-b border-outline-variant/20 pb-4 transition-colors"
+      href="blog.html">Blog</a>
+    <a href="join.html"
+      class="mt-2 bg-gradient-to-br from-secondary to-primary-container text-on-secondary font-bold px-6 py-3 rounded-lg text-center">Join
+      the Club</a>
+  </div>
+  <div id="menu-overlay" class="fixed inset-0 z-40 bg-black/60 hidden"></div>
+
+  <main class="grid-bg pt-20">
+    <!-- ===== HERO ===== -->
+    <section class="relative min-h-[90vh] flex items-center justify-center overflow-hidden px-6 md:px-8 hero-gradient">
+      <canvas id="particle-canvas"></canvas>
+      <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-16 items-center relative z-10">
+        <div>
+          <div
+            class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-secondary/10 border border-secondary/25 text-secondary text-xs font-bold uppercase tracking-widest mb-8">
+            <span class="w-1.5 h-1.5 rounded-full bg-secondary animate-pulse inline-block"></span>
+            Student Tech Club · Open to All
+          </div>
+          <h1
+            class="font-headline text-5xl md:text-7xl font-bold tracking-tighter text-on-background leading-[1.0] mb-6">
+            Learn, Build &<br />
+            <span id="typing-word"
+              class="text-transparent bg-clip-text bg-gradient-to-r from-primary to-primary-container text-glow typing-cursor">Analyze
+              Data</span>
+          </h1>
+          <p class="font-body text-lg text-tertiary max-w-xl mb-10 leading-relaxed">
+            Data Parse Tech Club is a student-led community where we work on
+            real data projects, learn Python, Machine Learning, and
+            visualization tools — together.
+          </p>
+          <div class="flex flex-wrap gap-4">
+            <a href="work.html"
+              class="btn-primary bg-gradient-to-br from-[#8AAEE0] to-[#395886] text-[#F0F3FA] font-bold px-8 py-4 rounded-lg text-base flex items-center gap-2 group hover:scale-105 hover:shadow-[0_0_40px_rgba(98,142,203,0.5)] transition-all duration-300">
+              View Projects
+              <span
+                class="material-symbols-outlined group-hover:translate-x-1 transition-transform">arrow_forward</span>
+            </a>
+            <a href="join.html"
+              class="border border-secondary/40 text-secondary font-bold px-8 py-4 rounded-lg text-base hover:bg-secondary/5 hover:border-secondary/60 transition-all">
+              Join the Club
+            </a>
+          </div>
+          <div class="mt-10 flex flex-wrap gap-6">
+            <div class="text-center">
+              <div class="font-headline text-2xl font-bold text-primary">
+                30+
+              </div>
+              <div class="text-[10px] uppercase tracking-widest text-tertiary">
+                Members
+              </div>
+            </div>
+            <div class="w-px bg-outline-variant/30"></div>
+            <div class="text-center">
+              <div class="font-headline text-2xl font-bold text-secondary">
+                10+
+              </div>
+              <div class="text-[10px] uppercase tracking-widest text-tertiary">
+                Projects Built
+              </div>
+            </div>
+            <div class="w-px bg-outline-variant/30"></div>
+            <div class="text-center">
+              <div class="font-headline text-2xl font-bold text-on-surface">
+                0
+              </div>
+              <div class="text-[10px] uppercase tracking-widest text-tertiary">
+                Hackathons
+              </div>
+            </div>
+            <div class="w-px bg-outline-variant/30"></div>
+            <div class="text-center">
+              <div class="font-headline text-2xl font-bold text-primary-container">
+                Free
+              </div>
+              <div class="text-[10px] uppercase tracking-widest text-tertiary">
+                To Join
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Weekly Schedule Preview -->
+        <div data-aos="fade-left" class="hidden lg:block animate-float">
+          <div class="glass-card rounded-2xl p-6 border border-outline-variant/20">
+            <div class="flex items-center justify-between mb-5">
+              <span class="text-xs font-bold uppercase tracking-widest text-tertiary">This Week's Schedule</span>
+              <span class="w-2 h-2 rounded-full bg-secondary animate-pulse"></span>
+            </div>
+            <div class="space-y-3">
+              <div class="flex items-center gap-3 p-3 rounded-xl bg-surface-container border border-secondary/20">
+                <div class="w-10 h-10 rounded-lg bg-secondary/15 flex items-center justify-center shrink-0">
+                  <span class="material-symbols-outlined text-secondary text-base">code</span>
+                </div>
+                <div class="flex-1">
+                  <div class="text-sm font-bold">Python Training</div>
+                  <div class="text-[11px] text-tertiary">
+                    Monday · 1:00 PM LT
+                  </div>
+                </div>
+                <span class="tech-badge bg-secondary/15 text-secondary border border-secondary/25">Next</span>
+              </div>
+              <div class="flex items-center gap-3 p-3 rounded-xl bg-surface-container">
+                <div class="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
+                  <span class="material-symbols-outlined text-primary text-base">build</span>
+                </div>
+                <div>
+                  <div class="text-sm font-bold">Project Work</div>
+                  <div class="text-[11px] text-tertiary">
+                    Wednesday · 1:00 PM LT
+                  </div>
+                </div>
+              </div>
+              <div class="flex items-center gap-3 p-3 rounded-xl bg-surface-container">
+                <div class="w-10 h-10 rounded-lg bg-primary-container/15 flex items-center justify-center shrink-0">
+                  <span class="material-symbols-outlined text-primary-container text-base">emoji_events</span>
+                </div>
+                <div>
+                  <div class="text-sm font-bold">Hack Session</div>
+                  <div class="text-[11px] text-tertiary">
+                    Saturday · 1:00 AM LT
+                  </div>
+                </div>
+              </div>
+            </div>
+            <a href="schedule.html"
+              class="mt-4 flex items-center gap-1 text-primary text-xs font-bold hover:gap-2 transition-all">
+              Full Schedule
+              <span class="material-symbols-outlined text-xs">chevron_right</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== WHAT WE LEARN ===== -->
+    <section class="py-24 px-8 bg-surface-container-low">
+      <div class="max-w-7xl mx-auto">
+        <div class="text-center mb-14">
+          <span class="text-secondary text-xs uppercase tracking-[0.3em] font-bold mb-3 block">Skills & Tools</span>
+          <h2 data-aos="fade-up" class="font-headline text-4xl font-bold mb-4">
+            What We Learn
+          </h2>
+          <p class="text-tertiary max-w-xl mx-auto">
+            Practical skills used by real data professionals — taught through
+            hands-on club projects.
+          </p>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+          <div data-aos="fade-up" data-aos-delay="0"
+            class="card-hover shimmer-card glass-card rounded-xl p-7 text-center border border-outline-variant/15">
+            <div class="w-14 h-14 rounded-2xl bg-primary/10 flex items-center justify-center mx-auto mb-4">
+              <span class="material-symbols-outlined text-primary text-3xl">terminal</span>
+            </div>
+            <h3 class="font-headline font-bold text-lg mb-2">
+              Python Programming
+            </h3>
+            <p class="text-tertiary text-sm leading-relaxed">
+              Core Python, data structures, automation, scripting — the
+              foundation of everything we do.
+            </p>
+            <div class="mt-4 flex flex-wrap gap-1 justify-center">
+              <span class="tech-badge bg-primary/10 text-primary border border-primary/20">Python</span>
+              <span class="tech-badge bg-primary/10 text-primary border border-primary/20">NumPy</span>
+              <span class="tech-badge bg-primary/10 text-primary border border-primary/20">Pandas</span>
+            </div>
+          </div>
+          <div data-aos="fade-up" data-aos-delay="80"
+            class="card-hover shimmer-card glass-card rounded-xl p-7 text-center border border-outline-variant/15">
+            <div class="w-14 h-14 rounded-2xl bg-secondary/10 flex items-center justify-center mx-auto mb-4">
+              <span class="material-symbols-outlined text-secondary text-3xl">analytics</span>
+            </div>
+            <h3 class="font-headline font-bold text-lg mb-2">
+              Data Analysis
+            </h3>
+            <p class="text-tertiary text-sm leading-relaxed">
+              Clean, transform, and explore real datasets to extract
+              meaningful patterns and insights.
+            </p>
+            <div class="mt-4 flex flex-wrap gap-1 justify-center">
+              <span class="tech-badge bg-secondary/10 text-secondary border border-secondary/20">Pandas</span>
+              <span class="tech-badge bg-secondary/10 text-secondary border border-secondary/20">SQL</span>
+              <span class="tech-badge bg-secondary/10 text-secondary border border-secondary/20">Excel</span>
+            </div>
+          </div>
+          <div data-aos="fade-up" data-aos-delay="160"
+            class="card-hover shimmer-card glass-card rounded-xl p-7 text-center border border-outline-variant/15">
+            <div class="w-14 h-14 rounded-2xl bg-primary-container/15 flex items-center justify-center mx-auto mb-4">
+              <span class="material-symbols-outlined text-primary-container text-3xl">psychology</span>
+            </div>
+            <h3 class="font-headline font-bold text-lg mb-2">
+              Machine Learning
+            </h3>
+            <p class="text-tertiary text-sm leading-relaxed">
+              Build predictive models, classification systems, and real-world
+              AI applications as a team.
+            </p>
+            <div class="mt-4 flex flex-wrap gap-1 justify-center">
+              <span
+                class="tech-badge bg-primary-container/10 text-primary-container border border-primary-container/20">scikit-learn</span>
+              <span
+                class="tech-badge bg-primary-container/10 text-primary-container border border-primary-container/20">TensorFlow</span>
+            </div>
+          </div>
+          <div data-aos="fade-up" data-aos-delay="240"
+            class="card-hover shimmer-card glass-card rounded-xl p-7 text-center border border-outline-variant/15">
+            <div class="w-14 h-14 rounded-2xl bg-outline-variant/30 flex items-center justify-center mx-auto mb-4">
+              <span class="material-symbols-outlined text-tertiary text-3xl">bar_chart</span>
+            </div>
+            <h3 class="font-headline font-bold text-lg mb-2">
+              Visualization
+            </h3>
+            <p class="text-tertiary text-sm leading-relaxed">
+              Communicate insights through beautiful, interactive charts and
+              professional dashboards.
+            </p>
+            <div class="mt-4 flex flex-wrap gap-1 justify-center">
+              <span class="tech-badge bg-outline-variant/30 text-tertiary border border-outline-variant/40">Power
+                BI</span>
+              <span
+                class="tech-badge bg-outline-variant/30 text-tertiary border border-outline-variant/40">Matplotlib</span>
+              <span
+                class="tech-badge bg-outline-variant/30 text-tertiary border border-outline-variant/40">Plotly</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== FEATURED PROJECTS ===== -->
+    <section class="py-24 px-8">
+      <div class="max-w-7xl mx-auto">
+        <div class="flex flex-col md:flex-row items-end justify-between gap-6 mb-12">
+          <div>
+            <span class="text-secondary text-xs uppercase tracking-[0.3em] font-bold mb-3 block">Club Portfolio</span>
+            <h2 data-aos="fade-up" class="font-headline text-4xl font-bold">
+              Featured Projects
+            </h2>
+          </div>
+          <a href="work.html"
+            class="flex items-center gap-1 text-primary font-bold text-sm hover:gap-2 transition-all shrink-0">View all
+            projects
+            <span class="material-symbols-outlined text-sm">chevron_right</span></a>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div data-aos="fade-up" data-aos-delay="0"
+            class="card-hover glass-card rounded-xl overflow-hidden border border-outline-variant/15">
+            <div
+              class="h-36 bg-gradient-to-br from-primary/15 to-secondary/5 flex items-center justify-center relative">
+              <span class="material-symbols-outlined text-primary opacity-20" style="font-size: 70px">school</span>
+              <div class="absolute bottom-3 left-3 flex gap-1 flex-wrap">
+                <span class="tech-badge bg-primary/20 text-primary border border-primary/30">Python</span>
+                <span class="tech-badge bg-secondary/20 text-secondary border border-secondary/30">Pandas</span>
+                <span
+                  class="tech-badge bg-outline-variant/40 text-tertiary border border-outline-variant/50">Matplotlib</span>
+              </div>
+            </div>
+            <div class="p-6">
+              <h3 class="font-headline text-lg font-bold mb-2">
+                Student Performance Analysis
+              </h3>
+              <p class="text-tertiary text-sm leading-relaxed mb-4">
+                Analyzed 2,000+ student records to uncover performance trends
+                by subject, study hours, and demographic factors.
+              </p>
+              <a href="#" class="flex items-center gap-1 text-primary text-sm font-bold hover:gap-2 transition-all">
+                <span class="material-symbols-outlined text-sm">open_in_new</span>
+                GitHub Repo
+              </a>
+            </div>
+          </div>
+          <div data-aos="fade-up" data-aos-delay="80"
+            class="card-hover glass-card rounded-xl overflow-hidden border border-outline-variant/15">
+            <div
+              class="h-36 bg-gradient-to-br from-secondary/15 to-primary/5 flex items-center justify-center relative">
+              <span class="material-symbols-outlined text-secondary opacity-20"
+                style="font-size: 70px">coronavirus</span>
+              <div class="absolute bottom-3 left-3 flex gap-1 flex-wrap">
+                <span class="tech-badge bg-secondary/20 text-secondary border border-secondary/30">Power BI</span>
+                <span class="tech-badge bg-primary/20 text-primary border border-primary/30">Python</span>
+              </div>
+            </div>
+            <div class="p-6">
+              <h3 class="font-headline text-lg font-bold mb-2">
+                COVID-19 Data Dashboard
+              </h3>
+              <p class="text-tertiary text-sm leading-relaxed mb-4">
+                Interactive Power BI dashboard tracking global COVID-19
+                trends, vaccination rates, and regional comparisons.
+              </p>
+              <a href="#" class="flex items-center gap-1 text-primary text-sm font-bold hover:gap-2 transition-all">
+                <span class="material-symbols-outlined text-sm">open_in_new</span>
+                GitHub Repo
+              </a>
+            </div>
+          </div>
+          <div data-aos="fade-up" data-aos-delay="160"
+            class="card-hover glass-card rounded-xl overflow-hidden border border-outline-variant/15">
+            <div
+              class="h-36 bg-gradient-to-br from-primary-container/20 to-primary/5 flex items-center justify-center relative">
+              <span class="material-symbols-outlined text-primary-container opacity-20"
+                style="font-size: 70px">trending_up</span>
+              <div class="absolute bottom-3 left-3 flex gap-1 flex-wrap">
+                <span
+                  class="tech-badge bg-primary-container/20 text-primary-container border border-primary-container/30">ML</span>
+                <span class="tech-badge bg-primary/20 text-primary border border-primary/30">scikit-learn</span>
+              </div>
+            </div>
+            <div class="p-6">
+              <h3 class="font-headline text-lg font-bold mb-2">
+                Sales Forecasting Model
+              </h3>
+              <p class="text-tertiary text-sm leading-relaxed mb-4">
+                Built a sales forecasting regression model achieving 94%
+                accuracy, deployed on a live Streamlit dashboard.
+              </p>
+              <a href="#" class="flex items-center gap-1 text-primary text-sm font-bold hover:gap-2 transition-all">
+                <span class="material-symbols-outlined text-sm">open_in_new</span>
+                GitHub Repo
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== LIVE DATA DEMO ===== -->
+    <section class="py-24 px-8 overflow-hidden">
+      <div class="max-w-7xl mx-auto">
+        <div class="text-center mb-16">
+          <span class="text-primary text-xs uppercase tracking-[0.3em] font-bold mb-3 block">Live Systems</span>
+          <h2 data-aos="fade-up" class="font-headline text-4xl font-bold mb-4">
+            Real-Time Intelligence
+          </h2>
+          <p class="text-tertiary max-w-xl mx-auto text-sm leading-relaxed">
+            Experience our simulation processing complex operational streams. We dynamically extract, analyze, and visualize thousands of theoretical requests per minute.
+          </p>
+        </div>
+        
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          <!-- Live Line Chart -->
+          <div data-aos="fade-right" data-aos-delay="0" class="glass-card p-6 rounded-2xl relative border border-outline-variant/20 shimmer-card">
+            <div class="flex justify-between items-center mb-6">
+              <h3 class="font-headline font-bold text-lg text-on-surface">System Throughput</h3>
+              <span class="flex items-center gap-1 text-[10px] uppercase tracking-widest text-secondary font-bold">
+                <span class="w-2 h-2 rounded-full bg-secondary animate-pulse inline-block"></span> Live
+              </span>
+            </div>
+            <div class="relative h-64 w-full">
+              <canvas id="live-throughput-chart"></canvas>
+            </div>
+          </div>
+          
+          <!-- Live Radar Chart -->
+          <div data-aos="fade-left" data-aos-delay="100" class="glass-card p-6 rounded-2xl relative border border-outline-variant/20 shimmer-card">
+            <div class="flex justify-between items-center mb-6">
+              <h3 class="font-headline font-bold text-lg text-on-surface">Predictive Modeling Matrix</h3>
+              <span class="material-symbols-outlined text-outline-variant">donut_large</span>
+            </div>
+            <div class="relative h-64 w-full flex items-center justify-center">
+              <canvas id="accuracy-radar-chart"></canvas>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== ANNOUNCEMENTS ===== -->
+    <section class="py-16 px-8 bg-surface-container-low">
+      <div class="max-w-7xl mx-auto">
+        <div class="flex items-center justify-between mb-8">
+          <div>
+            <span class="text-secondary text-xs uppercase tracking-[0.3em] font-bold mb-2 block">Latest News</span>
+            <h2 class="font-headline text-3xl font-bold">Announcements</h2>
+          </div>
+          <a href="blog.html"
+            class="flex items-center gap-1 text-primary font-bold text-sm hover:gap-2 transition-all">All posts
+            <span class="material-symbols-outlined text-sm">chevron_right</span></a>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+          <div data-aos="fade-up"
+            class="glass-card rounded-xl p-6 border border-secondary/20 border-l-4 border-l-secondary">
+            <div class="flex items-start gap-3">
+              <div class="announce-dot bg-secondary mt-1"></div>
+              <div>
+                <div class="text-[10px] uppercase tracking-widest text-secondary font-bold mb-1">
+                  New · April 5
+                </div>
+                <h4 class="font-headline font-bold text-base mb-2">
+                  Hackathon Registration Open
+                </h4>
+                <p class="text-tertiary text-sm leading-relaxed">
+                  Team sign-ups for our Spring Data Hackathon are now open.
+                  Register by April 20th.
+                </p>
+              </div>
+            </div>
+          </div>
+          <div data-aos="fade-up" data-aos-delay="80"
+            class="glass-card rounded-xl p-6 border border-primary/15 border-l-4 border-l-primary">
+            <div class="flex items-start gap-3">
+              <div class="announce-dot bg-primary mt-1"></div>
+              <div>
+                <div class="text-[10px] uppercase tracking-widest text-primary font-bold mb-1">
+                  Update · April 2
+                </div>
+                <h4 class="font-headline font-bold text-base mb-2">
+                  ML Workshop This Saturday
+                </h4>
+                <p class="text-tertiary text-sm leading-relaxed">
+                  Intro to scikit-learn — bring your laptop and dataset. All
+                  levels welcome, 10 AM Room 204.
+                </p>
+              </div>
+            </div>
+          </div>
+          <div data-aos="fade-up" data-aos-delay="160"
+            class="glass-card rounded-xl p-6 border border-outline-variant/15 border-l-4 border-l-outline">
+            <div class="flex items-start gap-3">
+              <div class="announce-dot bg-tertiary mt-1"></div>
+              <div>
+                <div class="text-[10px] uppercase tracking-widest text-tertiary font-bold mb-1">
+                  Reminder · March 30
+                </div>
+                <h4 class="font-headline font-bold text-base mb-2">
+                  Project Submissions Due
+                </h4>
+                <p class="text-tertiary text-sm leading-relaxed">
+                  Submit your Q1 project write-up and GitHub link to the club
+                  repo by end of April.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== ACHIEVEMENTS ===== -->
+    <section class="py-20 px-8">
+      <div class="max-w-7xl mx-auto">
+        <div class="text-center mb-12">
+          <h2 data-aos="fade-up" class="font-headline text-4xl font-bold mb-3">
+            Club Highlights
+          </h2>
+          <p class="text-tertiary max-w-md mx-auto">
+            What we've built since day one.
+          </p>
+        </div>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-5">
+          <div data-aos="zoom-in" data-aos-delay="0"
+            class="glass-card rounded-xl p-6 text-center border border-outline-variant/15">
+            <span class="material-symbols-outlined text-secondary text-4xl mb-3 block"
+              style="font-variation-settings: &quot;FILL&quot; 0">folder_open</span>
+            <div class="font-headline text-4xl font-bold text-secondary mb-1">
+              10+
+            </div>
+            <div class="text-[10px] uppercase tracking-widest text-tertiary">
+              Projects Built
+            </div>
+          </div>
+          <div data-aos="zoom-in" data-aos-delay="80"
+            class="glass-card rounded-xl p-6 text-center border border-outline-variant/15">
+            <span class="material-symbols-outlined text-primary text-4xl mb-3 block"
+              style="font-variation-settings: &quot;FILL&quot; 0">group</span>
+            <div class="font-headline text-4xl font-bold text-primary mb-1">
+              30+
+            </div>
+            <div class="text-[10px] uppercase tracking-widest text-tertiary">
+              Active Members
+            </div>
+          </div>
+          <div data-aos="zoom-in" data-aos-delay="160"
+            class="glass-card rounded-xl p-6 text-center border border-outline-variant/15">
+            <span class="material-symbols-outlined text-primary-container text-4xl mb-3 block"
+              style="font-variation-settings: &quot;FILL&quot; 0">emoji_events</span>
+            <div class="font-headline text-4xl font-bold text-primary-container mb-1">
+              5
+            </div>
+            <div class="text-[10px] uppercase tracking-widest text-tertiary">
+              Hackathons Entered
+            </div>
+          </div>
+          <div data-aos="zoom-in" data-aos-delay="240"
+            class="glass-card rounded-xl p-6 text-center border border-outline-variant/15">
+            <span class="material-symbols-outlined text-tertiary text-4xl mb-3 block"
+              style="font-variation-settings: &quot;FILL&quot; 0">calendar_month</span>
+            <div class="font-headline text-4xl font-bold text-on-surface mb-1">
+              3×
+            </div>
+            <div class="text-[10px] uppercase tracking-widest text-tertiary">
+              Weekly Meetings
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== TEAM ===== -->
+    <section class="py-24 px-8 bg-surface-container-low">
+      <div class="max-w-7xl mx-auto">
+        <div class="text-center mb-14">
+          <span class="text-secondary text-xs uppercase tracking-[0.3em] font-bold mb-3 block">Leadership</span>
+          <h2 data-aos="fade-up" class="font-headline text-4xl font-bold mb-3">
+            Meet the Team
+          </h2>
+          <p class="text-tertiary max-w-md mx-auto">
+            The student leaders who keep Data Parse running week to week.
+          </p>
+        </div>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-5">
+          <div data-aos="fade-up" data-aos-delay="0"
+            class="glass-card rounded-xl p-6 text-center border border-outline-variant/15 group hover:-translate-y-2 transition-all duration-300">
+            <div
+              class="w-16 h-16 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center font-headline font-bold text-xl text-on-primary mx-auto mb-4">
+              EV
+            </div>
+            <h4 class="font-headline font-bold mb-1">Surafel Asfaweson</h4>
+            <div class="text-[10px] uppercase tracking-widest text-secondary mb-3">
+              Founder
+            </div>
+            <div class="flex justify-center gap-2">
+              <a href="#"
+                class="w-7 h-7 rounded-lg border border-outline-variant/30 flex items-center justify-center text-tertiary hover:text-primary transition-colors"><span
+                  class="material-symbols-outlined" style="font-size: 14px">code</span></a>
+              <a href="#"
+                class="w-7 h-7 rounded-lg border border-outline-variant/30 flex items-center justify-center text-tertiary hover:text-primary transition-colors"><span
+                  class="material-symbols-outlined" style="font-size: 14px">link</span></a>
+            </div>
+          </div>
+          <div data-aos="fade-up" data-aos-delay="80"
+            class="glass-card rounded-xl p-6 text-center border border-outline-variant/15 group hover:-translate-y-2 transition-all duration-300">
+            <div
+              class="w-16 h-16 rounded-full bg-gradient-to-br from-secondary to-primary-container flex items-center justify-center font-headline font-bold text-xl text-on-secondary mx-auto mb-4">
+              SC
+            </div>
+            <h4 class="font-headline font-bold mb-1">Breket Tesfaye</h4>
+            <div class="text-[10px] uppercase tracking-widest text-secondary mb-3">
+              Founder & AI Developer
+            </div>
+            <div class="flex justify-center gap-2">
+              <a href="#"
+                class="w-7 h-7 rounded-lg border border-outline-variant/30 flex items-center justify-center text-tertiary hover:text-primary transition-colors"><span
+                  class="material-symbols-outlined" style="font-size: 14px">code</span></a>
+              <a href="#"
+                class="w-7 h-7 rounded-lg border border-outline-variant/30 flex items-center justify-center text-tertiary hover:text-primary transition-colors"><span
+                  class="material-symbols-outlined" style="font-size: 14px">link</span></a>
+            </div>
+          </div>
+          <div data-aos="fade-up" data-aos-delay="160"
+            class="glass-card rounded-xl p-6 text-center border border-outline-variant/15 group hover:-translate-y-2 transition-all duration-300">
+            <div
+              class="w-16 h-16 rounded-full bg-gradient-to-br from-primary-container to-primary flex items-center justify-center font-headline font-bold text-xl text-on-primary-container mx-auto mb-4">
+              MT
+            </div>
+            <h4 class="font-headline font-bold mb-1">Rita Techale</h4>
+            <div class="text-[10px] uppercase tracking-widest text-secondary mb-3">
+              Founder
+            </div>
+            <div class="flex justify-center gap-2">
+              <a href="#"
+                class="w-7 h-7 rounded-lg border border-outline-variant/30 flex items-center justify-center text-tertiary hover:text-primary transition-colors"><span
+                  class="material-symbols-outlined" style="font-size: 14px">code</span></a>
+              <a href="#"
+                class="w-7 h-7 rounded-lg border border-outline-variant/30 flex items-center justify-center text-tertiary hover:text-primary transition-colors"><span
+                  class="material-symbols-outlined" style="font-size: 14px">link</span></a>
+            </div>
+          </div>
+          <div data-aos="fade-up" data-aos-delay="240"
+            class="glass-card rounded-xl p-6 text-center border border-outline-variant/15 group hover:-translate-y-2 transition-all duration-300">
+            <div
+              class="w-16 h-16 rounded-full bg-gradient-to-br from-primary to-primary-container flex items-center justify-center font-headline font-bold text-xl text-on-primary mx-auto mb-4">
+              ER
+            </div>
+            <h4 class="font-headline font-bold mb-1">Nahom</h4>
+            <div class="text-[10px] uppercase tracking-widest text-secondary mb-3">
+              Founder
+            </div>
+            <div class="flex justify-center gap-2">
+              <a href="#"
+                class="w-7 h-7 rounded-lg border border-outline-variant/30 flex items-center justify-center text-tertiary hover:text-primary transition-colors"><span
+                  class="material-symbols-outlined" style="font-size: 14px">code</span></a>
+              <a href="#"
+                class="w-7 h-7 rounded-lg border border-outline-variant/30 flex items-center justify-center text-tertiary hover:text-primary transition-colors"><span
+                  class="material-symbols-outlined" style="font-size: 14px">link</span></a>
+            </div>
+          </div>
+        </div>
+        <div class="text-center mt-8">
+          <a href="about.html"
+            class="text-primary text-sm font-bold flex items-center gap-1 justify-center hover:gap-2 transition-all">See
+            full team
+            <span class="material-symbols-outlined text-sm">chevron_right</span></a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== JOIN CTA ===== -->
+    <section class="py-28 px-8">
+      <div
+        class="max-w-4xl mx-auto glass-card rounded-2xl p-12 text-center relative overflow-hidden border border-outline-variant/15">
+        <div
+          class="absolute top-0 left-1/2 -translate-x-1/2 w-full h-0.5 bg-gradient-to-r from-transparent via-secondary to-transparent">
+        </div>
+        <span class="text-secondary text-xs uppercase tracking-[0.3em] font-bold mb-4 block">Open Enrollment</span>
+        <h2 data-aos="zoom-in" class="font-headline text-4xl md:text-5xl font-bold mb-4 tracking-tight">
+          Ready to Build Real Projects?
+        </h2>
+        <p class="text-tertiary mb-8 max-w-xl mx-auto leading-relaxed">
+          Join Data Parse Tech Club — gain real experience, work on data
+          projects, learn industry tools, and grow your portfolio. It's free.
+        </p>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-xl mx-auto mb-10 text-left">
+          <div class="flex items-start gap-2">
+            <span class="material-symbols-outlined text-secondary text-base mt-0.5">check_circle</span><span
+              class="text-sm text-on-surface">Gain real experience</span>
+          </div>
+          <div class="flex items-start gap-2">
+            <span class="material-symbols-outlined text-secondary text-base mt-0.5">check_circle</span><span
+              class="text-sm text-on-surface">Work on live projects</span>
+          </div>
+          <div class="flex items-start gap-2">
+            <span class="material-symbols-outlined text-secondary text-base mt-0.5">check_circle</span><span
+              class="text-sm text-on-surface">Learn industry tools</span>
+          </div>
+          <div class="flex items-start gap-2">
+            <span class="material-symbols-outlined text-secondary text-base mt-0.5">check_circle</span><span
+              class="text-sm text-on-surface">Build your portfolio</span>
+          </div>
+          <div class="flex items-start gap-2">
+            <span class="material-symbols-outlined text-secondary text-base mt-0.5">check_circle</span><span
+              class="text-sm text-on-surface">Attend hackathons</span>
+          </div>
+          <div class="flex items-start gap-2">
+            <span class="material-symbols-outlined text-secondary text-base mt-0.5">check_circle</span><span
+              class="text-sm text-on-surface">Free to join always</span>
+          </div>
+        </div>
+        <a href="join.html"
+          class="btn-primary inline-block bg-gradient-to-br from-secondary to-primary-container text-on-secondary font-bold px-10 py-4 rounded-xl text-lg hover:scale-105 hover:shadow-[0_0_40px_rgba(78,222,163,0.4)] transition-all duration-300">
+          Join the Club →
+        </a>
+        <p class="text-[11px] text-tertiary mt-4 opacity-60">
+          No fees. No prerequisites. Just curiosity and a laptop.
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="bg-[#060e20] w-full pt-16 pb-10 border-t border-[#3e484f]/15">
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-10 px-8 max-w-7xl mx-auto">
+      <div class="md:col-span-1">
+        <div class="flex items-center gap-3 mb-4">
+          <img src="logo.jpg" alt="Logo" class="h-8 w-8 object-contain rounded-lg"
+            style="filter: drop-shadow(0 0 6px rgba(56, 189, 248, 0.4));" />
+          <span class="font-headline text-base font-bold text-[#38bdf8]">Data Parse</span>
+        </div>
+        <p class="text-tertiary text-xs leading-relaxed">
+          A student-led tech club focused on real data projects, Python, ML,
+          and visualization.
+        </p>
+      </div>
+      <div>
+        <h4 class="font-body text-xs uppercase tracking-widest text-secondary font-bold mb-5">
+          Club
+        </h4>
+        <ul class="space-y-3">
+          <li>
+            <a class="text-tertiary text-xs hover:text-secondary transition-colors" href="about.html">About Us</a>
+          </li>
+          <li>
+            <a class="text-tertiary text-xs hover:text-secondary transition-colors" href="work.html">Projects</a>
+          </li>
+          <li>
+            <a class="text-tertiary text-xs hover:text-secondary transition-colors" href="schedule.html">Schedule</a>
+          </li>
+          <li>
+            <a class="text-tertiary text-xs hover:text-secondary transition-colors" href="join.html">Join Us</a>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="font-body text-xs uppercase tracking-widest text-secondary font-bold mb-5">
+          Learn
+        </h4>
+        <ul class="space-y-3">
+          <li>
+            <a class="text-tertiary text-xs hover:text-secondary transition-colors" href="services.html">Resources</a>
+          </li>
+          <li>
+            <a class="text-tertiary text-xs hover:text-secondary transition-colors" href="blog.html">Blog</a>
+          </li>
+          <li>
+            <a class="text-tertiary text-xs hover:text-secondary transition-colors"
+              href="https://github.com/DataParse-git" target="_blank" rel="noopener">GitHub</a>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="font-body text-xs uppercase tracking-widest text-secondary font-bold mb-5">
+          Connect
+        </h4>
+        <ul class="space-y-3">
+          <li>
+            <a class="text-tertiary text-xs hover:text-secondary transition-colors"
+              href="https://web.facebook.com/profile.php?id=61575740000776" target="_blank" rel="noopener">Facebook</a>
+          </li>
+          <li>
+            <a class="text-tertiary text-xs hover:text-secondary transition-colors"
+              href="https://www.linkedin.com/company/data-parsee/" target="_blank" rel="noopener">LinkedIn</a>
+          </li>
+          <li>
+            <a class="text-tertiary text-xs hover:text-secondary transition-colors" href="https://t.me/DataparseEt"
+              target="_blank" rel="noopener">Telegram</a>
+          </li>
+          <li>
+            <a class="text-tertiary text-xs hover:text-secondary transition-colors"
+              href="mailto:dataparsee@gmail.com">Email Us</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="mt-12 px-8 text-center">
+      <p class="font-body text-[10px] uppercase tracking-widest text-tertiary opacity-40">
+        © 2026 Data Parse Tech Club. Built with curiosity.
+      </p>
+    </div>
+  </footer>
+
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
+    window.addEventListener("load", () => {
+      setTimeout(
+        () =>
+          document
+            .getElementById("page-loader")
+            .classList.add("hidden-loader"),
+        800,
+      );
+    });
+    AOS.init({
+      duration: 1000,
+      once: true,
+      easing: "ease-out-quart",
+      offset: 80,
+    });
+
+    const nav = document.getElementById("main-nav");
+    window.addEventListener("scroll", () =>
+      nav.classList.toggle("scrolled", window.scrollY > 50),
+    );
+
+    const themeToggle = document.getElementById("theme-toggle");
+    const themeIcon = document.getElementById("theme-icon");
+    let isDark = localStorage.getItem("theme") !== "light";
+    function applyTheme() {
+      document.documentElement.classList.toggle("dark", isDark);
+      document.documentElement.classList.toggle("light", !isDark);
+      themeIcon.textContent = isDark ? "dark_mode" : "light_mode";
+    }
+    applyTheme();
+    themeToggle.addEventListener("click", () => {
+      isDark = !isDark;
+      localStorage.setItem("theme", isDark ? "dark" : "light");
+      applyTheme();
+    });
+
+    const hamburger = document.getElementById("hamburger");
+    const mobileMenu = document.getElementById("mobile-menu");
+    const closeMenu = document.getElementById("close-menu");
+    const menuOverlay = document.getElementById("menu-overlay");
+    hamburger.addEventListener("click", () => {
+      mobileMenu.classList.add("open");
+      menuOverlay.classList.remove("hidden");
+      document.body.style.overflow = "hidden";
+    });
+    function closeFn() {
+      mobileMenu.classList.remove("open");
+      menuOverlay.classList.add("hidden");
+      document.body.style.overflow = "";
+    }
+    closeMenu.addEventListener("click", closeFn);
+    menuOverlay.addEventListener("click", closeFn);
+
+    const words = [
+      "Analyze Data",
+      "Build Projects",
+      "Learn Python",
+      "Use Machine Learning",
+      "Visualize Insights",
+    ];
+    let wordIdx = 0,
+      charIdx = 0,
+      deleting = false;
+    const typingEl = document.getElementById("typing-word");
+    function typeLoop() {
+      const word = words[wordIdx];
+      if (!deleting) {
+        typingEl.textContent = word.slice(0, ++charIdx);
+        if (charIdx === word.length) {
+          deleting = true;
+          setTimeout(typeLoop, 1800);
+          return;
+        }
+      } else {
+        typingEl.textContent = word.slice(0, --charIdx);
+        if (charIdx === 0) {
+          deleting = false;
+          wordIdx = (wordIdx + 1) % words.length;
+        }
+      }
+      setTimeout(typeLoop, deleting ? 60 : 100);
+    }
+    typeLoop();
+
+    const canvas = document.getElementById("particle-canvas");
+    const ctx = canvas.getContext("2d");
+    function resizeCanvas() {
+      canvas.width = canvas.parentElement.offsetWidth;
+      canvas.height = canvas.parentElement.offsetHeight;
+    }
+    resizeCanvas();
+    window.addEventListener("resize", resizeCanvas);
+    let particles = [];
+    for (let i = 0; i < 50; i++)
+      particles.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        r: Math.random() * 1.5 + 0.5,
+        dx: (Math.random() - 0.5) * 0.3,
+        dy: (Math.random() - 0.5) * 0.3,
+        o: Math.random() * 0.4 + 0.1,
+      });
+    function animateParticles() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      particles.forEach((p) => {
+        p.x += p.dx;
+        p.y += p.dy;
+        if (p.x < 0 || p.x > canvas.width) p.dx *= -1;
+        if (p.y < 0 || p.y > canvas.height) p.dy *= -1;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(138,174,224,${p.o})`;
+        ctx.fill();
+      });
+      for (let i = 0; i < particles.length; i++)
+        for (let j = i + 1; j < particles.length; j++) {
+          const d = Math.hypot(
+            particles[i].x - particles[j].x,
+            particles[i].y - particles[j].y,
+          );
+          if (d < 120) {
+            ctx.beginPath();
+            ctx.strokeStyle = `rgba(98,142,203,${0.08 * (1 - d / 120)})`;
+            ctx.lineWidth = 0.5;
+            ctx.moveTo(particles[i].x, particles[i].y);
+            ctx.lineTo(particles[j].x, particles[j].y);
+            ctx.stroke();
+          }
+        }
+      requestAnimationFrame(animateParticles);
+    }
+    animateParticles();
+
+    /* ── Enhanced particle: repel from mouse ── */
+    const _origAnimate = animateParticles;
+    (function patchParticles() {
+      const origFn = window.animateParticles;
+      function enhancedAnimate() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        const mouse = window.__dpMouse || { x: -9999, y: -9999 };
+        const rect = canvas.getBoundingClientRect();
+        particles.forEach((p) => {
+          p.x += p.dx; p.y += p.dy;
+          if (p.x < 0 || p.x > canvas.width) p.dx *= -1;
+          if (p.y < 0 || p.y > canvas.height) p.dy *= -1;
+          // repel from mouse
+          const lx = mouse.x - rect.left;
+          const ly = mouse.y - rect.top;
+          const dist = Math.hypot(p.x - lx, p.y - ly);
+          if (dist < 100) {
+            const force = (100 - dist) / 100;
+            p.x += (p.x - lx) / dist * force * 2;
+            p.y += (p.y - ly) / dist * force * 2;
+          }
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(138,174,224,${p.o})`;
+          ctx.fill();
+        });
+        for (let i = 0; i < particles.length; i++)
+          for (let j = i + 1; j < particles.length; j++) {
+            const d = Math.hypot(particles[i].x - particles[j].x, particles[i].y - particles[j].y);
+            if (d < 120) {
+              ctx.beginPath();
+              ctx.strokeStyle = `rgba(98,142,203,${0.1 * (1 - d / 120)})`;
+              ctx.lineWidth = 0.5;
+              ctx.moveTo(particles[i].x, particles[i].y);
+              ctx.lineTo(particles[j].x, particles[j].y);
+              ctx.stroke();
+            }
+          }
+        requestAnimationFrame(enhancedAnimate);
+      }
+      enhancedAnimate();
+    })();
+  </script>
+  <script src="animations.js" defer></script>
+</body>
+
+</html>

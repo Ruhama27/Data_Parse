@@ -1,0 +1,357 @@
+/* ================================================
+   DATA PARSE — 3D ANIMATIONS & INTERACTIVE EFFECTS
+   ================================================ */
+
+/* ── CUSTOM CURSOR ── */
+#dp-cursor {
+  position: fixed;
+  width: 12px; height: 12px;
+  background: #8aaee0;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 99999;
+  transform: translate(-50%, -50%);
+  transition: width .25s, height .25s, background .25s, opacity .25s;
+  mix-blend-mode: screen;
+}
+#dp-cursor-ring {
+  position: fixed;
+  width: 36px; height: 36px;
+  border: 1.5px solid rgba(138,174,224,.5);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 99998;
+  transform: translate(-50%, -50%);
+  transition: width .4s ease, height .4s ease, border-color .4s ease, transform .12s ease;
+}
+body:hover #dp-cursor { opacity: 1; }
+body.cursor-hover #dp-cursor { width: 20px; height: 20px; background: #38bdf8; }
+body.cursor-hover #dp-cursor-ring { width: 48px; height: 48px; border-color: rgba(56,189,248,.6); }
+body.cursor-click #dp-cursor { transform: translate(-50%,-50%) scale(.7); }
+
+/* ── 3D TILT CARDS ── */
+.tilt-card {
+  transform-style: preserve-3d;
+  transition: transform .1s ease, box-shadow .3s ease;
+  will-change: transform;
+}
+.tilt-card:hover {
+  box-shadow: 0 30px 80px rgba(56,189,248,.18), 0 0 0 1px rgba(138,174,224,.2);
+}
+.tilt-card .tilt-shine {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(circle at 0% 0%, rgba(255,255,255,.12) 0%, transparent 60%);
+  opacity: 0;
+  transition: opacity .3s;
+  pointer-events: none;
+  z-index: 2;
+}
+.tilt-card:hover .tilt-shine { opacity: 1; }
+
+/* ── GLOWING ORB BACKGROUND ── */
+.dp-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  pointer-events: none;
+  animation: orbFloat 10s ease-in-out infinite alternate;
+  z-index: 0;
+}
+@keyframes orbFloat {
+  0%   { transform: translate(0,0) scale(1); }
+  50%  { transform: translate(30px,-30px) scale(1.08); }
+  100% { transform: translate(-20px,20px) scale(.96); }
+}
+
+/* ── MAGNETIC BUTTONS ── */
+.mag-btn {
+  transition: transform .3s cubic-bezier(.22,1,.36,1), box-shadow .3s;
+  will-change: transform;
+}
+
+/* ── SCROLL PROGRESS BAR ── */
+#dp-progress {
+  position: fixed;
+  top: 0; left: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #628ecb, #38bdf8, #8aaee0);
+  z-index: 9999;
+  width: 0%;
+  transition: width .1s linear;
+  box-shadow: 0 0 12px rgba(56,189,248,.7);
+}
+
+/* ── STAT COUNTER ANIMATION ── */
+.stat-num { transition: all .3s; }
+
+/* ── RIPPLE EFFECT ── */
+.ripple-host { position: relative; overflow: hidden; }
+.ripple-host .dp-ripple {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(138,174,224,.25);
+  transform: scale(0);
+  animation: rippleAnim .7s linear;
+  pointer-events: none;
+}
+@keyframes rippleAnim {
+  to { transform: scale(4); opacity: 0; }
+}
+
+/* ── 3D HERO PARALLAX ── */
+#hero-text-container {
+  perspective: 800px;
+  transform-style: preserve-3d;
+}
+
+/* ── NAV LINK UNDERLINE HOVER ── */
+nav a.nav-link {
+  position: relative;
+  overflow: hidden;
+}
+nav a.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: -2px; left: 0;
+  width: 0; height: 2px;
+  background: linear-gradient(90deg,#628ecb,#38bdf8);
+  transition: width .3s ease;
+  border-radius: 2px;
+}
+nav a.nav-link:hover::after { width: 100%; }
+
+/* ── FLOATING SKILL ICONS ── */
+.skill-icon-wrap {
+  transition: transform .3s cubic-bezier(.22,1,.36,1);
+}
+.skill-icon-wrap:hover {
+  transform: translateY(-8px) rotateZ(-3deg) scale(1.12);
+}
+
+/* ── GLITCH TEXT EFFECT ── */
+@keyframes glitch1 {
+  0%,100%{clip-path:inset(0 0 100% 0)}
+  20%{clip-path:inset(10% 0 80% 0); transform: translate(-2px,0)}
+  40%{clip-path:inset(40% 0 50% 0); transform: translate(2px,0)}
+  60%{clip-path:inset(60% 0 20% 0); transform: translate(-2px,0)}
+  80%{clip-path:inset(80% 0 5% 0); transform: translate(2px,0)}
+}
+@keyframes glitch2 {
+  0%,100%{clip-path:inset(0 0 100% 0)}
+  20%{clip-path:inset(80% 0 5% 0); transform: translate(2px,0)}
+  40%{clip-path:inset(50% 0 40% 0); transform: translate(-2px,0)}
+  60%{clip-path:inset(20% 0 60% 0); transform: translate(2px,0)}
+  80%{clip-path:inset(5% 0 80% 0); transform: translate(-2px,0)}
+}
+.glitch-host { position: relative; display: inline-block; }
+.glitch-host::before, .glitch-host::after {
+  content: attr(data-text);
+  position: absolute; inset: 0;
+  color: inherit;
+  background: inherit;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  opacity: 0;
+}
+.glitch-host.glitching::before {
+  animation: glitch1 .4s steps(1) forwards;
+  color: #38bdf8;
+  opacity: .8;
+}
+.glitch-host.glitching::after {
+  animation: glitch2 .4s steps(1) forwards;
+  color: #8aaee0;
+  opacity: .8;
+}
+
+/* ── SECTION REVEAL FADE ── */
+.dp-reveal {
+  opacity: 0;
+  transform: translateY(32px);
+  transition: opacity .8s ease, transform .8s cubic-bezier(.22,1,.36,1);
+}
+.dp-reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ── CTA GLOW PULSE ── */
+@keyframes ctaPulse {
+  0%,100% { box-shadow: 0 0 24px rgba(56,189,248,.3); }
+  50%      { box-shadow: 0 0 48px rgba(56,189,248,.7), 0 0 80px rgba(98,142,203,.3); }
+}
+.cta-pulse { animation: ctaPulse 2.5s ease-in-out infinite; }
+
+/* ── TEAM CARD 3D FLIP ── */
+.team-flip-container {
+  perspective: 900px;
+}
+.team-flip-inner {
+  transition: transform .55s cubic-bezier(.22,1,.36,1);
+  transform-style: preserve-3d;
+  position: relative;
+}
+.team-flip-container:hover .team-flip-inner {
+  transform: rotateY(180deg);
+}
+.team-flip-front, .team-flip-back {
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+.team-flip-back {
+  transform: rotateY(180deg);
+  position: absolute; inset: 0;
+  background: rgba(18,39,74,.96);
+  border-radius: inherit;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 16px;
+}
+
+/* ── ANNOUNCEMENT CARD SLIDE-IN ── */
+.announce-hover {
+  transition: transform .35s cubic-bezier(.22,1,.36,1), box-shadow .35s;
+}
+.announce-hover:hover {
+  transform: translateX(6px);
+  box-shadow: -4px 0 24px rgba(138,174,224,.15);
+}
+
+/* ── PARTICLE MOUSE FOLLOW ── */
+.dp-spark {
+  position: fixed;
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 99997;
+  transform: translate(-50%,-50%);
+  animation: sparkFade .8s ease forwards;
+}
+@keyframes sparkFade {
+  0%  { opacity: .9; transform: translate(-50%,-50%) scale(1); }
+  100%{ opacity: 0;  transform: translate(-50%,-50%) scale(0) translateY(-20px); }
+}
+
+/* ── LOGO HOVER SPIN ── */
+.logo-img {
+  transition: transform .5s cubic-bezier(.22,1,.36,1), filter .5s;
+}
+.logo-img:hover {
+  transform: rotate(15deg) scale(1.15);
+  filter: drop-shadow(0 0 16px rgba(56,189,248,.9));
+}
+
+/* ── FLOATING DATA NODES (hero) ── */
+.data-node {
+  position: absolute;
+  pointer-events: none;
+  z-index: 1;
+  animation: nodeOrbit linear infinite;
+}
+@keyframes nodeOrbit {
+  from { transform: rotate(0deg) translateX(var(--orbit-r)) rotate(0deg); }
+  to   { transform: rotate(360deg) translateX(var(--orbit-r)) rotate(-360deg); }
+}
+/* ── HERO LOGO ENHANCEMENTS ── */
+.logo-display-container:hover .inner-card {
+  animation: logoFloatHover 2s ease-in-out infinite;
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 40px 100px rgba(98, 142, 203, 0.4), inset 0 0 40px rgba(98, 142, 203, 0.1);
+}
+
+.inner-card {
+  animation: logoFloatHover 4s ease-in-out infinite;
+  transition: all 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@keyframes logoFloatHover {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50%      { transform: translateY(-12px) rotate(1deg); }
+}
+
+.ring-cw {
+  animation: ringRotateCW 20s linear infinite;
+}
+.logo-display-container:hover .ring-cw {
+  animation-duration: 8s;
+}
+
+@keyframes ringRotateCW {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+.ring-ccw {
+  animation: ringRotateCCW 15s linear infinite;
+}
+.logo-display-container:hover .ring-ccw {
+  animation-duration: 6s;
+}
+
+@keyframes ringRotateCCW {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(-360deg); }
+}
+
+.dot-orbit-1 {
+  animation: dotOrbit1 12s linear infinite;
+}
+.dot-orbit-2 {
+  animation: dotOrbit2 18s linear infinite;
+}
+.logo-display-container:hover .dot-orbit-1,
+.logo-display-container:hover .dot-orbit-2 {
+  animation-duration: 5s;
+}
+
+@keyframes dotOrbit1 {
+  from { transform: rotate(0deg) translateX(140px) rotate(0deg); }
+  to   { transform: rotate(360deg) translateX(140px) rotate(-360deg); }
+}
+@keyframes dotOrbit2 {
+  from { transform: rotate(180deg) translateX(120px) rotate(-180deg); }
+  to   { transform: rotate(540deg) translateX(120px) rotate(-540deg); }
+}
+
+.logo-shimmer {
+  position: relative;
+  overflow: hidden;
+}
+.logo-shimmer::after {
+  content: "";
+  position: absolute;
+  inset: -100%;
+  background: linear-gradient(
+    45deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.05) 45%,
+    rgba(255, 255, 255, 0.2) 50%,
+    rgba(255, 255, 255, 0.05) 55%,
+    transparent 100%
+  );
+  transform: translate(-100%, -100%);
+  transition: transform 0s;
+}
+.logo-display-container:hover .logo-shimmer::after {
+  transform: translate(100%, 100%);
+  transition: transform 1s ease-in-out;
+}
+
+/* ── LIGHT MODE: Global Text Visibility Fix ── */
+html.light .text-on-background { color: #080f1e !important; }
+html.light .text-on-surface { color: #0d1b35 !important; }
+html.light .text-on-surface-variant { color: #1f3a6d !important; }
+html.light .text-on-primary { color: #f0f3fa !important; }
+html.light .text-on-secondary { color: #0d1b35 !important; }
+html.light .text-on-primary-container { color: #f0f3fa !important; }
+html.light .text-primary { color: #2a5ba8 !important; }
+html.light .text-primary-container { color: #1f3a6d !important; }
+html.light .text-secondary { color: #15406b !important; }
+html.light .text-tertiary { color: #395886 !important; }
+html.light h1, html.light h2, html.light h3, html.light h4, html.light h5, html.light h6 { color: #080f1e !important; }

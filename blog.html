@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Insights & Blog | Data Parse — Data Strategy Articles</title>
+<meta name="description" content="Expert insights on data analytics, ETL pipelines, AI, and business intelligence. Learn from the Data Parse team."/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+<link href="animations.css" rel="stylesheet">
+<script id="tailwind-config">
+    tailwind.config = {
+        darkMode: "class",
+        theme: {
+            extend: {
+                colors: {
+                    "surface-container-high": "#222a3d", "background": "#080f1e", "on-background": "#F0F3FA",
+                    "surface-variant": "#1f3a6d", "primary": "#8AAEE0", "surface-container-lowest": "#050c18",
+                    "outline-variant": "#395886", "tertiary": "#B1C9EF", "surface-container-low": "#0e1f3a",
+                    "primary-container": "#628ECB", "surface": "#080f1e", "surface-container": "#12274a",
+                    "on-surface": "#F0F3FA", "surface-container-highest": "#1f3a6d",
+                    "on-primary": "#080f1e", "on-primary-container": "#F0F3FA", "secondary": "#D5DEEF", "on-secondary": "#0d1b35",
+                },
+                fontFamily: { "headline": ["Space Grotesk"], "body": ["Inter"], "label": ["Inter"] },
+                borderRadius: {"DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem"},
+            },
+        },
+    }
+</script>
+<style>
+    html.light body { background-color: #f0f4ff !important; color: #0b1326 !important; }
+    html.light .glass-card { background: rgba(255,255,255,0.75); border-top-color: rgba(98,142,203,0.2); }
+    html.light #main-nav { background: rgba(240,244,255,0.96) !important; border-bottom: 1px solid rgba(98,142,203,0.12); }
+    html.light .text-tertiary { color: #4a5568; }
+    html.light .bg-surface-container-low { background-color: #e2eaf8; }
+    html.light .bg-surface-container-lowest { background-color: #d4ddf5; }
+    html.light .bg-surface-container { background-color: #e8effe; }
+
+    body { background-color:#080f1e; color:#dae2fd; font-family:'Inter',sans-serif; transition:background 0.4s,color 0.4s; }
+    .material-symbols-outlined { font-variation-settings:'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 24; }
+    .glass-card { background:rgba(18,39,74,0.7); backdrop-filter:blur(20px); border:1px solid rgba(57,88,134,0.4); }
+    .grid-bg { background-image:linear-gradient(to right,rgba(62,72,79,0.05) 1px,transparent 1px),linear-gradient(to bottom,rgba(62,72,79,0.05) 1px,transparent 1px); background-size:24px 24px; }
+    .text-glow { text-shadow:0 0 20px rgba(138,174,224,0.3); }
+
+    #page-loader { position:fixed;inset:0;z-index:9999;background:#060e20;display:flex;align-items:center;justify-content:center;transition:opacity 0.6s,visibility 0.6s; }
+    #page-loader.hidden-loader { opacity:0;visibility:hidden; }
+    .loader-pulse { animation:loaderPulse 1.2s ease-in-out infinite; }
+    @keyframes loaderPulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.5;transform:scale(0.95)} }
+
+    #main-nav { transition:background 0.3s,box-shadow 0.3s; }
+    #main-nav.scrolled { background:rgba(11,19,38,0.96)!important; backdrop-filter:blur(20px); box-shadow:0 1px 0 rgba(62,72,79,0.3); }
+
+    #mobile-menu { transform:translateX(100%); transition:transform 0.35s cubic-bezier(0.22,1,0.36,1); }
+    #mobile-menu.open { transform:translateX(0); }
+
+    .article-card { transition:all 0.4s cubic-bezier(0.22,1,0.36,1); }
+    .article-card:hover { transform:translateY(-8px); box-shadow:0 20px 60px rgba(98,142,203,0.12); }
+
+    .category-badge { font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:0.1em; padding:3px 10px; border-radius:100px; }
+
+    .btn-primary { position:relative; overflow:hidden; }
+    .btn-primary::after { content:'';position:absolute;inset:0;background:rgba(255,255,255,0.08);opacity:0;transition:opacity 0.2s; }
+    .btn-primary:hover::after { opacity:1; }
+
+      
+      /* ── FOOTER COLOR FIX ── */
+      html.light footer {
+        background-color: #060e20 !important;
+      }
+      html.light footer .text-\[\#628ECB\] {
+        color: #628ECB !important;
+      }
+      html.light footer .text-\[\#c2cde5\] {
+        color: #c2cde5 !important;
+      }
+      html.light footer a.hover\:text-\[\#8AAEE0\]:hover {
+        color: #8AAEE0 !important;
+      }
+      html.light footer .text-on-background,
+      html.light footer .text-on-surface,
+      html.light footer .text-on-primary,
+      html.light footer .text-on-secondary,
+      html.light footer .text-on-primary-container,
+      html.light footer .text-primary,
+      html.light footer .text-primary-container,
+      html.light footer .text-secondary,
+      html.light footer .text-tertiary,
+      html.light footer h1,
+      html.light footer h2,
+      html.light footer h3,
+      html.light footer h4 {
+        color: unset !important;
+      }
+      html.light footer .text-tertiary {
+        color: #c2cde5 !important;
+      }
+      html.light footer .text-secondary, 
+      html.light footer h4.text-secondary {
+        color: #4edea3 !important;
+      }
+      html.light footer h4 {
+        color: #4edea3 !important;
+      }
+      html.light footer a.hover\:text-secondary:hover {
+        color: #8aaee0 !important;
+      }
+      html.light footer span.text-primary-container {
+        color: #8aaee0 !important;
+      }
+
+    </style>
+</head>
+<body class="bg-background text-on-background font-body selection:bg-primary/30">
+
+<div id="page-loader">
+    <div class="loader-pulse text-center">
+        <span class="font-headline text-2xl font-bold tracking-tighter" style="background:linear-gradient(to right,#8AAEE0,#628ECB);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent">Data Parse</span>
+    </div>
+</div>
+
+<!-- NAV -->
+<nav id="main-nav" class="fixed top-0 w-full z-50 bg-[#080f1e]/90 flex justify-between items-center px-6 md:px-8 h-20">
+    <div class="flex items-center gap-10">
+        <a href="index.html" class="flex items-center gap-3">
+            <img src="logo.jpg" alt="Data Parse Logo" class="h-9 w-9 object-contain rounded-lg" style="filter:drop-shadow(0 0 8px rgba(98,142,203,0.5));">
+            <span class="font-headline text-xl font-bold tracking-tighter text-primary">Data Parse</span>
+        </a>
+        <div class="hidden md:flex items-center gap-7">
+            <a class="text-tertiary hover:text-[#628ECB] transition-colors font-body text-sm" href="index.html">Home</a>
+            <a class="text-tertiary hover:text-[#628ECB] transition-colors font-body text-sm" href="about.html">About</a>
+            <a class="text-tertiary hover:text-[#628ECB] transition-colors font-body text-sm" href="work.html">Projects</a>
+            <a class="text-tertiary hover:text-[#628ECB] transition-colors font-body text-sm" href="schedule.html">Schedule</a>
+            <a class="text-tertiary hover:text-[#628ECB] transition-colors font-body text-sm" href="services.html">Resources</a>
+            <a class="text-[#628ECB] border-b-2 border-[#628ECB] pb-1 font-bold font-body text-sm" href="blog.html">Blog</a>
+        </div>
+    </div>
+    <div class="flex items-center gap-3">
+        <button id="theme-toggle" title="Toggle theme" class="w-9 h-9 rounded-lg border border-outline-variant/30 flex items-center justify-center text-tertiary hover:text-primary transition-all">
+            <span id="theme-icon" class="material-symbols-outlined text-lg">dark_mode</span>
+        </button>
+        <a href="join.html" class="hidden md:block btn-primary bg-gradient-to-br from-secondary to-primary-container text-on-secondary font-bold px-5 py-2.5 rounded-lg text-sm hover:scale-105 transition-all duration-300">
+            Join the Club
+        </a>
+        <button id="hamburger" class="md:hidden w-9 h-9 flex flex-col items-center justify-center gap-1.5">
+            <span class="w-6 h-0.5 bg-primary"></span>
+            <span class="w-6 h-0.5 bg-primary"></span>
+            <span class="w-6 h-0.5 bg-primary"></span>
+        </button>
+    </div>
+</nav>
+
+<div id="mobile-menu" class="fixed top-0 right-0 bottom-0 w-72 z-50 bg-[#050c18] border-l border-outline-variant/20 flex flex-col px-8 pt-24 pb-8 gap-6">
+    <button id="close-menu" class="absolute top-5 right-5 text-tertiary hover:text-primary"><span class="material-symbols-outlined">close</span></button>
+    <a class="text-tertiary hover:text-primary font-body text-lg border-b border-outline-variant/20 pb-4 transition-colors" href="index.html">Home</a>
+    <a class="text-tertiary hover:text-primary font-body text-lg border-b border-outline-variant/20 pb-4 transition-colors" href="about.html">About</a>
+    <a class="text-tertiary hover:text-primary font-body text-lg border-b border-outline-variant/20 pb-4 transition-colors" href="work.html">Projects</a>
+    <a class="text-tertiary hover:text-primary font-body text-lg border-b border-outline-variant/20 pb-4 transition-colors" href="schedule.html">Schedule</a>
+    <a class="text-tertiary hover:text-primary font-body text-lg border-b border-outline-variant/20 pb-4 transition-colors" href="services.html">Resources</a>
+    <a class="text-primary font-bold font-body text-lg border-b border-outline-variant/20 pb-4" href="blog.html">Blog</a>
+    <a href="join.html" class="mt-4 bg-gradient-to-br from-secondary to-primary-container text-on-secondary font-bold px-6 py-3 rounded-lg text-center">Join the Club</a>
+</div>
+<div id="menu-overlay" class="fixed inset-0 z-40 bg-black/60 hidden"></div>
+
+<main class="pt-20 grid-bg min-h-screen">
+
+<!-- HERO -->
+<section class="px-6 md:px-8 py-24 max-w-7xl mx-auto">
+    <div class="max-w-3xl">
+        <span class="text-secondary text-xs uppercase tracking-[0.3em] font-bold mb-4 block">Data Parse Insights</span>
+        <h1 data-aos="fade-up" class="font-headline text-5xl md:text-7xl font-bold tracking-tight leading-none mb-6 text-glow">
+            Data Intelligence<br>Starts Here.
+        </h1>
+        <p class="text-tertiary text-xl max-w-xl leading-relaxed">Expert articles on data strategy, analytics engineering, AI, and business intelligence — written by practitioners, for practitioners.</p>
+    </div>
+    <!-- Category filter pills -->
+    <div class="mt-10 flex flex-wrap gap-3">
+        <button onclick="filterCategory('all')" id="cat-all" class="category-badge bg-primary/20 text-primary border border-primary/40 cursor-pointer transition-all hover:scale-105">All Topics</button>
+        <button onclick="filterCategory('strategy')" id="cat-strategy" class="category-badge bg-surface-container border border-outline-variant/30 text-tertiary cursor-pointer transition-all hover:border-primary/40 hover:text-primary">Strategy</button>
+        <button onclick="filterCategory('engineering')" id="cat-engineering" class="category-badge bg-surface-container border border-outline-variant/30 text-tertiary cursor-pointer transition-all hover:border-primary/40 hover:text-primary">Engineering</button>
+        <button onclick="filterCategory('ai')" id="cat-ai" class="category-badge bg-surface-container border border-outline-variant/30 text-tertiary cursor-pointer transition-all hover:border-primary/40 hover:text-primary">AI & ML</button>
+        <button onclick="filterCategory('tutorials')" id="cat-tutorials" class="category-badge bg-surface-container border border-outline-variant/30 text-tertiary cursor-pointer transition-all hover:border-primary/40 hover:text-primary">Tutorials</button>
+    </div>
+</section>
+
+<!-- FEATURED ARTICLE -->
+<section class="px-6 md:px-8 mb-16 max-w-7xl mx-auto">
+    <div data-aos="fade-up" data-category="strategy" class="glass-card rounded-2xl overflow-hidden grid md:grid-cols-2 article-card border border-outline-variant/15">
+        <div class="relative min-h-[320px] bg-gradient-to-br from-primary/10 to-secondary/5 flex items-center justify-center">
+            <div class="text-center p-10">
+                <span class="material-symbols-outlined text-primary mb-4 block" style="font-size:80px;opacity:0.3">analytics</span>
+                <div class="text-xs uppercase tracking-widest text-secondary font-bold">Featured Article</div>
+            </div>
+            <div class="absolute top-4 left-4 category-badge bg-secondary/20 text-secondary border border-secondary/40">Strategy</div>
+        </div>
+        <div class="p-8 md:p-10 flex flex-col justify-between">
+            <div>
+                <div class="flex items-center gap-3 mb-4 text-xs text-tertiary">
+                    <span>April 3, 2024</span>
+                    <span>·</span>
+                    <span>8 min read</span>
+                </div>
+                <h2 class="font-headline text-2xl md:text-3xl font-bold mb-4 leading-tight">How to Analyze Business Data Effectively: A 2024 Framework</h2>
+                <p class="text-tertiary text-sm leading-relaxed mb-6">Most companies collect mountains of data but extract almost no value. Learn the exact framework our analysts use to turn messy raw data into decisions that drive revenue — in 5 actionable steps.</p>
+                <div class="flex flex-wrap gap-2 mb-6">
+                    <span class="px-2 py-1 bg-surface-container text-tertiary text-[10px] rounded uppercase tracking-wider">ETL</span>
+                    <span class="px-2 py-1 bg-surface-container text-tertiary text-[10px] rounded uppercase tracking-wider">Analytics</span>
+                    <span class="px-2 py-1 bg-surface-container text-tertiary text-[10px] rounded uppercase tracking-wider">Business Intelligence</span>
+                </div>
+            </div>
+            <div class="flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                    <div class="w-8 h-8 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center text-on-primary font-bold text-xs">SC</div>
+                    <div>
+                        <div class="text-xs font-bold text-on-surface">Sarah Chen</div>
+                        <div class="text-[10px] text-tertiary">Chief Technology Officer</div>
+                    </div>
+                </div>
+                <a href="#" class="flex items-center gap-1 text-primary font-bold text-sm hover:gap-2 transition-all group">
+                    Read Article <span class="material-symbols-outlined text-sm">arrow_forward</span>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ARTICLE GRID -->
+<section class="px-6 md:px-8 pb-20 max-w-7xl mx-auto">
+    <div id="articles-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+        <!-- Article 1 -->
+        <div data-aos="fade-up" data-aos-delay="0" data-category="strategy" class="article-card glass-card card-hover shimmer-card rounded-xl overflow-hidden border border-outline-variant/15">
+            <div class="h-40 bg-gradient-to-br from-primary/15 to-primary/5 relative flex items-center justify-center">
+                <span class="material-symbols-outlined text-primary opacity-20" style="font-size:70px">error</span>
+                <div class="absolute top-3 left-3 category-badge bg-primary/20 text-primary border border-primary/30">Strategy</div>
+                <div class="absolute top-3 right-3 text-[10px] text-tertiary">5 min read</div>
+            </div>
+            <div class="p-6">
+                <div class="text-[10px] text-tertiary mb-3">March 28, 2024</div>
+                <h3 class="font-headline text-lg font-bold mb-3 leading-snug">Top 5 Data Mistakes Companies Make (And How to Fix Them)</h3>
+                <p class="text-tertiary text-sm leading-relaxed mb-5">From siloed spreadsheets to ignoring data quality — these five mistakes are costing companies millions. Here's how to avoid them all.</p>
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center gap-2">
+                        <div class="w-6 h-6 rounded-full bg-gradient-to-br from-secondary to-primary flex items-center justify-center text-on-secondary text-[10px] font-bold">EV</div>
+                        <span class="text-[11px] text-tertiary">Dr. Elias Vance</span>
+                    </div>
+                    <a href="#" class="text-primary text-xs font-bold flex items-center gap-1 hover:gap-2 transition-all">Read <span class="material-symbols-outlined text-xs">chevron_right</span></a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Article 2 -->
+        <div data-aos="fade-up" data-aos-delay="80" data-category="engineering" class="article-card glass-card card-hover shimmer-card rounded-xl overflow-hidden border border-outline-variant/15">
+            <div class="h-40 bg-gradient-to-br from-secondary/15 to-secondary/5 relative flex items-center justify-center">
+                <span class="material-symbols-outlined text-secondary opacity-20" style="font-size:70px">stream</span>
+                <div class="absolute top-3 left-3 category-badge bg-secondary/20 text-secondary border border-secondary/30">Engineering</div>
+                <div class="absolute top-3 right-3 text-[10px] text-tertiary">12 min read</div>
+            </div>
+            <div class="p-6">
+                <div class="text-[10px] text-tertiary mb-3">March 21, 2024</div>
+                <h3 class="font-headline text-lg font-bold mb-3 leading-snug">Building Real-Time ETL Pipelines with Kafka and Flink</h3>
+                <p class="text-tertiary text-sm leading-relaxed mb-5">A deep technical walkthrough on architecting sub-second data pipelines using Apache Kafka and Apache Flink for production workloads.</p>
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center gap-2">
+                        <div class="w-6 h-6 rounded-full bg-gradient-to-br from-primary-container to-primary flex items-center justify-center text-on-primary-container text-[10px] font-bold">MT</div>
+                        <span class="text-[11px] text-tertiary">Marcus Thorne</span>
+                    </div>
+                    <a href="#" class="text-primary text-xs font-bold flex items-center gap-1 hover:gap-2 transition-all">Read <span class="material-symbols-outlined text-xs">chevron_right</span></a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Article 3 -->
+        <div data-aos="fade-up" data-aos-delay="160" data-category="ai" class="article-card glass-card card-hover shimmer-card rounded-xl overflow-hidden border border-outline-variant/15">
+            <div class="h-40 bg-gradient-to-br from-primary-container/20 to-primary/5 relative flex items-center justify-center">
+                <span class="material-symbols-outlined text-primary-container opacity-20" style="font-size:70px">psychology</span>
+                <div class="absolute top-3 left-3 category-badge bg-primary-container/20 text-primary-container border border-primary-container/30">AI & ML</div>
+                <div class="absolute top-3 right-3 text-[10px] text-tertiary">10 min read</div>
+            </div>
+            <div class="p-6">
+                <div class="text-[10px] text-tertiary mb-3">March 14, 2024</div>
+                <h3 class="font-headline text-lg font-bold mb-3 leading-snug">The Future of Real-Time Analytics: What 2025 Will Bring</h3>
+                <p class="text-tertiary text-sm leading-relaxed mb-5">AI-native data stacks, vector databases, and streaming ML — here's what the next generation of real-time analytics looks like and how to prepare now.</p>
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center gap-2">
+                        <div class="w-6 h-6 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center text-on-primary text-[10px] font-bold">ER</div>
+                        <span class="text-[11px] text-tertiary">Elena Rodriguez</span>
+                    </div>
+                    <a href="#" class="text-primary text-xs font-bold flex items-center gap-1 hover:gap-2 transition-all">Read <span class="material-symbols-outlined text-xs">chevron_right</span></a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Article 4 -->
+        <div data-aos="fade-up" data-aos-delay="0" data-category="tutorials" class="article-card glass-card card-hover shimmer-card rounded-xl overflow-hidden border border-outline-variant/15">
+            <div class="h-40 bg-gradient-to-br from-secondary/10 to-primary/5 relative flex items-center justify-center">
+                <span class="material-symbols-outlined text-secondary opacity-20" style="font-size:70px">code</span>
+                <div class="absolute top-3 left-3 category-badge bg-secondary/20 text-secondary border border-secondary/30">Tutorial</div>
+                <div class="absolute top-3 right-3 text-[10px] text-tertiary">15 min read</div>
+            </div>
+            <div class="p-6">
+                <div class="text-[10px] text-tertiary mb-3">March 7, 2024</div>
+                <h3 class="font-headline text-lg font-bold mb-3 leading-snug">How to Set Up Your First Data Warehouse in Under an Hour</h3>
+                <p class="text-tertiary text-sm leading-relaxed mb-5">A step-by-step tutorial for connecting BigQuery, building your first schema, and running your first transformations using dbt.</p>
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center gap-2">
+                        <div class="w-6 h-6 rounded-full bg-gradient-to-br from-secondary to-primary-container flex items-center justify-center text-on-secondary text-[10px] font-bold">SC</div>
+                        <span class="text-[11px] text-tertiary">Sarah Chen</span>
+                    </div>
+                    <a href="#" class="text-primary text-xs font-bold flex items-center gap-1 hover:gap-2 transition-all">Read <span class="material-symbols-outlined text-xs">chevron_right</span></a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Article 5 -->
+        <div data-aos="fade-up" data-aos-delay="80" data-category="ai" class="article-card glass-card card-hover shimmer-card rounded-xl overflow-hidden border border-outline-variant/15">
+            <div class="h-40 bg-gradient-to-br from-primary/10 to-secondary/5 relative flex items-center justify-center">
+                <span class="material-symbols-outlined text-primary opacity-20" style="font-size:70px">smart_toy</span>
+                <div class="absolute top-3 left-3 category-badge bg-primary/20 text-primary border border-primary/30">AI & ML</div>
+                <div class="absolute top-3 right-3 text-[10px] text-tertiary">7 min read</div>
+            </div>
+            <div class="p-6">
+                <div class="text-[10px] text-tertiary mb-3">February 28, 2024</div>
+                <h3 class="font-headline text-lg font-bold mb-3 leading-snug">Why Most AI Projects Fail (And How Data Quality is the Fix)</h3>
+                <p class="text-tertiary text-sm leading-relaxed mb-5">85% of AI projects fail at production — and 90% of those failures trace back to dirty data. Here's our battle-tested data quality checklist.</p>
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center gap-2">
+                        <div class="w-6 h-6 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center text-on-primary text-[10px] font-bold">ER</div>
+                        <span class="text-[11px] text-tertiary">Elena Rodriguez</span>
+                    </div>
+                    <a href="#" class="text-primary text-xs font-bold flex items-center gap-1 hover:gap-2 transition-all">Read <span class="material-symbols-outlined text-xs">chevron_right</span></a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Article 6 -->
+        <div data-aos="fade-up" data-aos-delay="160" data-category="engineering" class="article-card glass-card card-hover shimmer-card rounded-xl overflow-hidden border border-outline-variant/15">
+            <div class="h-40 bg-gradient-to-br from-tertiary/10 to-primary/5 relative flex items-center justify-center">
+                <span class="material-symbols-outlined text-tertiary opacity-20" style="font-size:70px">security</span>
+                <div class="absolute top-3 left-3 category-badge bg-outline-variant/50 text-tertiary border border-outline-variant/50">Engineering</div>
+                <div class="absolute top-3 right-3 text-[10px] text-tertiary">9 min read</div>
+            </div>
+            <div class="p-6">
+                <div class="text-[10px] text-tertiary mb-3">February 19, 2024</div>
+                <h3 class="font-headline text-lg font-bold mb-3 leading-snug">Data Security in 2024: AES-256, SOC2, and Zero-Trust Pipelines</h3>
+                <p class="text-tertiary text-sm leading-relaxed mb-5">A technical breakdown of the security architecture required to handle enterprise-grade data at scale — without sacrificing performance.</p>
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center gap-2">
+                        <div class="w-6 h-6 rounded-full bg-gradient-to-br from-primary-container to-secondary flex items-center justify-center text-on-primary-container text-[10px] font-bold">MT</div>
+                        <span class="text-[11px] text-tertiary">Marcus Thorne</span>
+                    </div>
+                    <a href="#" class="text-primary text-xs font-bold flex items-center gap-1 hover:gap-2 transition-all">Read <span class="material-symbols-outlined text-xs">chevron_right</span></a>
+                </div>
+            </div>
+        </div>
+
+    </div><!-- /grid -->
+</section>
+
+<!-- NEWSLETTER CTA -->
+<section class="py-24 px-8">
+    <div class="max-w-2xl mx-auto glass-card rounded-2xl p-10 text-center relative overflow-hidden border border-outline-variant/15">
+        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-full h-0.5 bg-gradient-to-r from-transparent via-secondary to-transparent"></div>
+        <span class="material-symbols-outlined text-secondary text-4xl mb-4 block">mark_email_read</span>
+        <h2 class="font-headline text-2xl font-bold mb-3">Get the Data Intelligence Weekly</h2>
+        <p class="text-tertiary text-sm mb-6">Join 8,000+ data professionals. One email per week — expert insights, no spam.</p>
+        <div class="flex flex-col sm:flex-row gap-3 max-w-sm mx-auto">
+            <input type="email" placeholder="your@email.com" class="flex-1 bg-surface-container-lowest border border-outline-variant/30 rounded-lg px-4 py-3 text-sm text-on-surface focus:outline-none focus:border-primary/50 placeholder:text-tertiary/50"/>
+            <button class="btn-primary bg-gradient-to-br from-secondary to-primary-container text-on-secondary font-bold px-5 py-3 rounded-lg text-sm whitespace-nowrap hover:scale-105 transition-all">Subscribe Free</button>
+        </div>
+    </div>
+</section>
+
+</main>
+
+<!-- FOOTER -->
+<footer class="bg-[#050c18] w-full pt-16 pb-10 border-t border-[#3e484f]/15">
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-10 px-8 max-w-7xl mx-auto">
+        <div>
+            <span class="text-lg font-bold text-[#628ECB] font-headline mb-4 block">Data Parse</span>
+            <p class="text-tertiary text-sm leading-relaxed">Precision through data. Building the future of automated intelligence.</p>
+        </div>
+        <div>
+            <h4 class="font-body text-xs uppercase tracking-widest text-[#628ECB] font-bold mb-5">Platform</h4>
+            <ul class="space-y-3">
+                <li><a class="text-tertiary text-xs hover:text-secondary transition-colors" href="services.html">Services</a></li>
+                <li><a class="text-tertiary text-xs hover:text-secondary transition-colors" href="work.html">Our Work</a></li>
+                <li><a class="text-tertiary text-xs hover:text-secondary transition-colors" href="blog.html">Blog</a></li>
+            </ul>
+        </div>
+        <div>
+            <h4 class="font-body text-xs uppercase tracking-widest text-[#628ECB] font-bold mb-5">Connect</h4>
+            <ul class="space-y-3">
+                <li><a class="text-tertiary text-xs hover:text-secondary transition-colors" href="https://web.facebook.com/profile.php?id=61575740000776" target="_blank" rel="noopener">Facebook</a></li>
+                <li><a class="text-tertiary text-xs hover:text-secondary transition-colors" href="https://www.linkedin.com/company/data-parsee/" target="_blank" rel="noopener">LinkedIn</a></li>
+                <li><a class="text-tertiary text-xs hover:text-secondary transition-colors" href="https://t.me/DataparseEt" target="_blank" rel="noopener">Telegram</a></li>
+                <li><a class="text-tertiary text-xs hover:text-secondary transition-colors" href="https://github.com/DataParse-git" target="_blank" rel="noopener">GitHub</a></li>
+                <li><a class="text-tertiary text-xs hover:text-secondary transition-colors" href="mailto:dataparsee@gmail.com">Email Us</a></li>
+            </ul>
+        </div>
+        <div>
+            <h4 class="font-body text-xs uppercase tracking-widest text-[#628ECB] font-bold mb-5">Legal</h4>
+            <ul class="space-y-3">
+                <li><a class="text-tertiary text-xs hover:text-secondary transition-colors" href="#">Privacy Policy</a></li>
+                <li><a class="text-tertiary text-xs hover:text-secondary transition-colors" href="#">Terms of Service</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="mt-12 px-8 text-center">
+        <p class="font-body text-[10px] uppercase tracking-widest text-tertiary opacity-50">© 2026 Data Parse. Precision through data.</p>
+    </div>
+</footer>
+
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script src="animations.js" defer></script>
+<script>
+window.addEventListener('load', () => { setTimeout(() => document.getElementById('page-loader').classList.add('hidden-loader'), 700); });
+AOS.init({ duration: 900, once: true, easing: 'ease-out-quart', offset: 80 });
+
+const nav = document.getElementById('main-nav');
+window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 50));
+
+const themeToggle = document.getElementById('theme-toggle');
+const themeIcon = document.getElementById('theme-icon');
+let isDark = localStorage.getItem('theme') !== 'light';
+function applyTheme() {
+    document.documentElement.classList.toggle('dark', isDark);
+    document.documentElement.classList.toggle('light', !isDark);
+    themeIcon.textContent = isDark ? 'dark_mode' : 'light_mode';
+}
+applyTheme();
+themeToggle.addEventListener('click', () => { isDark = !isDark; localStorage.setItem('theme', isDark ? 'dark' : 'light'); applyTheme(); });
+
+const hamburger = document.getElementById('hamburger');
+const mobileMenu = document.getElementById('mobile-menu');
+const closeMenu = document.getElementById('close-menu');
+const menuOverlay = document.getElementById('menu-overlay');
+hamburger.addEventListener('click', () => { mobileMenu.classList.add('open'); menuOverlay.classList.remove('hidden'); document.body.style.overflow = 'hidden'; });
+function closeFn() { mobileMenu.classList.remove('open'); menuOverlay.classList.add('hidden'); document.body.style.overflow = ''; }
+closeMenu.addEventListener('click', closeFn);
+menuOverlay.addEventListener('click', closeFn);
+
+function filterCategory(cat) {
+    document.querySelectorAll('[id^="cat-"]').forEach(b => { b.style.background = ''; b.style.color = ''; b.style.borderColor = ''; });
+    const activeBtn = document.getElementById('cat-' + cat);
+    if (activeBtn) { activeBtn.style.background = 'rgba(138,174,224,0.2)'; activeBtn.style.color = '#8AAEE0'; activeBtn.style.borderColor = 'rgba(138,174,224,0.4)'; }
+    document.querySelectorAll('#articles-grid > div').forEach(card => {
+        if (cat === 'all' || card.dataset.category === cat) {
+            card.style.display = '';
+        } else {
+            card.style.display = 'none';
+        }
+    });
+}
+</script>
+</body>
+</html>

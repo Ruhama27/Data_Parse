@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Our Work | Data Parse — Real Case Studies & Results</title>
+<meta name="description" content="Explore Data Parse case studies. See how we helped clients achieve +42% growth, $12M savings, and 60% faster reporting through AI-powered data solutions."/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+<link href="animations.css" rel="stylesheet">
+<script id="tailwind-config">
+    tailwind.config = {
+        darkMode: "class",
+        theme: {
+            extend: {
+                colors: {
+                    "surface-container-high": "#222a3d",
+                    "background": "#080f1e",
+                    "on-background": "#F0F3FA",
+                    "surface-variant": "#1f3a6d",
+                    "primary": "#8AAEE0",
+                    "surface-container-lowest": "#050c18",
+                    "outline-variant": "#395886",
+                    "tertiary": "#B1C9EF",
+                    "surface-container-low": "#0e1f3a",
+                    "primary-container": "#628ECB",
+                    "surface": "#080f1e",
+                    "surface-container": "#12274a",
+                    "on-surface": "#F0F3FA",
+                    "surface-container-highest": "#1f3a6d",
+                    "on-primary": "#080f1e",
+                    "on-primary-container": "#F0F3FA",
+                    "outline": "#87929a",
+                    "secondary": "#D5DEEF",
+                    "on-secondary": "#0d1b35",
+                },
+                fontFamily: { "headline": ["Space Grotesk"], "body": ["Inter"], "label": ["Inter"] },
+                borderRadius: {"DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem"},
+            },
+        },
+    }
+</script>
+<style>
+    html.light body { background-color: #f0f4ff !important; color: #0b1326 !important; }
+    html.light .glass-card { background: rgba(255,255,255,0.75); border-top-color: rgba(98,142,203,0.2); }
+    html.light #main-nav { background: rgba(240,244,255,0.96) !important; border-bottom: 1px solid rgba(98,142,203,0.12); }
+    html.light .text-tertiary { color: #4a5568; }
+    html.light .bg-surface-container-low { background-color: #e2eaf8; }
+    html.light .bg-surface-container-lowest { background-color: #d4ddf5; }
+    html.light .bg-surface-container { background-color: #e8effe; }
+
+    body { background-color: #080f1e; color: #dae2fd; font-family:'Inter',sans-serif; transition:background 0.4s,color 0.4s; }
+    .material-symbols-outlined { font-variation-settings:'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 24; }
+    .glass-card { background:rgba(18,39,74,0.7); backdrop-filter:blur(20px); border:1px solid rgba(57,88,134,0.4); }
+    .grid-bg {
+        background-image:linear-gradient(to right,rgba(62,72,79,0.05) 1px,transparent 1px),linear-gradient(to bottom,rgba(62,72,79,0.05) 1px,transparent 1px);
+        background-size:24px 24px;
+    }
+    .text-glow { text-shadow:0 0 20px rgba(138,174,224,0.3); }
+
+    /* Page loader */
+    #page-loader { position:fixed;inset:0;z-index:9999;background:#060e20;display:flex;align-items:center;justify-content:center;transition:opacity 0.6s,visibility 0.6s; }
+    #page-loader.hidden-loader { opacity:0;visibility:hidden; }
+    .loader-pulse { animation:loaderPulse 1.2s ease-in-out infinite; }
+    @keyframes loaderPulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.5;transform:scale(0.95)} }
+
+    /* Nav scroll */
+    #main-nav { transition:background 0.3s,box-shadow 0.3s; }
+    #main-nav.scrolled { background:rgba(11,19,38,0.96)!important; backdrop-filter:blur(20px); box-shadow:0 1px 0 rgba(62,72,79,0.3); }
+
+    /* Mobile menu */
+    #mobile-menu { transform:translateX(100%); transition:transform 0.35s cubic-bezier(0.22,1,0.36,1); }
+    #mobile-menu.open { transform:translateX(0); }
+
+    /* Case study accordion */
+    .case-detail { max-height:0; overflow:hidden; transition:max-height 0.6s cubic-bezier(0.22,1,0.36,1); }
+    .case-detail.open { max-height:600px; }
+
+    /* Card hover */
+    .project-card { transition:all 0.5s cubic-bezier(0.22,1,0.36,1); }
+    .project-card:hover { transform:translateY(-6px); box-shadow:0 24px 70px rgba(98,142,203,0.12); }
+
+    /* Metric pill */
+    .metric-pill { display:inline-flex; align-items:center; gap:6px; padding:4px 12px; border-radius:100px; font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:0.1em; }
+
+    /* Star */
+    .star { color:#f59e0b; }
+
+    .btn-primary { position:relative; overflow:hidden; }
+    .btn-primary::after { content:'';position:absolute;inset:0;background:rgba(255,255,255,0.08);opacity:0;transition:opacity 0.2s; }
+    .btn-primary:hover::after { opacity:1; }
+
+      
+      /* ── FOOTER COLOR FIX ── */
+      html.light footer {
+        background-color: #060e20 !important;
+      }
+      html.light footer .text-\[\#628ECB\] {
+        color: #628ECB !important;
+      }
+      html.light footer .text-\[\#c2cde5\] {
+        color: #c2cde5 !important;
+      }
+      html.light footer a.hover\:text-\[\#8AAEE0\]:hover {
+        color: #8AAEE0 !important;
+      }
+      html.light footer .text-on-background,
+      html.light footer .text-on-surface,
+      html.light footer .text-on-primary,
+      html.light footer .text-on-secondary,
+      html.light footer .text-on-primary-container,
+      html.light footer .text-primary,
+      html.light footer .text-primary-container,
+      html.light footer .text-secondary,
+      html.light footer .text-tertiary,
+      html.light footer h1,
+      html.light footer h2,
+      html.light footer h3,
+      html.light footer h4 {
+        color: unset !important;
+      }
+      html.light footer .text-tertiary {
+        color: #c2cde5 !important;
+      }
+      html.light footer .text-secondary, 
+      html.light footer h4.text-secondary {
+        color: #4edea3 !important;
+      }
+      html.light footer h4 {
+        color: #4edea3 !important;
+      }
+      html.light footer a.hover\:text-secondary:hover {
+        color: #8aaee0 !important;
+      }
+      html.light footer span.text-primary-container {
+        color: #8aaee0 !important;
+      }
+
+    </style>
+</head>
+<body class="bg-background text-on-background font-body selection:bg-primary/30">
+
+<!-- PAGE LOADER -->
+<div id="page-loader">
+    <div class="loader-pulse text-center">
+        <span class="font-headline text-2xl font-bold tracking-tighter" style="background:linear-gradient(to right,#8AAEE0,#628ECB);-webkit-background-clip:text;-webkit-text-fill-color:transparent">Data Parse</span>
+    </div>
+</div>
+
+<!-- TOP NAV -->
+<nav id="main-nav" class="fixed top-0 w-full z-50 bg-[#131b2e]/95 flex justify-between items-center px-6 md:px-8 h-20">
+    <div class="flex items-center gap-10">
+        <a href="index.html" class="flex items-center gap-3">
+            <img src="logo.jpg" alt="Data Parse Logo" class="h-9 w-9 object-contain rounded-lg" style="filter:drop-shadow(0 0 8px rgba(98,142,203,0.5));">
+            <span class="font-headline text-xl font-bold tracking-tighter text-primary">Data Parse</span>
+        </a>
+        <div class="hidden md:flex items-center gap-7">
+            <a class="text-tertiary hover:text-[#628ECB] transition-colors font-body text-sm" href="index.html">Home</a>
+            <a class="text-tertiary hover:text-[#628ECB] transition-colors font-body text-sm" href="about.html">About</a>
+            <a class="text-[#628ECB] border-b-2 border-[#628ECB] pb-1 font-bold font-body text-sm" href="work.html">Projects</a>
+            <a class="text-tertiary hover:text-[#628ECB] transition-colors font-body text-sm" href="schedule.html">Schedule</a>
+            <a class="text-tertiary hover:text-[#628ECB] transition-colors font-body text-sm" href="services.html">Resources</a>
+            <a class="text-tertiary hover:text-[#628ECB] transition-colors font-body text-sm" href="blog.html">Blog</a>
+        </div>
+    </div>
+    <div class="flex items-center gap-3">
+        <button id="theme-toggle" title="Toggle theme" class="w-9 h-9 rounded-lg border border-outline-variant/30 flex items-center justify-center text-tertiary hover:text-primary transition-all">
+            <span id="theme-icon" class="material-symbols-outlined text-lg">dark_mode</span>
+        </button>
+        <a href="join.html" class="hidden md:block btn-primary bg-gradient-to-br from-secondary to-primary-container text-on-secondary font-bold px-5 py-2.5 rounded-lg text-sm hover:scale-105 transition-all duration-300">
+            Join the Club
+        </a>
+        <button id="hamburger" class="md:hidden w-9 h-9 flex flex-col items-center justify-center gap-1.5">
+            <span class="w-6 h-0.5 bg-primary transition-all duration-300"></span>
+            <span class="w-6 h-0.5 bg-primary transition-all duration-300"></span>
+            <span class="w-6 h-0.5 bg-primary transition-all duration-300"></span>
+        </button>
+    </div>
+</nav>
+
+<!-- MOBILE MENU -->
+<div id="mobile-menu" class="fixed top-0 right-0 bottom-0 w-72 z-50 bg-[#050c18] border-l border-outline-variant/20 flex flex-col px-8 pt-24 pb-8 gap-6">
+    <button id="close-menu" class="absolute top-5 right-5 text-tertiary hover:text-primary"><span class="material-symbols-outlined">close</span></button>
+    <a class="text-tertiary hover:text-primary font-body text-lg border-b border-outline-variant/20 pb-4 transition-colors" href="index.html">Home</a>
+    <a class="text-tertiary hover:text-primary font-body text-lg border-b border-outline-variant/20 pb-4 transition-colors" href="about.html">About Us</a>
+    <a class="text-tertiary hover:text-primary font-body text-lg border-b border-outline-variant/20 pb-4 transition-colors" href="services.html">Services</a>
+    <a class="text-primary font-bold font-body text-lg border-b border-outline-variant/20 pb-4" href="work.html">Our Work</a>
+    <a class="text-tertiary hover:text-primary font-body text-lg border-b border-outline-variant/20 pb-4 transition-colors" href="blog.html">Blog</a>
+    <a href="index.html#lead-capture" class="mt-4 bg-gradient-to-br from-primary to-primary-container text-on-primary font-bold px-6 py-3 rounded-lg text-center">Get Started</a>
+</div>
+<div id="menu-overlay" class="fixed inset-0 z-40 bg-black/60 hidden"></div>
+
+<main class="pt-20 grid-bg min-h-screen">
+
+<!-- HERO -->
+<section class="px-6 md:px-8 py-24 max-w-7xl mx-auto">
+    <div class="flex flex-col md:flex-row items-end justify-between gap-8 mb-6">
+        <div class="max-w-2xl">
+            <span class="font-label text-secondary text-xs uppercase tracking-widest mb-4 block">Case Studies</span>
+            <h1 data-aos="zoom-in" class="font-headline text-5xl md:text-7xl font-bold tracking-tight text-on-surface leading-none text-glow">
+                Precision<br>Through Data.
+            </h1>
+        </div>
+        <div class="max-w-md pb-2">
+            <p class="text-tertiary text-lg leading-relaxed">We transform chaotic data into high-fidelity operational intelligence. Real problems, real solutions, measurable results.</p>
+        </div>
+    </div>
+    <!-- Quick stats bar -->
+    <div data-aos="fade-up" class="mt-12 glass-card rounded-xl p-6 grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+        <div>
+            <div class="font-headline text-3xl font-bold text-primary mb-1">40+</div>
+            <div class="text-[10px] uppercase tracking-widest text-tertiary">Fortune 500 Clients</div>
+        </div>
+        <div>
+            <div class="font-headline text-3xl font-bold text-secondary mb-1">$50M+</div>
+            <div class="text-[10px] uppercase tracking-widest text-tertiary">Client Savings</div>
+        </div>
+        <div>
+            <div class="font-headline text-3xl font-bold text-on-surface mb-1">500PB+</div>
+            <div class="text-[10px] uppercase tracking-widest text-tertiary">Data Processed</div>
+        </div>
+        <div>
+            <div class="font-headline text-3xl font-bold text-primary-container mb-1">99.9%</div>
+            <div class="text-[10px] uppercase tracking-widest text-tertiary">Uptime Delivery</div>
+        </div>
+    </div>
+</section>
+
+<!-- CASE STUDIES GRID -->
+<section class="px-6 md:px-8 pb-20 max-w-7xl mx-auto">
+
+    <!-- Case Study 1: Finance -->
+    <div data-aos="fade-up" class="project-card glass-card card-hover shimmer-card rounded-2xl overflow-hidden mb-8 border border-outline-variant/15">
+        <div class="grid md:grid-cols-5">
+            <!-- Image -->
+            <div class="md:col-span-2 relative min-h-[260px] overflow-hidden">
+                <div class="absolute inset-0 opacity-50" style="background-image:url('https://lh3.googleusercontent.com/aida-public/AB6AXuDPyoze3ipQ1RSkOjD-NYXBwI_V1lBoeBy97F7ni8_3siBu4fTsYmdL5CE3tHdwCw8tumn_bKKyefqh3mHozprZDfGf548EDdrcyKTkJhTd90Uoq85YCVgUYT5UUBBUAA31le_g1BsJtRT2sjyF793LQhlC6btvIvcttXWNrQ1GnUtQtzuQw-Jj7WR9OWoy3gLxJLyAPcv10MtOwrK3hzGLryH92v-gsdijeRgsniNwajA8VG5wWMZnaQuOsdUlzDwSBIQJbbpxLU8');background-size:cover;background-position:center;"></div>
+                <div class="absolute inset-0 bg-gradient-to-r from-transparent to-surface-container-low/80"></div>
+                <div class="absolute bottom-4 left-4 flex flex-col gap-2">
+                    <span class="metric-pill bg-primary/20 text-primary border border-primary/30">Finance</span>
+                    <span class="metric-pill bg-secondary/20 text-secondary border border-secondary/30">Tier-1 Bank</span>
+                </div>
+            </div>
+            <!-- Content -->
+            <div class="md:col-span-3 p-8 md:p-10 flex flex-col justify-between">
+                <div>
+                    <h2 class="font-headline text-2xl md:text-3xl font-bold text-on-surface mb-4">Streamlining Global Finance Data</h2>
+                    <div class="grid grid-cols-3 gap-4 mb-6">
+                        <div class="bg-surface-container-lowest rounded-xl p-3 text-center">
+                            <div class="text-primary font-headline font-bold text-2xl">-40%</div>
+                            <div class="text-[9px] uppercase text-tertiary tracking-widest mt-1">Latency</div>
+                        </div>
+                        <div class="bg-surface-container-lowest rounded-xl p-3 text-center">
+                            <div class="text-secondary font-headline font-bold text-2xl">1 src</div>
+                            <div class="text-[9px] uppercase text-tertiary tracking-widest mt-1">of truth</div>
+                        </div>
+                        <div class="bg-surface-container-lowest rounded-xl p-3 text-center">
+                            <div class="text-on-surface font-headline font-bold text-2xl">6 wks</div>
+                            <div class="text-[9px] uppercase text-tertiary tracking-widest mt-1">Delivery</div>
+                        </div>
+                    </div>
+                    <p class="text-tertiary text-sm leading-relaxed mb-6">Implementing a unified real-time processing engine for a Tier-1 investment bank, reducing latency by 40% and consolidating cross-border liquidity reporting into a single source of truth.</p>
+                </div>
+                <div class="flex items-center justify-between gap-4 flex-wrap">
+                    <button onclick="toggleCase('case1')" class="flex items-center gap-2 text-primary font-bold text-sm hover:gap-3 transition-all group">
+                        <span>View Full Case Study</span>
+                        <span id="case1-icon" class="material-symbols-outlined text-sm transition-transform">expand_more</span>
+                    </button>
+                    <div class="flex gap-1">
+                        <span class="star material-symbols-outlined text-sm" style="font-variation-settings:'FILL' 1">star</span>
+                        <span class="star material-symbols-outlined text-sm" style="font-variation-settings:'FILL' 1">star</span>
+                        <span class="star material-symbols-outlined text-sm" style="font-variation-settings:'FILL' 1">star</span>
+                        <span class="star material-symbols-outlined text-sm" style="font-variation-settings:'FILL' 1">star</span>
+                        <span class="star material-symbols-outlined text-sm" style="font-variation-settings:'FILL' 1">star</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Expandable Case Detail -->
+        <div id="case1" class="case-detail border-t border-outline-variant/15">
+            <div class="p-8 md:p-10 grid md:grid-cols-3 gap-8">
+                <div class="bg-surface-container rounded-xl p-6">
+                    <div class="flex items-center gap-2 mb-4">
+                        <span class="material-symbols-outlined text-error text-xl">warning</span>
+                        <h4 class="font-headline font-bold text-base">The Problem</h4>
+                    </div>
+                    <p class="text-tertiary text-sm leading-relaxed">The bank's 12 regional divisions operated entirely separate data stacks. Cross-border liquidity reporting took 3+ hours per day and was plagued by reconciliation errors costing millions in compliance fines.</p>
+                </div>
+                <div class="bg-surface-container rounded-xl p-6">
+                    <div class="flex items-center gap-2 mb-4">
+                        <span class="material-symbols-outlined text-primary text-xl">construction</span>
+                        <h4 class="font-headline font-bold text-base">Our Solution</h4>
+                    </div>
+                    <p class="text-tertiary text-sm leading-relaxed">We deployed a real-time Kafka-based streaming engine with a unified schema layer. All 12 regional feeds merged into one live dashboard with sub-second reconciliation and automated compliance alerts.</p>
+                </div>
+                <div class="bg-surface-container rounded-xl p-6">
+                    <div class="flex items-center gap-2 mb-4">
+                        <span class="material-symbols-outlined text-secondary text-xl">trending_up</span>
+                        <h4 class="font-headline font-bold text-base">The Results</h4>
+                    </div>
+                    <ul class="text-tertiary text-sm space-y-2">
+                        <li class="flex items-center gap-2"><span class="text-secondary">✓</span> 40% reduction in data latency</li>
+                        <li class="flex items-center gap-2"><span class="text-secondary">✓</span> $8M+ savings in compliance costs</li>
+                        <li class="flex items-center gap-2"><span class="text-secondary">✓</span> 3h → 4min reporting time</li>
+                        <li class="flex items-center gap-2"><span class="text-secondary">✓</span> 100% audit trail coverage</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="px-8 md:px-10 pb-6 italic text-sm text-tertiary border-t border-outline-variant/10 pt-6">
+                <span class="text-primary">"</span>Data Parse unified what 5 vendors failed to do in 2 years. The ROI was visible within the first quarter.<span class="text-primary">"</span>
+                <span class="ml-2 not-italic font-bold text-on-surface text-xs">— CTO, Tier-1 Investment Bank</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Case Study 2: Retail / Supply Chain -->
+    <div data-aos="fade-up" data-aos-delay="50" class="project-card glass-card card-hover shimmer-card rounded-2xl overflow-hidden mb-8 border border-outline-variant/15">
+        <div class="grid md:grid-cols-5">
+            <div class="md:col-span-2 relative min-h-[260px] overflow-hidden">
+                <div class="absolute inset-0 opacity-50" style="background-image:url('https://lh3.googleusercontent.com/aida-public/AB6AXuAKElD6bfIWWg39zl6sqO8Rng9NHLdtJ6RdAC4f4DrhmINXeZijqh08XkB_c3sD8eMBllgYlnbT6iwoct6OSUyurH3aLB3eJcrnaerAX5wragdL7OqFfxW6o8nFBL9ZAQ6ErDrWTo6q_k79XWBGCx_iuzXV75i3sYJvmsZZvuVD86NjBAkEFN-I_32o7kVu1pOqIoE1Ol8Jn6bp89fhT96kmVjbUMB4J5EqSWDGGhbDg22zRpmOo7LtEjLVIvIHiPpj-4R5a7m-ah8');background-size:cover;background-position:center;"></div>
+                <div class="absolute inset-0 bg-gradient-to-r from-transparent to-surface-container-low/80"></div>
+                <div class="absolute bottom-4 left-4 flex flex-col gap-2">
+                    <span class="metric-pill bg-secondary/20 text-secondary border border-secondary/30">Supply Chain</span>
+                    <span class="metric-pill bg-primary/20 text-primary border border-primary/30">E-Commerce</span>
+                </div>
+            </div>
+            <div class="md:col-span-3 p-8 md:p-10 flex flex-col justify-between">
+                <div>
+                    <h2 class="font-headline text-2xl md:text-3xl font-bold text-on-surface mb-4">Optimizing E-Commerce Supply Chains</h2>
+                    <div class="grid grid-cols-3 gap-4 mb-6">
+                        <div class="bg-surface-container-lowest rounded-xl p-3 text-center">
+                            <div class="text-secondary font-headline font-bold text-2xl">$12M</div>
+                            <div class="text-[9px] uppercase text-tertiary tracking-widest mt-1">Annual Savings</div>
+                        </div>
+                        <div class="bg-surface-container-lowest rounded-xl p-3 text-center">
+                            <div class="text-primary font-headline font-bold text-2xl">-28%</div>
+                            <div class="text-[9px] uppercase text-tertiary tracking-widest mt-1">Overstock</div>
+                        </div>
+                        <div class="bg-surface-container-lowest rounded-xl p-3 text-center">
+                            <div class="text-on-surface font-headline font-bold text-2xl">+18%</div>
+                            <div class="text-[9px] uppercase text-tertiary tracking-widest mt-1">Fill Rate</div>
+                        </div>
+                    </div>
+                    <p class="text-tertiary text-sm leading-relaxed mb-6">Predictive inventory modeling that saved a major retailer $12M in annual overhead through precision stock allocation and AI-powered demand forecasting.</p>
+                </div>
+                <button onclick="toggleCase('case2')" class="flex items-center gap-2 text-primary font-bold text-sm hover:gap-3 transition-all group w-fit">
+                    <span>View Full Case Study</span>
+                    <span id="case2-icon" class="material-symbols-outlined text-sm transition-transform">expand_more</span>
+                </button>
+            </div>
+        </div>
+        <div id="case2" class="case-detail border-t border-outline-variant/15">
+            <div class="p-8 md:p-10 grid md:grid-cols-3 gap-8">
+                <div class="bg-surface-container rounded-xl p-6">
+                    <div class="flex items-center gap-2 mb-4">
+                        <span class="material-symbols-outlined text-error text-xl">warning</span>
+                        <h4 class="font-headline font-bold text-base">The Problem</h4>
+                    </div>
+                    <p class="text-tertiary text-sm leading-relaxed">A top-20 global retailer was losing $12M per year to overstock and stockouts. Their legacy ERP gave 48-hour-old inventory data, making real-time decisions impossible.</p>
+                </div>
+                <div class="bg-surface-container rounded-xl p-6">
+                    <div class="flex items-center gap-2 mb-4">
+                        <span class="material-symbols-outlined text-primary text-xl">construction</span>
+                        <h4 class="font-headline font-bold text-base">Our Solution</h4>
+                    </div>
+                    <p class="text-tertiary text-sm leading-relaxed">We built a real-time inventory intelligence layer connecting POS, warehouse, and supplier APIs. An ML model predicted demand by SKU/region with 94% accuracy 30 days out.</p>
+                </div>
+                <div class="bg-surface-container rounded-xl p-6">
+                    <div class="flex items-center gap-2 mb-4">
+                        <span class="material-symbols-outlined text-secondary text-xl">trending_up</span>
+                        <h4 class="font-headline font-bold text-base">The Results</h4>
+                    </div>
+                    <ul class="text-tertiary text-sm space-y-2">
+                        <li class="flex items-center gap-2"><span class="text-secondary">✓</span> $12M in annual overhead saved</li>
+                        <li class="flex items-center gap-2"><span class="text-secondary">✓</span> 28% reduction in overstock</li>
+                        <li class="flex items-center gap-2"><span class="text-secondary">✓</span> 18% improvement in fill rates</li>
+                        <li class="flex items-center gap-2"><span class="text-secondary">✓</span> 94% demand forecast accuracy</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="px-8 md:px-10 pb-6 italic text-sm text-tertiary border-t border-outline-variant/10 pt-6">
+                <span class="text-primary">"</span>Their predictive model outperformed every tool we tried. We recouped the project cost in 8 weeks.<span class="text-primary">"</span>
+                <span class="ml-2 not-italic font-bold text-on-surface text-xs">— Thomas Kim, COO · RetailAI Global</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Case Study 3: Predictive Maintenance -->
+    <div data-aos="fade-up" data-aos-delay="100" class="project-card glass-card card-hover shimmer-card rounded-2xl overflow-hidden mb-8 border border-outline-variant/15">
+        <div class="grid md:grid-cols-5">
+            <div class="md:col-span-2 relative min-h-[260px] overflow-hidden bg-surface-container flex items-center justify-center">
+                <span class="material-symbols-outlined text-primary" style="font-size:80px;opacity:0.15">precision_manufacturing</span>
+                <div class="absolute bottom-4 left-4 flex flex-col gap-2">
+                    <span class="metric-pill bg-primary/20 text-primary border border-primary/30">Logistics</span>
+                    <span class="metric-pill bg-secondary/20 text-secondary border border-secondary/30">IoT / AI</span>
+                </div>
+            </div>
+            <div class="md:col-span-3 p-8 md:p-10 flex flex-col justify-between">
+                <div>
+                    <h2 class="font-headline text-2xl md:text-3xl font-bold text-on-surface mb-4">Predictive Maintenance AI</h2>
+                    <div class="grid grid-cols-3 gap-4 mb-6">
+                        <div class="bg-surface-container-lowest rounded-xl p-3 text-center">
+                            <div class="text-primary font-headline font-bold text-2xl">-22%</div>
+                            <div class="text-[9px] uppercase text-tertiary tracking-widest mt-1">Downtime</div>
+                        </div>
+                        <div class="bg-surface-container-lowest rounded-xl p-3 text-center">
+                            <div class="text-secondary font-headline font-bold text-2xl">48h</div>
+                            <div class="text-[9px] uppercase text-tertiary tracking-widest mt-1">Before Failure</div>
+                        </div>
+                        <div class="bg-surface-container-lowest rounded-xl p-3 text-center">
+                            <div class="text-on-surface font-headline font-bold text-2xl">+$4M</div>
+                            <div class="text-[9px] uppercase text-tertiary tracking-widest mt-1">Annual ROI</div>
+                        </div>
+                    </div>
+                    <p class="text-tertiary text-sm leading-relaxed mb-6">Reducing fleet downtime by 22% using IoT sensor integration and anomaly detection algorithms for a global shipping operator managing 800+ vessels.</p>
+                </div>
+                <button onclick="toggleCase('case3')" class="flex items-center gap-2 text-primary font-bold text-sm hover:gap-3 transition-all group w-fit">
+                    <span>View Full Case Study</span>
+                    <span id="case3-icon" class="material-symbols-outlined text-sm">expand_more</span>
+                </button>
+            </div>
+        </div>
+        <div id="case3" class="case-detail border-t border-outline-variant/15">
+            <div class="p-8 md:p-10 grid md:grid-cols-3 gap-8">
+                <div class="bg-surface-container rounded-xl p-6">
+                    <div class="flex items-center gap-2 mb-4">
+                        <span class="material-symbols-outlined text-error text-xl">warning</span>
+                        <h4 class="font-headline font-bold text-base">The Problem</h4>
+                    </div>
+                    <p class="text-tertiary text-sm leading-relaxed">Unplanned vessel breakdowns cost the client $18M/year. Maintenance was calendar-based, not condition-based, leading to 22% unnecessary downtime and expensive emergency repairs.</p>
+                </div>
+                <div class="bg-surface-container rounded-xl p-6">
+                    <div class="flex items-center gap-2 mb-4">
+                        <span class="material-symbols-outlined text-primary text-xl">construction</span>
+                        <h4 class="font-headline font-bold text-base">Our Solution</h4>
+                    </div>
+                    <p class="text-tertiary text-sm leading-relaxed">We built an IoT data pipeline pulling vibration, temperature, and pressure sensors from 800 vessels. An anomaly-detection model flagged failures 48 hours in advance with 91% precision.</p>
+                </div>
+                <div class="bg-surface-container rounded-xl p-6">
+                    <div class="flex items-center gap-2 mb-4">
+                        <span class="material-symbols-outlined text-secondary text-xl">trending_up</span>
+                        <h4 class="font-headline font-bold text-base">The Results</h4>
+                    </div>
+                    <ul class="text-tertiary text-sm space-y-2">
+                        <li class="flex items-center gap-2"><span class="text-secondary">✓</span> 22% reduction in fleet downtime</li>
+                        <li class="flex items-center gap-2"><span class="text-secondary">✓</span> $4M+ annual maintenance savings</li>
+                        <li class="flex items-center gap-2"><span class="text-secondary">✓</span> 48h advance failure detection</li>
+                        <li class="flex items-center gap-2"><span class="text-secondary">✓</span> 91% anomaly precision rate</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Case Study 4: Healthcare -->
+    <div data-aos="fade-up" data-aos-delay="150" class="project-card glass-card card-hover shimmer-card rounded-2xl overflow-hidden border border-outline-variant/15">
+        <div class="grid md:grid-cols-5">
+            <div class="md:col-span-2 relative min-h-[260px] overflow-hidden">
+                <div class="absolute inset-0 opacity-30" style="background-image:url('https://lh3.googleusercontent.com/aida-public/AB6AXuC-7Us5b2kPEgyFPqykHfuiAmGwLZhr7maFepNqRtHdlVhAf7OG6zncqKLh8gUliPbZ_XuPzeM9CQN6py68c4luzYjYHvaIt3fI67GJFGZz3yi7-ME9vIHu_upysuQCaT_L7CPtbb5H0Pq1cgw-FPX3MWNVnU_0Z3yfLtpHSt18qo6-Mhl_k9nfj_w9pUkq_x4pWE_zaDDj-NOP95nr7ZpSruW4M5esaO-szKemiY7PnNWlc9FB8iEmEKJq1tXFpRvlctOb6si0Fag');background-size:cover;background-position:center;"></div>
+                <div class="absolute inset-0 bg-gradient-to-r from-transparent to-surface-container-low/80"></div>
+                <div class="absolute bottom-4 left-4 flex flex-col gap-2">
+                    <span class="metric-pill bg-primary/20 text-primary border border-primary/30">Healthcare</span>
+                    <span class="metric-pill bg-secondary/20 text-secondary border border-secondary/30">40+ Facilities</span>
+                </div>
+            </div>
+            <div class="md:col-span-3 p-8 md:p-10 flex flex-col justify-between">
+                <div>
+                    <h2 class="font-headline text-2xl md:text-3xl font-bold text-on-surface mb-4">Patient Outcome Synthesis</h2>
+                    <div class="grid grid-cols-3 gap-4 mb-6">
+                        <div class="bg-surface-container-lowest rounded-xl p-3 text-center">
+                            <div class="text-secondary font-headline font-bold text-2xl">98.4%</div>
+                            <div class="text-[9px] uppercase text-tertiary tracking-widest mt-1">Data Integrity</div>
+                        </div>
+                        <div class="bg-surface-container-lowest rounded-xl p-3 text-center">
+                            <div class="text-primary font-headline font-bold text-2xl">1.2s</div>
+                            <div class="text-[9px] uppercase text-tertiary tracking-widest mt-1">Query Speed</div>
+                        </div>
+                        <div class="bg-surface-container-lowest rounded-xl p-3 text-center">
+                            <div class="text-on-surface font-headline font-bold text-2xl">40+</div>
+                            <div class="text-[9px] uppercase text-tertiary tracking-widest mt-1">Facilities</div>
+                        </div>
+                    </div>
+                    <p class="text-tertiary text-sm leading-relaxed mb-6">Aggregating fragmented EHR data across 40+ facilities to create a 360-degree patient view, improving diagnostic accuracy and reducing readmission rates by 19%.</p>
+                </div>
+                <button onclick="toggleCase('case4')" class="flex items-center gap-2 text-primary font-bold text-sm hover:gap-3 transition-all group w-fit">
+                    <span>View Full Case Study</span>
+                    <span id="case4-icon" class="material-symbols-outlined text-sm">expand_more</span>
+                </button>
+            </div>
+        </div>
+        <div id="case4" class="case-detail border-t border-outline-variant/15">
+            <div class="p-8 md:p-10 grid md:grid-cols-3 gap-8">
+                <div class="bg-surface-container rounded-xl p-6">
+                    <div class="flex items-center gap-2 mb-4">
+                        <span class="material-symbols-outlined text-error text-xl">warning</span>
+                        <h4 class="font-headline font-bold text-base">The Problem</h4>
+                    </div>
+                    <p class="text-tertiary text-sm leading-relaxed">Patient records were siloed across 40+ facilities using 7 different EHR systems. Doctors lacked a unified patient history, leading to duplicate tests, medication errors, and 19% preventable readmissions.</p>
+                </div>
+                <div class="bg-surface-container rounded-xl p-6">
+                    <div class="flex items-center gap-2 mb-4">
+                        <span class="material-symbols-outlined text-primary text-xl">construction</span>
+                        <h4 class="font-headline font-bold text-base">Our Solution</h4>
+                    </div>
+                    <p class="text-tertiary text-sm leading-relaxed">We built a HIPAA-compliant data mesh that unified all 7 EHR formats into a single patient timeline. Real-time clinical alerts and a physician dashboard gave instant 360° visibility.</p>
+                </div>
+                <div class="bg-surface-container rounded-xl p-6">
+                    <div class="flex items-center gap-2 mb-4">
+                        <span class="material-symbols-outlined text-secondary text-xl">trending_up</span>
+                        <h4 class="font-headline font-bold text-base">The Results</h4>
+                    </div>
+                    <ul class="text-tertiary text-sm space-y-2">
+                        <li class="flex items-center gap-2"><span class="text-secondary">✓</span> 19% drop in readmission rates</li>
+                        <li class="flex items-center gap-2"><span class="text-secondary">✓</span> 98.4% cross-facility data integrity</li>
+                        <li class="flex items-center gap-2"><span class="text-secondary">✓</span> 1.2s average query response time</li>
+                        <li class="flex items-center gap-2"><span class="text-secondary">✓</span> HIPAA + SOC2 compliant on day 1</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="px-8 md:px-10 pb-6 italic text-sm text-tertiary border-t border-outline-variant/10 pt-6">
+                <span class="text-primary">"</span>For the first time, our physicians see a patient's full history in one screen. It's transforming how we practice medicine.<span class="text-primary">"</span>
+                <span class="ml-2 not-italic font-bold text-on-surface text-xs">— Dr. Sofia Rahman, VP Engineering · MediCore Systems</span>
+            </div>
+        </div>
+    </div>
+
+</section>
+
+<!-- CTA -->
+<section class="py-28 px-8 max-w-5xl mx-auto text-center">
+    <div class="glass-card rounded-2xl p-12 relative overflow-hidden">
+        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-full h-0.5 bg-gradient-to-r from-transparent via-primary to-transparent"></div>
+        <h2 data-aos="fade-up" class="font-headline text-4xl md:text-5xl font-bold mb-6 text-on-surface">Ready to be our next case study?</h2>
+        <p class="text-tertiary text-lg mb-10 max-w-xl mx-auto">Our specialists are ready to architect your high-precision data future.</p>
+        <div class="flex flex-col sm:flex-row justify-center gap-4">
+            <a href="index.html#lead-capture" class="btn-primary bg-primary-container text-on-primary-container px-8 py-4 rounded-xl font-bold hover:scale-105 transition-all">
+                Start Your Project
+            </a>
+            <a href="services.html" class="glass-card text-on-surface px-8 py-4 rounded-xl font-bold border border-outline-variant/30 hover:bg-surface-container-highest transition-all">
+                View Services
+            </a>
+        </div>
+    </div>
+</section>
+</main>
+
+<!-- FOOTER -->
+<footer class="bg-[#050c18] w-full pt-16 pb-10 border-t border-[#3e484f]/15">
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-10 px-8 max-w-7xl mx-auto">
+        <div>
+            <span class="text-lg font-bold text-[#628ECB] font-headline mb-4 block">Data Parse</span>
+            <p class="text-tertiary text-sm leading-relaxed">Precision through data. Building the future of automated intelligence.</p>
+        </div>
+        <div>
+            <h4 class="font-body text-xs uppercase tracking-widest text-[#628ECB] font-bold mb-5">Platform</h4>
+            <ul class="space-y-3">
+                <li><a class="text-tertiary text-xs hover:text-secondary transition-colors" href="services.html">Services</a></li>
+                <li><a class="text-tertiary text-xs hover:text-secondary transition-colors" href="work.html">Our Work</a></li>
+                <li><a class="text-tertiary text-xs hover:text-secondary transition-colors" href="blog.html">Blog</a></li>
+            </ul>
+        </div>
+        <div>
+            <h4 class="font-body text-xs uppercase tracking-widest text-[#628ECB] font-bold mb-5">Connect</h4>
+            <ul class="space-y-3">
+                <li><a class="text-tertiary text-xs hover:text-secondary transition-colors" href="https://web.facebook.com/profile.php?id=61575740000776" target="_blank" rel="noopener">Facebook</a></li>
+                <li><a class="text-tertiary text-xs hover:text-secondary transition-colors" href="https://www.linkedin.com/company/data-parsee/" target="_blank" rel="noopener">LinkedIn</a></li>
+                <li><a class="text-tertiary text-xs hover:text-secondary transition-colors" href="https://t.me/DataparseEt" target="_blank" rel="noopener">Telegram</a></li>
+                <li><a class="text-tertiary text-xs hover:text-secondary transition-colors" href="https://github.com/DataParse-git" target="_blank" rel="noopener">GitHub</a></li>
+                <li><a class="text-tertiary text-xs hover:text-secondary transition-colors" href="mailto:dataparsee@gmail.com">Email Us</a></li>
+            </ul>
+        </div>
+        <div>
+            <h4 class="font-body text-xs uppercase tracking-widest text-[#628ECB] font-bold mb-5">Legal</h4>
+            <ul class="space-y-3">
+                <li><a class="text-tertiary text-xs hover:text-secondary transition-colors" href="#">Privacy Policy</a></li>
+                <li><a class="text-tertiary text-xs hover:text-secondary transition-colors" href="#">Terms of Service</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="mt-12 px-8 text-center">
+        <p class="font-body text-[10px] uppercase tracking-widest text-tertiary opacity-50">© 2026 Data Parse. Precision through data.</p>
+    </div>
+</footer>
+
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script src="animations.js" defer></script>
+<script>
+// Loader
+window.addEventListener('load', () => { setTimeout(() => document.getElementById('page-loader').classList.add('hidden-loader'), 700); });
+
+// AOS
+AOS.init({ duration: 900, once: true, easing: 'ease-out-quart', offset: 80 });
+
+// Nav scroll
+const nav = document.getElementById('main-nav');
+window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 50));
+
+// Theme
+const themeToggle = document.getElementById('theme-toggle');
+const themeIcon = document.getElementById('theme-icon');
+let isDark = localStorage.getItem('theme') !== 'light';
+function applyTheme() {
+    document.documentElement.classList.toggle('dark', isDark);
+    document.documentElement.classList.toggle('light', !isDark);
+    themeIcon.textContent = isDark ? 'dark_mode' : 'light_mode';
+}
+applyTheme();
+themeToggle.addEventListener('click', () => { isDark = !isDark; localStorage.setItem('theme', isDark ? 'dark' : 'light'); applyTheme(); });
+
+// Mobile menu
+const hamburger = document.getElementById('hamburger');
+const mobileMenu = document.getElementById('mobile-menu');
+const closeMenu = document.getElementById('close-menu');
+const menuOverlay = document.getElementById('menu-overlay');
+hamburger.addEventListener('click', () => { mobileMenu.classList.add('open'); menuOverlay.classList.remove('hidden'); document.body.style.overflow = 'hidden'; });
+function closeFn() { mobileMenu.classList.remove('open'); menuOverlay.classList.add('hidden'); document.body.style.overflow = ''; }
+closeMenu.addEventListener('click', closeFn);
+menuOverlay.addEventListener('click', closeFn);
+
+// Case study accordion
+function toggleCase(id) {
+    const el = document.getElementById(id);
+    const icon = document.getElementById(id + '-icon');
+    const isOpen = el.classList.contains('open');
+    document.querySelectorAll('.case-detail.open').forEach(d => { d.classList.remove('open'); });
+    document.querySelectorAll('.material-symbols-outlined[id$="-icon"]').forEach(i => { i.textContent = 'expand_more'; i.style.transform = ''; });
+    if (!isOpen) {
+        el.classList.add('open');
+        icon.textContent = 'expand_less';
+    }
+}
+</script>
+</body>
+</html>
