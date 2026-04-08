@@ -152,28 +152,23 @@
   }
 
   /* ── 8. ANIMATED STAT COUNTERS ── */
-  const statEls = document.querySelectorAll(
-    ".font-headline.text-2xl.font-bold, .font-headline.text-4xl.font-bold"
-  );
-  function parseNum(txt) {
-    const n = parseFloat(txt.replace(/[^0-9.]/g, ""));
-    return isNaN(n) ? null : n;
-  }
+  const statEls = document.querySelectorAll(".count-up");
   const statObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (!entry.isIntersecting) return;
       const el = entry.target;
-      const orig = el.textContent.trim();
-      const num = parseNum(orig);
-      if (num === null) return;
-      const suffix = orig.replace(/[0-9.]/g, "");
-      let start = 0, dur = 1400, startTime = null;
+      const targetNum = parseFloat(el.getAttribute("data-target"));
+      if (isNaN(targetNum)) return;
+      const hasDecimals = targetNum % 1 !== 0;
+      let start = 0, dur = 2000, startTime = null;
       function animate(ts) {
         if (!startTime) startTime = ts;
         const pct = Math.min((ts - startTime) / dur, 1);
-        const ease = 1 - Math.pow(1 - pct, 3);
-        el.textContent = (num < 10 ? (ease * num).toFixed(0) : Math.round(ease * num)) + suffix;
+        const ease = 1 - Math.pow(1 - pct, 4); // Quartic ease out
+        const current = ease * targetNum;
+        el.textContent = hasDecimals ? current.toFixed(2) : Math.round(current);
         if (pct < 1) requestAnimationFrame(animate);
+        else el.textContent = hasDecimals ? targetNum.toFixed(2) : targetNum;
       }
       requestAnimationFrame(animate);
       statObserver.unobserve(el);

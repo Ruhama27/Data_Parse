@@ -24,55 +24,29 @@
         theme: {
           extend: {
             colors: {
-              "on-tertiary": "#263143",
-              "surface-container-high": "#222a3d",
-              "on-secondary": "#0d1b35",
-              background: "#080f1e",
-              "on-background": "#F0F3FA",
-              "on-tertiary-fixed-variant": "#3c475a",
-              "surface-tint": "#7bd0ff",
-              "on-secondary-fixed-variant": "#005236",
-              "on-primary-fixed": "#001e2c",
-              "tertiary-fixed-dim": "#bcc7de",
-              "surface-variant": "#1f3a6d",
-              "inverse-surface": "#dae2fd",
-              "primary-fixed": "#c4e7ff",
-              "on-secondary-fixed": "#002113",
-              "inverse-primary": "#00668a",
-              "secondary-container": "#00a572",
-              "on-primary-fixed-variant": "#004c69",
-              "on-surface-variant": "#bdc8d1",
-              primary: "#8AAEE0",
-              "surface-container-lowest": "#050c18",
-              "outline-variant": "#395886",
-              tertiary: "#B1C9EF",
-              "surface-container-low": "#0e1f3a",
-              "primary-fixed-dim": "#7bd0ff",
-              "surface-dim": "#0b1326",
-              "tertiary-container": "#a7b2c9",
-              "primary-container": "#628ECB",
-              surface: "#080f1e",
-              "inverse-on-surface": "#283044",
-              "surface-container": "#12274a",
-              "secondary-fixed-dim": "#8AAEE0",
-              "on-error": "#690005",
-              "on-surface": "#F0F3FA",
-              "on-error-container": "#ffdad6",
-              "error-container": "#93000a",
-              "surface-container-highest": "#1f3a6d",
-              error: "#ffb4ab",
-              "tertiary-fixed": "#d8e3fb",
-              "on-primary": "#080f1e",
-              "on-tertiary-fixed": "#111c2d",
-              "on-primary-container": "#F0F3FA",
-              "on-secondary-container": "#00311f",
-              "on-tertiary-container": "#394458",
-              outline: "#87929a",
-              "secondary-fixed": "#6ffbbe",
-              "surface-bright": "#31394d",
-              secondary: "#D5DEEF",
-            },
-            fontFamily: {
+            background: "var(--background)",
+            "on-background": "var(--on-background)",
+            surface: "var(--surface)",
+            "surface-container-lowest": "#050505",
+            "surface-container-low": "#0A0A0A",
+            "surface-container": "#111111",
+            "surface-container-high": "#18181A",
+            "surface-container-highest": "#222224",
+            "surface-variant": "#222224",
+            "on-surface": "var(--on-surface)",
+            primary: "#E2E8F0",
+            "on-primary": "#000000",
+            "primary-container": "#FFFFFF",
+            "on-primary-container": "#000000",
+            secondary: "#A1A1AA",
+            "on-secondary": "#000000",
+            tertiary: "#71717A",
+            outline: "#27272A",
+            "outline-variant": "#18181B",
+            accent: "#00E5FF",
+            accent2: "#8b5cf6"
+          },
+          fontFamily: {
               headline: ["Space Grotesk"],
               body: ["Inter"],
               label: ["Inter"],
@@ -90,20 +64,39 @@
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
     <link href="animations.css" rel="stylesheet" />
     <style>
+    :root {
+      --background: #D5DEEF;
+      --on-background: #050505;
+      --surface: #000000;
+      --on-surface: #EDEDED;
+    }
+    html.dark {
+      --background: #000000;
+      --on-background: #EDEDED;
+      --surface: #000000;
+      --on-surface: #EDEDED;
+    }
+    html.light {
+      --background: #D5DEEF;
+      --on-background: #050505;
+      --surface: #D5DEEF;
+      --on-surface: #050505;
+    }
+
       /* Logo — never use mix-blend-mode so it's visible in both modes */
       .logo-img { mix-blend-mode: normal; }
       html.light .logo-img { filter: drop-shadow(0 0 6px rgba(98,142,203,0.4)) !important; }
 
       /* Member card modal animation */
       .member-modal-card {
-        background: #0e1f3a;
+        background: var(--surface);
         transform: translateY(40px) scale(0.92);
         opacity: 0;
         transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.4s ease;
       }
       html.light .member-modal-card {
-        background: #f0f4ff;
-        border: 1px solid rgba(98,142,203,0.2);
+        background: var(--background);
+        border: 1px solid rgba(255, 255, 255, 0.05);
       }
       .member-modal-card.modal-in {
         transform: translateY(0) scale(1);
@@ -142,14 +135,8 @@
         -webkit-backdrop-filter: blur(8px) !important;
       }
 
-      html.light body {
-        background-color: #f0f4ff !important;
-        color: #0b1326 !important;
-      }
-      html.light .glass-card {
-        background: rgba(255, 255, 255, 0.75);
-        border-top-color: rgba(98, 142, 203, 0.2);
-      }
+      
+      
       html.light #main-nav {
         background: rgba(240, 244, 255, 0.96) !important;
         border-bottom: 1px solid rgba(98, 142, 203, 0.12);
@@ -169,13 +156,13 @@
         background-color: #e8edf8 !important;
         border-top-color: rgba(98, 142, 203, 0.25) !important;
       }
-      html.light footer .text-\[\#628ECB\] {
+      html.light footer .text-\[\#52525b\] {
         color: #1e4a8a !important;
       }
       html.light footer .text-\[\#c2cde5\] {
         color: #2d3a5a !important;
       }
-      html.light footer a.hover\:text-\[\#8AAEE0\]:hover {
+      html.light footer a.hover\:text-\[\#a1a1aa\]:hover {
         color: #00668a !important;
       }
       html.light footer span.text-primary-container {
@@ -184,7 +171,7 @@
 
       /* ── Light mode: hero section ── */
       html.light header h1 {
-        color: #0b1326 !important;
+        color: #050505 !important;
       }
       html.light header span.text-primary-container {
         color: #2056a8 !important;
@@ -193,7 +180,7 @@
         color: #3a4a6b !important;
       }
       html.light header .bg-primary-container {
-        background-color: #628ecb !important;
+        background-color: #52525b !important;
       }
 
       /* ── Light mode: bento / stat cards ── */
@@ -214,7 +201,7 @@
       html.light section h2,
       html.light section h3,
       html.light section h4 {
-        color: #0b1326 !important;
+        color: #050505 !important;
       }
       html.light section p.text-tertiary,
       html.light section span.text-tertiary {
@@ -233,7 +220,7 @@
       /* ── Light mode: mobile menu ── */
       html.light #mobile-menu {
         background-color: #f0f4ff !important;
-        border-color: rgba(98, 142, 203, 0.2) !important;
+        border-color: rgba(255, 255, 255, 0.05) !important;
       }
       html.light #mobile-menu a {
         color: #2d3a5a !important;
@@ -248,27 +235,38 @@
       html.light #page-loader {
         background: #f0f4ff !important;
       }
-      body {
-        background-color: #080f1e;
-        color: #dae2fd;
-        font-family: "Inter", sans-serif;
-        transition:
-          background 0.4s,
-          color 0.4s;
-      }
-      .glass-card {
-        background: rgba(18, 39, 74, 0.7);
-        backdrop-filter: blur(20px);
-        border: 1px solid rgba(57, 88, 134, 0.4);
-      }
+      
+      
+      
+    body {
+      background-color: var(--background) !important;
+      color: var(--on-background) !important;
+      transition: background 0.4s, color 0.4s;
+    }
+    html.dark .glass-card {
+      background: rgba(255, 255, 255, 0.02) !important;
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border: 1px solid rgba(255, 255, 255, 0.08) !important;
+    }
+    html.light .glass-card {
+      background: rgba(255, 255, 255, 0.7) !important;
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border: 1px solid rgba(0, 0, 0, 0.05) !important;
+    }
+
+      
+      
+
       .grid-bg {
         background-image:
-          linear-gradient(rgba(62, 72, 79, 0.05) 1px, transparent 1px),
-          linear-gradient(90deg, rgba(62, 72, 79, 0.05) 1px, transparent 1px);
-        background-size: 24px 24px;
+          linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+        background-size: 32px 32px;
       }
       .text-glow {
-        text-shadow: 0 0 15px rgba(98, 142, 203, 0.3);
+        text-shadow: 0 0 20px rgba(255, 255, 255, 0.15);
       }
       .material-symbols-outlined {
         font-variation-settings:
@@ -281,7 +279,7 @@
         position: fixed;
         inset: 0;
         z-index: 9999;
-        background: #060e20;
+        background: #000000;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -312,11 +310,7 @@
           background 0.3s,
           box-shadow 0.3s;
       }
-      #main-nav.scrolled {
-        background: rgba(11, 19, 38, 0.96) !important;
-        backdrop-filter: blur(20px);
-        box-shadow: 0 1px 0 rgba(62, 72, 79, 0.3);
-      }
+      #main-nav.scrolled { background: rgba(0, 0, 0, 0.8) !important; backdrop-filter: blur(20px); border-bottom: 1px solid rgba(255, 255, 255, 0.05); }
       #mobile-menu {
         transform: translateX(100%);
         transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
@@ -345,20 +339,20 @@
       html.light footer {
         background-color: #060e20 !important;
       }
-      html.light footer .text-\[\#628ECB\] {
-        color: #628ECB !important;
+      html.light footer .text-\[\#52525b\] {
+        color: #52525b !important;
       }
       html.light footer .text-\[\#c2cde5\] {
         color: #c2cde5 !important;
       }
-      html.light footer a.hover\:text-\[\#8AAEE0\]:hover {
-        color: #8AAEE0 !important;
+      html.light footer a.hover\:text-\[\#a1a1aa\]:hover {
+        color: #a1a1aa !important;
       }
       html.light footer .text-on-background,
       html.light footer .text-on-surface,
-      html.light footer .text-on-primary,
-      html.light footer .text-on-secondary,
-      html.light footer .text-on-primary-container,
+      html.light footer .text-white,
+      html.light footer .text-white,
+      html.light footer .text-white-container,
       html.light footer .text-primary,
       html.light footer .text-primary-container,
       html.light footer .text-secondary,
@@ -380,12 +374,113 @@
         color: #4edea3 !important;
       }
       html.light footer a.hover\:text-secondary:hover {
-        color: #8aaee0 !important;
+        color: #a1a1aa !important;
       }
       html.light footer span.text-primary-container {
-        color: #8aaee0 !important;
+        color: #a1a1aa !important;
       }
 
+    
+    html.light #main-nav a { 
+      color: #1e293b !important; 
+    }
+    html.light #main-nav a.text-\[\#38bdf8\] {
+      color: #0284c7 !important;
+      border-bottom-color: #0284c7 !important;
+    }
+    
+    /* Dark Mode Content Pass - Brighten zinc colors for readability */
+    html.dark .text-zinc-400 { color: #cbd5e1 !important; } /* zinc-400 -> slate-300 */
+    html.dark .text-zinc-300 { color: #f1f5f9 !important; } /* zinc-300 -> slate-100 */
+    html.dark .text-zinc-500 { color: #94a3b8 !important; } /* zinc-500 -> slate-400 */
+    
+    /* High contrast headers in Dark Mode */
+    html.dark h1, html.dark h2, html.dark h3, html.dark h4 { 
+      color: #ffffff !important; 
+    }
+    
+    /* Button Text Fixes in Light Mode */
+    html.light .btn-primary { 
+      color: #ffffff !important; 
+      background: linear-gradient(to bottom right, #0F172A, #334155) !important;
+    }
+    html.light .btn-secondary, 
+    html.light a.border-secondary\/40 {
+      color: #0F172A !important;
+      border-color: #0F172A !important;
+    }
+    
+    /* Glass card adjustment - darker border in dark mode for definition */
+    html.dark .glass-card {
+      border: 1px solid rgba(255, 255, 255, 0.12) !important;
+    }
+    
+    /* --- Perfect Contrast Fixes --- */
+    html.light #main-nav a { 
+      color: #0f172a !important; 
+      font-weight: 500;
+    }
+    html.light #main-nav a.text-\[\#38bdf8\] {
+      color: #0284c7 !important;
+      border-bottom-color: #0284c7 !important;
+      font-weight: 700;
+    }
+    
+    /* Nav Button Light Mode visibility */
+    html.light #main-nav a.btn-primary {
+      background: #0f172a !important;
+      color: #ffffff !important;
+      box-shadow: 0 4px 12px rgba(15, 23, 42, 0.15) !important;
+    }
+    
+    /* Hero Typing Text Light Mode */
+    html.light #typing-word {
+      color: #0f172a !important;
+      -webkit-text-fill-color: #0f172a !important;
+      text-shadow: none !important;
+    }
+    
+    /* Solutions Matrix legibility */
+    html.light .glass-card {
+      background: #ffffff !important;
+      border: 1px solid #e2e8f0 !important;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04) !important;
+    }
+    html.light .glass-card p {
+      color: #334155 !important;
+    }
+    html.light .glass-card h3, 
+    html.light .glass-card h4 {
+      color: #0f172a !important;
+    }
+    
+    /* Tech Badges in Light Mode */
+    html.light .glass-card .tech-badge {
+      background: #f1f5f9 !important;
+      color: #475569 !important;
+      border: 1px solid #cbd5e1 !important;
+    }
+    
+    /* Dark Mode Content Pass - Slate-300 for readability */
+    html.dark .glass-card p { color: #cbd5e1 !important; } 
+    html.dark .glass-card h3, 
+    html.dark .glass-card h4 { color: #ffffff !important; }
+    
+    /* CTA Section Fix - Start Your Project Visibility */
+    html.light a.btn-primary {
+      color: #ffffff !important;
+    }
+    html.light a.border-secondary\/40 {
+      color: #0f172a !important;
+      border-color: #0f172a !important;
+      background: rgba(15, 23, 42, 0.05) !important;
+    }
+
+    /* Partner Testimonials Header visibility in Dark Mode */
+    html.dark h2, html.dark h3 {
+      color: #ffffff !important;
+      opacity: 1 !important;
+    }
     </style>
   </head>
   <body class="bg-background selection:bg-primary/30 overflow-x-hidden">
@@ -395,7 +490,7 @@
         <span
           class="font-headline text-2xl font-bold tracking-tighter"
           style="
-            background: linear-gradient(to right, #8aaee0, #628ecb);
+            background: linear-gradient(to right, #ffffff, #a1a1aa);
             -webkit-background-clip: text;
             background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -407,7 +502,7 @@
     <!-- NAV -->
     <nav
       id="main-nav"
-      class="fixed top-0 w-full z-50 bg-[#080f1e]/90 flex justify-between items-center px-6 md:px-8 h-20"
+      class="fixed top-0 w-full z-50 bg-[#000000]/90 flex justify-between items-center px-6 md:px-8 h-20"
     >
       <div class="flex items-center gap-10">
         <a href="index.html" class="flex items-center gap-3">
@@ -415,7 +510,7 @@
             src="logo.jpg"
             alt="Data Parse Logo"
             class="h-9 w-9 object-contain rounded-lg logo-img"
-            style="filter: drop-shadow(0 0 8px rgba(98, 142, 203, 0.5));"
+            style="filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.15));"
           />
           <span
             class="font-headline text-xl font-bold tracking-tighter text-primary"
@@ -424,32 +519,32 @@
         </a>
         <div class="hidden md:flex items-center gap-7 text-sm">
           <a
-            class="text-tertiary hover:text-[#628ECB] transition-colors font-body"
+            class="text-tertiary hover:text-zinc-100 transition-colors font-body"
             href="index.html"
             >Home</a
           >
           <a
-            class="text-[#628ECB] border-b-2 border-[#628ECB] pb-1 font-bold font-body"
+            class="text-zinc-100 border-b-2 border-zinc-100 pb-1 font-bold font-body"
             href="about.html"
             >About</a
           >
           <a
-            class="text-tertiary hover:text-[#628ECB] transition-colors font-body"
+            class="text-tertiary hover:text-zinc-100 transition-colors font-body"
             href="work.html"
             >Projects</a
           >
           <a
-            class="text-tertiary hover:text-[#628ECB] transition-colors font-body"
+            class="text-tertiary hover:text-zinc-100 transition-colors font-body"
             href="schedule.html"
             >Schedule</a
           >
           <a
-            class="text-tertiary hover:text-[#628ECB] transition-colors font-body"
+            class="text-tertiary hover:text-zinc-100 transition-colors font-body"
             href="services.html"
             >Resources</a
           >
           <a
-            class="text-tertiary hover:text-[#628ECB] transition-colors font-body"
+            class="text-tertiary hover:text-zinc-100 transition-colors font-body"
             href="blog.html"
             >Blog</a
           >
@@ -467,8 +562,8 @@
         </button>
         <a
           href="join.html"
-          class="hidden md:block btn-primary bg-gradient-to-br from-secondary to-primary-container text-on-secondary px-5 py-2.5 rounded-lg font-bold text-sm hover:scale-105 transition-all"
-          >Join the Club</a
+          class="hidden md:block btn-primary bg-gradient-to-br from-secondary to-primary-container text-white px-5 py-2.5 rounded-lg font-bold text-sm hover:scale-[1.02] transition-all"
+          >Partner With Us</a
         >
         <button
           id="hamburger"
@@ -483,7 +578,7 @@
     <!-- MOBILE MENU -->
     <div
       id="mobile-menu"
-      class="fixed top-0 right-0 bottom-0 w-72 z-50 bg-[#050c18] border-l border-outline-variant/20 flex flex-col px-8 pt-24 pb-8 gap-6"
+      class="fixed top-0 right-0 bottom-0 w-72 z-50 bg-[#050505] border-l border-outline-variant/20 flex flex-col px-8 pt-24 pb-8 gap-6"
     >
       <button
         id="close-menu"
@@ -518,7 +613,7 @@
       >
       <a
         href="index.html#lead-capture"
-        class="mt-4 bg-gradient-to-br from-primary to-primary-container text-on-primary font-bold px-6 py-3 rounded-lg text-center"
+        class="mt-4 bg-gradient-to-br from-primary to-primary-container text-white font-bold px-6 py-3 rounded-lg text-center"
         >Get Started</a
       >
     </div>
@@ -547,26 +642,26 @@
           </p>
         </div>
         <!-- Right: logo display -->
-        <div class="logo-display-container flex-shrink-0 flex items-center justify-center relative transition-all duration-700 hover:scale-105" style="min-width:320px;">
+        <div class="logo-display-container flex-shrink-0 flex items-center justify-center relative transition-all duration-700 hover:scale-[1.02]" style="min-width:320px;">
           <!-- Outer glow ring -->
           <div class="ring-cw absolute w-80 h-80 rounded-full bg-primary-container/10 blur-2xl animate-pulse pointer-events-none"></div>
           <!-- Mid ring -->
           <div class="ring-ccw absolute w-72 h-72 rounded-full border border-primary-container/20"></div>
           <!-- Inner card -->
           <div class="inner-card relative w-56 h-56 rounded-3xl flex items-center justify-center shadow-2xl logo-shimmer"
-               style="background: linear-gradient(135deg, rgba(18,39,74,0.95) 0%, rgba(14,31,58,0.98) 100%); border: 1px solid rgba(98,142,203,0.3); box-shadow: 0 0 60px rgba(98,142,203,0.2), inset 0 0 30px rgba(98,142,203,0.1);">
+               style="background: linear-gradient(135deg, rgba(18,39,74,0.95) 0%, rgba(14,31,58,0.98) 100%); border: 1px solid rgba(98,142,203,0.3); box-shadow: 0 0 60px rgba(255, 255, 255, 0.05), inset 0 0 30px rgba(255, 255, 255, 0.02);">
             <img
               src="logo.jpg"
               alt="Data Parse Logo"
               class="w-32 h-32 object-contain rounded-2xl"
-              style="filter: drop-shadow(0 0 20px rgba(98,142,203,0.8)) drop-shadow(0 0 8px rgba(98,142,203,0.5));"
+              style="filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.3)) drop-shadow(0 0 8px rgba(255, 255, 255, 0.15));"
             />
           </div>
           <!-- Orbiting dot decoration -->
           <div class="dot-orbit-1 absolute w-3 h-3 rounded-full bg-primary-container/70"
-               style="box-shadow:0 0 15px rgba(98,142,203,1);"></div>
+               style="box-shadow:0 0 15px rgba(255, 255, 255, 0.5);"></div>
           <div class="dot-orbit-2 absolute w-2 h-2 rounded-full bg-secondary/60"
-               style="box-shadow:0 0 12px rgba(138,174,224,0.8);"></div>
+               style="box-shadow:0 0 12px rgba(0, 229, 255, 0.4);"></div>
           <!-- Label -->
           <div class="absolute -bottom-10 left-1/2 -translate-x-1/2 text-center">
             <span class="font-headline text-sm font-bold tracking-widest text-primary-container/80 uppercase">Data Parse</span>
@@ -796,7 +891,7 @@
               <div class="absolute inset-0 bg-gradient-to-t from-background to-transparent opacity-60"></div>
               <!-- Hover overlay cta -->
               <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300">
-                <span class="bg-primary-container/90 text-on-primary-container text-xs font-bold px-4 py-2 rounded-full flex items-center gap-1">
+                <span class="bg-primary-container/90 text-white-container text-xs font-bold px-4 py-2 rounded-full flex items-center gap-1">
                   <span class="material-symbols-outlined text-sm">info</span> View Profile
                 </span>
               </div>
@@ -816,7 +911,7 @@
               />
               <div class="absolute inset-0 bg-gradient-to-t from-background to-transparent opacity-60"></div>
               <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300">
-                <span class="bg-primary-container/90 text-on-primary-container text-xs font-bold px-4 py-2 rounded-full flex items-center gap-1">
+                <span class="bg-primary-container/90 text-white-container text-xs font-bold px-4 py-2 rounded-full flex items-center gap-1">
                   <span class="material-symbols-outlined text-sm">info</span> View Profile
                 </span>
               </div>
@@ -836,7 +931,7 @@
               />
               <div class="absolute inset-0 bg-gradient-to-t from-background to-transparent opacity-60"></div>
               <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300">
-                <span class="bg-primary-container/90 text-on-primary-container text-xs font-bold px-4 py-2 rounded-full flex items-center gap-1">
+                <span class="bg-primary-container/90 text-white-container text-xs font-bold px-4 py-2 rounded-full flex items-center gap-1">
                   <span class="material-symbols-outlined text-sm">info</span> View Profile
                 </span>
               </div>
@@ -856,7 +951,7 @@
               />
               <div class="absolute inset-0 bg-gradient-to-t from-background to-transparent opacity-60"></div>
               <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300">
-                <span class="bg-primary-container/90 text-on-primary-container text-xs font-bold px-4 py-2 rounded-full flex items-center gap-1">
+                <span class="bg-primary-container/90 text-white-container text-xs font-bold px-4 py-2 rounded-full flex items-center gap-1">
                   <span class="material-symbols-outlined text-sm">info</span> View Profile
                 </span>
               </div>
@@ -869,17 +964,17 @@
     </section>
     <!-- Footer -->
     <footer
-      class="bg-[#050c18] dark:bg-[#050c18] w-full pt-20 pb-10 border-t border-[#3e484f]/15"
+      class="bg-[#050505] dark:bg-[#050505] w-full pt-20 pb-10 border-t border-[#27272a]/15"
     >
       <div
         class="grid grid-cols-1 md:grid-cols-4 gap-12 px-8 max-w-7xl mx-auto"
       >
         <div class="flex flex-col gap-6">
-          <div class="text-lg font-bold text-[#628ECB] font-['Space_Grotesk']">
+          <div class="text-lg font-bold text-zinc-100 font-['Space_Grotesk']">
             Data Parse
           </div>
           <p
-            class="font-['Inter'] text-xs uppercase tracking-widest text-[#c2cde5] leading-loose"
+            class="font-['Inter'] text-xs uppercase tracking-widest text-zinc-400 leading-loose"
           >
             © 2026 Data Parse. Precision through data.
           </p>
@@ -891,12 +986,12 @@
           >
           <nav class="flex flex-col gap-3">
             <a
-              class="font-['Inter'] text-xs uppercase tracking-widest text-[#c2cde5] hover:text-[#8AAEE0] transition-colors"
+              class="font-['Inter'] text-xs uppercase tracking-widest text-zinc-400 hover:text-zinc-300 transition-colors"
               href="#"
               >Privacy Policy</a
             >
             <a
-              class="font-['Inter'] text-xs uppercase tracking-widest text-[#c2cde5] hover:text-[#8AAEE0] transition-colors"
+              class="font-['Inter'] text-xs uppercase tracking-widest text-zinc-400 hover:text-zinc-300 transition-colors"
               href="#"
               >Terms of Service</a
             >
@@ -909,18 +1004,18 @@
           >
           <nav class="flex flex-col gap-3">
             <a
-              class="font-['Inter'] text-xs uppercase tracking-widest text-[#c2cde5] hover:text-[#8AAEE0] transition-colors"
+              class="font-['Inter'] text-xs uppercase tracking-widest text-zinc-400 hover:text-zinc-300 transition-colors"
               href="mailto:dataparsee@gmail.com"
               >Email Us</a
             >
             <a
-              class="font-['Inter'] text-xs uppercase tracking-widest text-[#c2cde5] hover:text-[#8AAEE0] transition-colors"
+              class="font-['Inter'] text-xs uppercase tracking-widest text-zinc-400 hover:text-zinc-300 transition-colors"
               href="https://www.linkedin.com/company/data-parsee/"
               target="_blank" rel="noopener"
               >LinkedIn</a
             >
             <a
-              class="font-['Inter'] text-xs uppercase tracking-widest text-[#c2cde5] hover:text-[#8AAEE0] transition-colors"
+              class="font-['Inter'] text-xs uppercase tracking-widest text-zinc-400 hover:text-zinc-300 transition-colors"
               href="https://t.me/DataparseEt"
               target="_blank" rel="noopener"
               >Telegram</a
@@ -934,13 +1029,13 @@
           >
           <nav class="flex flex-col gap-3">
             <a
-              class="font-['Inter'] text-xs uppercase tracking-widest text-[#c2cde5] hover:text-[#8AAEE0] transition-colors"
+              class="font-['Inter'] text-xs uppercase tracking-widest text-zinc-400 hover:text-zinc-300 transition-colors"
               href="https://web.facebook.com/profile.php?id=61575740000776"
               target="_blank" rel="noopener"
               >Facebook</a
             >
             <a
-              class="font-['Inter'] text-xs uppercase tracking-widest text-[#c2cde5] hover:text-[#8AAEE0] transition-colors"
+              class="font-['Inter'] text-xs uppercase tracking-widest text-zinc-400 hover:text-zinc-300 transition-colors"
               href="https://github.com/DataParse-git"
               target="_blank" rel="noopener"
               >GitHub</a
@@ -1009,36 +1104,36 @@
           role: "Founder",
           location: "Debre Birhan, Ethiopia",
           img: "download(9).jpeg",
-          bio: "Surafel is the visionary behind Data Parse. With a passion for data-driven innovation, he co-founded the club to bridge the gap between raw data and meaningful insight for students and professionals alike.",
+          bio: "Surafel is the visionary behind Data Parse. With a passion for data-driven innovation, he co-founded the firm to bridge the gap between raw data and meaningful insight for global enterprises.",
           skills: ["Leadership", "Strategy", "Python", "Data Architecture", "Project Management"],
-          fact: "Surafel once stayed up 36 hours straight to finish a data pipeline that cut reporting time from 3 hours to 4 minutes."
+          fact: "Surafel once stayed up 36 hours straight to build a data pipeline that cut corporate reporting time from 3 hours to 4 minutes."
         },
         rita: {
           name: "Rita Techale",
           role: "Founder & Data Scientist",
           location: "Debre Birhan, Ethiopia",
           img: "download(9).jpeg",
-          bio: "Rita specializes in turning complex datasets into clear, actionable stories. She leads the club's data science workshops and mentors members through hands-on machine learning projects.",
+          bio: "Rita specializes in turning complex datasets into clear, actionable stories. She leads the agency's data science division and mentors our analysts through enterprise machine learning projects.",
           skills: ["Machine Learning", "Python", "Pandas", "Data Visualization", "Statistics"],
-          fact: "Rita built her first predictive model at age 17 — it predicted Ethiopian coffee harvest yields with 89% accuracy."
+          fact: "Rita built her first enterprise predictive model at age 17 — it predicted Ethiopian coffee harvest yields with 89% accuracy."
         },
         breket: {
           name: "Breket Getaw",
           role: "Founder & AI Developer",
           location: "Debre Birhan, Ethiopia",
           img: "download(9).jpeg",
-          bio: "Breket drives the AI and automation side of Data Parse. He designs intelligent data pipelines and leads the club's AI development track, helping members build real-world intelligent systems.",
+          bio: "Breket drives the AI and automation execution at Data Parse. He designs intelligent data pipelines and leads the firm's AI development track, helping deploy real-world autonomous systems.",
           skills: ["AI Development", "Deep Learning", "TensorFlow", "Python", "Data Engineering"],
-          fact: "Breket is building an open-source Amharic NLP toolkit in his spare time to bring AI to Ethiopian-language applications."
+          fact: "Breket is building an open-source Amharic NLP toolkit to bring AI to Ethiopian-language applications."
         },
         dagimawi: {
           name: "Nahom",
           role: "Founder",
           location: "Debre Birhan, Ethiopia",
           img: "download(9).jpeg",
-          bio: "Nahom brings the operational backbone to Data Parse. He coordinates club activities, manages partnerships, and ensures every member has the resources they need to learn and grow.",
+          bio: "Nahom brings the operational backbone to Data Parse. He coordinates agency deployments, manages global partnerships, and ensures every client project has the technological runway to scale.",
           skills: ["Operations", "Communication", "SQL", "Excel", "Data Analysis"],
-          fact: "Nahom organized Data Parse's first hackathon in just 4 days, landing 40+ participants and 3 winning projects."
+          fact: "Nahom organized Data Parse's first corporate sprint in just 4 days, landing 40+ contractors and 3 scalable implementations."
         }
       };
 

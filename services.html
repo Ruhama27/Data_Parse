@@ -14,55 +14,29 @@
         theme: {
           extend: {
             colors: {
-              "on-tertiary": "#263143",
-              "surface-container-high": "#222a3d",
-              "on-secondary": "#0d1b35",
-              "background": "#080f1e",
-              "on-background": "#F0F3FA",
-              "on-tertiary-fixed-variant": "#3c475a",
-              "surface-tint": "#7bd0ff",
-              "on-secondary-fixed-variant": "#005236",
-              "on-primary-fixed": "#001e2c",
-              "tertiary-fixed-dim": "#bcc7de",
-              "surface-variant": "#1f3a6d",
-              "inverse-surface": "#dae2fd",
-              "primary-fixed": "#c4e7ff",
-              "on-secondary-fixed": "#002113",
-              "inverse-primary": "#00668a",
-              "secondary-container": "#00a572",
-              "on-primary-fixed-variant": "#004c69",
-              "on-surface-variant": "#bdc8d1",
-              "primary": "#8AAEE0",
-              "surface-container-lowest": "#050c18",
-              "outline-variant": "#395886",
-              "tertiary": "#B1C9EF",
-              "surface-container-low": "#0e1f3a",
-              "primary-fixed-dim": "#7bd0ff",
-              "surface-dim": "#0b1326",
-              "tertiary-container": "#a7b2c9",
-              "primary-container": "#628ECB",
-              "surface": "#080f1e",
-              "inverse-on-surface": "#283044",
-              "surface-container": "#12274a",
-              "secondary-fixed-dim": "#8AAEE0",
-              "on-error": "#690005",
-              "on-surface": "#F0F3FA",
-              "on-error-container": "#ffdad6",
-              "error-container": "#93000a",
-              "surface-container-highest": "#1f3a6d",
-              "error": "#ffb4ab",
-              "tertiary-fixed": "#d8e3fb",
-              "on-primary": "#080f1e",
-              "on-tertiary-fixed": "#111c2d",
-              "on-primary-container": "#F0F3FA",
-              "on-secondary-container": "#00311f",
-              "on-tertiary-container": "#394458",
-              "outline": "#87929a",
-              "secondary-fixed": "#6ffbbe",
-              "surface-bright": "#31394d",
-              "secondary": "#D5DEEF"
-            },
-            fontFamily: {
+            background: "var(--background)",
+            "on-background": "var(--on-background)",
+            surface: "var(--surface)",
+            "surface-container-lowest": "#050505",
+            "surface-container-low": "#0A0A0A",
+            "surface-container": "#111111",
+            "surface-container-high": "#18181A",
+            "surface-container-highest": "#222224",
+            "surface-variant": "#222224",
+            "on-surface": "var(--on-surface)",
+            primary: "#E2E8F0",
+            "on-primary": "#000000",
+            "primary-container": "#FFFFFF",
+            "on-primary-container": "#000000",
+            secondary: "#A1A1AA",
+            "on-secondary": "#000000",
+            tertiary: "#71717A",
+            outline: "#27272A",
+            "outline-variant": "#18181B",
+            accent: "#00E5FF",
+            accent2: "#8b5cf6"
+          },
+          fontFamily: {
               "headline": ["Space Grotesk"],
               "body": ["Inter"],
               "label": ["Inter"]
@@ -75,21 +49,68 @@
 <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 <link href="animations.css" rel="stylesheet">
 <style>
-  html.light body { background-color:#f0f4ff!important; color:#0b1326!important; }
-  html.light .glass-card { background:rgba(255,255,255,0.75); border-top-color:rgba(98,142,203,0.2); }
+    :root {
+      --background: #D5DEEF;
+      --on-background: #050505;
+      --surface: #000000;
+      --on-surface: #EDEDED;
+    }
+    html.dark {
+      --background: #000000;
+      --on-background: #EDEDED;
+      --surface: #000000;
+      --on-surface: #EDEDED;
+    }
+    html.light {
+      --background: #D5DEEF;
+      --on-background: #050505;
+      --surface: #D5DEEF;
+      --on-surface: #050505;
+    }
+
+      
+      
+      
+    body {
+      background-color: var(--background) !important;
+      color: var(--on-background) !important;
+      transition: background 0.4s, color 0.4s;
+    }
+    html.dark .glass-card {
+      background: rgba(255, 255, 255, 0.02) !important;
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border: 1px solid rgba(255, 255, 255, 0.08) !important;
+    }
+    html.light .glass-card {
+      background: rgba(255, 255, 255, 0.7) !important;
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border: 1px solid rgba(0, 0, 0, 0.05) !important;
+    }
+
+      
+      
+
+      .grid-bg {
+        background-image:
+          linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+        background-size: 32px 32px;
+      }
+      .text-glow {
+        text-shadow: 0 0 20px rgba(255, 255, 255, 0.15);
+      }
   html.light #main-nav { background:rgba(240,244,255,0.96)!important; border-bottom:1px solid rgba(98,142,203,0.12); }
   html.light .text-tertiary { color:#4a5568; }
   html.light .bg-surface-container-low { background-color:#e2eaf8; }
-  body { background-color:#080f1e; color:#dae2fd; font-family:'Inter',sans-serif; transition:background 0.4s,color 0.4s; }
-  .glass-card { background:rgba(18,39,74,0.7); backdrop-filter:blur(20px); border-top:0.5px solid rgba(196,231,255,0.1); }
-  .grid-bg { background-image:linear-gradient(to right,rgba(62,72,79,0.05) 1px,transparent 1px),linear-gradient(to bottom,rgba(62,72,79,0.05) 1px,transparent 1px); background-size:24px 24px; }
   .material-symbols-outlined { font-variation-settings:'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 24; }
-  #page-loader { position:fixed;inset:0;z-index:9999;background:#060e20;display:flex;align-items:center;justify-content:center;transition:opacity 0.6s,visibility 0.6s; }
+  #page-loader { position:fixed;inset:0;z-index:9999;background: #000000;display:flex;align-items:center;justify-content:center;transition:opacity 0.6s,visibility 0.6s; }
   #page-loader.hidden-loader { opacity:0;visibility:hidden; }
   .loader-pulse { animation:loaderPulse 1.2s ease-in-out infinite; }
   @keyframes loaderPulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.5;transform:scale(0.95)} }
   #main-nav { transition:background 0.3s,box-shadow 0.3s; }
-  #main-nav.scrolled { background:rgba(11,19,38,0.96)!important; backdrop-filter:blur(20px); box-shadow:0 1px 0 rgba(62,72,79,0.3); }
+  #main-nav.scrolled { background: rgba(0, 0, 0, 0.8) !important; backdrop-filter: blur(20px); border-bottom: 1px solid rgba(255, 255, 255, 0.05); }
   #mobile-menu { transform:translateX(100%); transition:transform 0.35s cubic-bezier(0.22,1,0.36,1); }
   #mobile-menu.open { transform:translateX(0); }
   .shimmer-card { position:relative; overflow:hidden; }
@@ -104,20 +125,20 @@
       html.light footer {
         background-color: #060e20 !important;
       }
-      html.light footer .text-\[\#628ECB\] {
-        color: #628ECB !important;
+      html.light footer .text-\[\#52525b\] {
+        color: #52525b !important;
       }
       html.light footer .text-\[\#c2cde5\] {
         color: #c2cde5 !important;
       }
-      html.light footer a.hover\:text-\[\#8AAEE0\]:hover {
-        color: #8AAEE0 !important;
+      html.light footer a.hover\:text-\[\#a1a1aa\]:hover {
+        color: #a1a1aa !important;
       }
       html.light footer .text-on-background,
       html.light footer .text-on-surface,
-      html.light footer .text-on-primary,
-      html.light footer .text-on-secondary,
-      html.light footer .text-on-primary-container,
+      html.light footer .text-white,
+      html.light footer .text-white,
+      html.light footer .text-white-container,
       html.light footer .text-primary,
       html.light footer .text-primary-container,
       html.light footer .text-secondary,
@@ -139,52 +160,153 @@
         color: #4edea3 !important;
       }
       html.light footer a.hover\:text-secondary:hover {
-        color: #8aaee0 !important;
+        color: #a1a1aa !important;
       }
       html.light footer span.text-primary-container {
-        color: #8aaee0 !important;
+        color: #a1a1aa !important;
       }
 
+    
+    html.light #main-nav a { 
+      color: #1e293b !important; 
+    }
+    html.light #main-nav a.text-\[\#38bdf8\] {
+      color: #0284c7 !important;
+      border-bottom-color: #0284c7 !important;
+    }
+    
+    /* Dark Mode Content Pass - Brighten zinc colors for readability */
+    html.dark .text-zinc-400 { color: #cbd5e1 !important; } /* zinc-400 -> slate-300 */
+    html.dark .text-zinc-300 { color: #f1f5f9 !important; } /* zinc-300 -> slate-100 */
+    html.dark .text-zinc-500 { color: #94a3b8 !important; } /* zinc-500 -> slate-400 */
+    
+    /* High contrast headers in Dark Mode */
+    html.dark h1, html.dark h2, html.dark h3, html.dark h4 { 
+      color: #ffffff !important; 
+    }
+    
+    /* Button Text Fixes in Light Mode */
+    html.light .btn-primary { 
+      color: #ffffff !important; 
+      background: linear-gradient(to bottom right, #0F172A, #334155) !important;
+    }
+    html.light .btn-secondary, 
+    html.light a.border-secondary\/40 {
+      color: #0F172A !important;
+      border-color: #0F172A !important;
+    }
+    
+    /* Glass card adjustment - darker border in dark mode for definition */
+    html.dark .glass-card {
+      border: 1px solid rgba(255, 255, 255, 0.12) !important;
+    }
+    
+    /* --- Perfect Contrast Fixes --- */
+    html.light #main-nav a { 
+      color: #0f172a !important; 
+      font-weight: 500;
+    }
+    html.light #main-nav a.text-\[\#38bdf8\] {
+      color: #0284c7 !important;
+      border-bottom-color: #0284c7 !important;
+      font-weight: 700;
+    }
+    
+    /* Nav Button Light Mode visibility */
+    html.light #main-nav a.btn-primary {
+      background: #0f172a !important;
+      color: #ffffff !important;
+      box-shadow: 0 4px 12px rgba(15, 23, 42, 0.15) !important;
+    }
+    
+    /* Hero Typing Text Light Mode */
+    html.light #typing-word {
+      color: #0f172a !important;
+      -webkit-text-fill-color: #0f172a !important;
+      text-shadow: none !important;
+    }
+    
+    /* Solutions Matrix legibility */
+    html.light .glass-card {
+      background: #ffffff !important;
+      border: 1px solid #e2e8f0 !important;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04) !important;
+    }
+    html.light .glass-card p {
+      color: #334155 !important;
+    }
+    html.light .glass-card h3, 
+    html.light .glass-card h4 {
+      color: #0f172a !important;
+    }
+    
+    /* Tech Badges in Light Mode */
+    html.light .glass-card .tech-badge {
+      background: #f1f5f9 !important;
+      color: #475569 !important;
+      border: 1px solid #cbd5e1 !important;
+    }
+    
+    /* Dark Mode Content Pass - Slate-300 for readability */
+    html.dark .glass-card p { color: #cbd5e1 !important; } 
+    html.dark .glass-card h3, 
+    html.dark .glass-card h4 { color: #ffffff !important; }
+    
+    /* CTA Section Fix - Start Your Project Visibility */
+    html.light a.btn-primary {
+      color: #ffffff !important;
+    }
+    html.light a.border-secondary\/40 {
+      color: #0f172a !important;
+      border-color: #0f172a !important;
+      background: rgba(15, 23, 42, 0.05) !important;
+    }
+
+    /* Partner Testimonials Header visibility in Dark Mode */
+    html.dark h2, html.dark h3 {
+      color: #ffffff !important;
+      opacity: 1 !important;
+    }
     </style>
 </head>
 <body class="bg-background text-on-background font-body selection:bg-primary/30">
 <!-- PAGE LOADER -->
-<div id="page-loader"><div class="loader-pulse text-center"><span class="font-headline text-2xl font-bold tracking-tighter" style="background:linear-gradient(to right,#8AAEE0,#628ECB);-webkit-background-clip:text;-webkit-text-fill-color:transparent">Data Parse</span></div></div>
+<div id="page-loader"><div class="loader-pulse text-center"><span class="font-headline text-2xl font-bold tracking-tighter" style="background:linear-gradient(to right,#a1a1aa,#52525b);-webkit-background-clip:text;-webkit-text-fill-color:transparent">Data Parse</span></div></div>
 <!-- NAV -->
-<nav id="main-nav" class="fixed top-0 w-full z-50 bg-[#080f1e]/90 flex justify-between items-center px-6 md:px-8 h-20">
+<nav id="main-nav" class="fixed top-0 w-full z-50 bg-[#000000]/90 flex justify-between items-center px-6 md:px-8 h-20">
 <div class="flex items-center gap-10">
   <a href="index.html" class="flex items-center gap-3">
-    <img src="logo.jpg" alt="Data Parse Logo" class="h-9 w-9 object-contain rounded-lg" style="filter:drop-shadow(0 0 8px rgba(98,142,203,0.5));">
+    <img src="logo.jpg" alt="Data Parse Logo" class="h-9 w-9 object-contain rounded-lg" style="filter:drop-shadow(0 0 8px rgba(255, 255, 255, 0.15));">
     <span class="font-headline text-xl font-bold tracking-tighter text-primary">Data Parse</span>
   </a>
   <div class="hidden md:flex gap-7 items-center">
-    <a class="text-tertiary hover:text-[#628ECB] transition-colors font-body text-sm" href="index.html">Home</a>
-    <a class="text-tertiary hover:text-[#628ECB] transition-colors font-body text-sm" href="about.html">About</a>
-    <a class="text-tertiary hover:text-[#628ECB] transition-colors font-body text-sm" href="work.html">Projects</a>
-    <a class="text-tertiary hover:text-[#628ECB] transition-colors font-body text-sm" href="schedule.html">Schedule</a>
-    <a class="text-[#628ECB] border-b-2 border-[#628ECB] pb-1 font-bold font-body text-sm" href="services.html">Resources</a>
-    <a class="text-tertiary hover:text-[#628ECB] transition-colors font-body text-sm" href="blog.html">Blog</a>
+    <a class="text-tertiary hover:text-zinc-100 transition-colors font-body text-sm" href="index.html">Home</a>
+    <a class="text-tertiary hover:text-zinc-100 transition-colors font-body text-sm" href="about.html">About</a>
+    <a class="text-tertiary hover:text-zinc-100 transition-colors font-body text-sm" href="work.html">Projects</a>
+    <a class="text-tertiary hover:text-zinc-100 transition-colors font-body text-sm" href="schedule.html">Schedule</a>
+    <a class="text-zinc-100 border-b-2 border-zinc-100 pb-1 font-bold font-body text-sm" href="services.html">Resources</a>
+    <a class="text-tertiary hover:text-zinc-100 transition-colors font-body text-sm" href="blog.html">Blog</a>
   </div>
 </div>
 <div class="flex items-center gap-3">
   <button id="theme-toggle" title="Toggle theme" class="w-9 h-9 rounded-lg border border-outline-variant/30 flex items-center justify-center text-tertiary hover:text-primary transition-all">
     <span id="theme-icon" class="material-symbols-outlined text-lg">dark_mode</span>
   </button>
-  <a href="join.html" class="hidden md:block btn-primary bg-gradient-to-br from-secondary to-primary-container text-on-secondary font-bold px-5 py-2.5 rounded-lg text-sm hover:scale-105 transition-all duration-300">Join the Club</a>
+  <a href="join.html" class="hidden md:block btn-primary bg-gradient-to-br from-secondary to-primary-container text-white font-bold px-5 py-2.5 rounded-lg text-sm hover:scale-[1.02] transition-all duration-300">Partner With Us</a>
   <button id="hamburger" class="md:hidden w-9 h-9 flex flex-col items-center justify-center gap-1.5">
     <span class="w-6 h-0.5 bg-primary"></span><span class="w-6 h-0.5 bg-primary"></span><span class="w-6 h-0.5 bg-primary"></span>
   </button>
 </div>
 </nav>
 <!-- MOBILE MENU -->
-<div id="mobile-menu" class="fixed top-0 right-0 bottom-0 w-72 z-50 bg-[#050c18] border-l border-outline-variant/20 flex flex-col px-8 pt-24 pb-8 gap-6">
+<div id="mobile-menu" class="fixed top-0 right-0 bottom-0 w-72 z-50 bg-[#050505] border-l border-outline-variant/20 flex flex-col px-8 pt-24 pb-8 gap-6">
   <button id="close-menu" class="absolute top-5 right-5 text-tertiary hover:text-primary"><span class="material-symbols-outlined">close</span></button>
   <a class="text-tertiary hover:text-primary font-body text-lg border-b border-outline-variant/20 pb-4" href="index.html">Home</a>
   <a class="text-tertiary hover:text-primary font-body text-lg border-b border-outline-variant/20 pb-4" href="about.html">About Us</a>
   <a class="text-primary font-bold font-body text-lg border-b border-outline-variant/20 pb-4" href="services.html">Services</a>
   <a class="text-tertiary hover:text-primary font-body text-lg border-b border-outline-variant/20 pb-4" href="work.html">Our Work</a>
   <a class="text-tertiary hover:text-primary font-body text-lg border-b border-outline-variant/20 pb-4" href="blog.html">Blog</a>
-  <a href="index.html#lead-capture" class="mt-4 bg-gradient-to-br from-primary to-primary-container text-on-primary font-bold px-6 py-3 rounded-lg text-center">Get Started</a>
+  <a href="index.html#lead-capture" class="mt-4 bg-gradient-to-br from-primary to-primary-container text-white font-bold px-6 py-3 rounded-lg text-center">Get Started</a>
 </div>
 <div id="menu-overlay" class="fixed inset-0 z-40 bg-black/60 hidden"></div>
 <main class="pt-32 pb-20 grid-bg">
@@ -364,14 +486,14 @@
 <div class="max-w-2xl mx-auto">
 <h2 class="text-4xl font-headline font-bold text-on-surface mb-8 tracking-tight">Ready to observe your data differently?</h2>
 <div class="flex flex-col sm:flex-row gap-4 justify-center">
-<button class="bg-primary text-on-primary font-bold px-8 py-4 rounded-lg hover:bg-primary-container transition-colors font-['Inter']">Book a Technical Audit</button>
+<button class="bg-primary text-white font-bold px-8 py-4 rounded-lg hover:bg-primary-container transition-colors font-['Inter']">Book a Technical Audit</button>
 <button class="bg-transparent border border-outline-variant/30 text-on-surface font-bold px-8 py-4 rounded-lg hover:bg-surface-container-high transition-colors font-['Inter']">View API Docs</button>
 </div>
 </div>
 </section>
 </main>
 <!-- Footer -->
-<footer class="bg-[#050c18] w-full pt-20 pb-10 border-t border-[#3e484f]/15">
+<footer class="bg-[#050505] w-full pt-20 pb-10 border-t border-[#27272a]/15">
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <script src="animations.js" defer></script>
 <script>
@@ -396,43 +518,43 @@ menuOverlay.addEventListener('click', closeFn);
 </script>
 <div class="grid grid-cols-1 md:grid-cols-4 gap-12 px-8 max-w-7xl mx-auto">
 <div class="col-span-1">
-<span class="text-lg font-bold text-[#628ECB] font-['Space_Grotesk'] mb-6 block">Data Parse</span>
-<p class="text-[#c2cde5] font-['Inter'] text-xs leading-loose">
+<span class="text-lg font-bold text-zinc-100 font-['Space_Grotesk'] mb-6 block">Data Parse</span>
+<p class="text-zinc-400 font-['Inter'] text-xs leading-loose">
                     Precision through data. Building the next generation of observatories for the digital economy.
                 </p>
 </div>
 <div class="space-y-4">
-<span class="font-['Inter'] text-xs uppercase tracking-widest text-[#c2cde5] font-bold">Product</span>
+<span class="font-['Inter'] text-xs uppercase tracking-widest text-zinc-400 font-bold">Product</span>
 <ul class="space-y-2">
-<li><a class="text-[#c2cde5] hover:text-[#8AAEE0] transition-colors text-xs font-['Inter']" href="services.html">Services</a></li>
-<li><a class="text-[#c2cde5] hover:text-[#8AAEE0] transition-colors text-xs font-['Inter']" href="#">Integrations</a></li>
-<li><a class="text-[#c2cde5] hover:text-[#8AAEE0] transition-colors text-xs font-['Inter']" href="#">Security</a></li>
+<li><a class="text-zinc-400 hover:text-zinc-300 transition-colors text-xs font-['Inter']" href="services.html">Services</a></li>
+<li><a class="text-zinc-400 hover:text-zinc-300 transition-colors text-xs font-['Inter']" href="#">Integrations</a></li>
+<li><a class="text-zinc-400 hover:text-zinc-300 transition-colors text-xs font-['Inter']" href="#">Security</a></li>
 </ul>
 </div>
 <div class="space-y-4">
-<span class="font-['Inter'] text-xs uppercase tracking-widest text-[#c2cde5] font-bold">Company</span>
+<span class="font-['Inter'] text-xs uppercase tracking-widest text-zinc-400 font-bold">Company</span>
 <ul class="space-y-2">
-<li><a class="text-[#c2cde5] hover:text-[#8AAEE0] transition-colors text-xs font-['Inter']" href="about.html">About Us</a></li>
-<li><a class="text-[#c2cde5] hover:text-[#8AAEE0] transition-colors text-xs font-['Inter']" href="work.html">Our Work</a></li>
-<li><a class="text-[#c2cde5] hover:text-[#8AAEE0] transition-colors text-xs font-['Inter']" href="#">Contact Us</a></li>
+<li><a class="text-zinc-400 hover:text-zinc-300 transition-colors text-xs font-['Inter']" href="about.html">About Us</a></li>
+<li><a class="text-zinc-400 hover:text-zinc-300 transition-colors text-xs font-['Inter']" href="work.html">Our Work</a></li>
+<li><a class="text-zinc-400 hover:text-zinc-300 transition-colors text-xs font-['Inter']" href="#">Contact Us</a></li>
 </ul>
 </div>
 <div class="space-y-4">
-<span class="font-['Inter'] text-xs uppercase tracking-widest text-[#c2cde5] font-bold">Connect</span>
+<span class="font-['Inter'] text-xs uppercase tracking-widest text-zinc-400 font-bold">Connect</span>
 <ul class="space-y-2">
-<li><a class="text-[#c2cde5] hover:text-[#8AAEE0] transition-colors text-xs font-['Inter']" href="https://web.facebook.com/profile.php?id=61575740000776" target="_blank" rel="noopener">Facebook</a></li>
-<li><a class="text-[#c2cde5] hover:text-[#8AAEE0] transition-colors text-xs font-['Inter']" href="https://www.linkedin.com/company/data-parsee/" target="_blank" rel="noopener">LinkedIn</a></li>
-<li><a class="text-[#c2cde5] hover:text-[#8AAEE0] transition-colors text-xs font-['Inter']" href="https://t.me/DataparseEt" target="_blank" rel="noopener">Telegram</a></li>
-<li><a class="text-[#c2cde5] hover:text-[#8AAEE0] transition-colors text-xs font-['Inter']" href="https://github.com/DataParse-git" target="_blank" rel="noopener">GitHub</a></li>
-<li><a class="text-[#c2cde5] hover:text-[#8AAEE0] transition-colors text-xs font-['Inter']" href="mailto:dataparsee@gmail.com">Email Us</a></li>
+<li><a class="text-zinc-400 hover:text-zinc-300 transition-colors text-xs font-['Inter']" href="https://web.facebook.com/profile.php?id=61575740000776" target="_blank" rel="noopener">Facebook</a></li>
+<li><a class="text-zinc-400 hover:text-zinc-300 transition-colors text-xs font-['Inter']" href="https://www.linkedin.com/company/data-parsee/" target="_blank" rel="noopener">LinkedIn</a></li>
+<li><a class="text-zinc-400 hover:text-zinc-300 transition-colors text-xs font-['Inter']" href="https://t.me/DataparseEt" target="_blank" rel="noopener">Telegram</a></li>
+<li><a class="text-zinc-400 hover:text-zinc-300 transition-colors text-xs font-['Inter']" href="https://github.com/DataParse-git" target="_blank" rel="noopener">GitHub</a></li>
+<li><a class="text-zinc-400 hover:text-zinc-300 transition-colors text-xs font-['Inter']" href="mailto:dataparsee@gmail.com">Email Us</a></li>
 </ul>
 </div>
 </div>
-<div class="max-w-7xl mx-auto px-8 mt-20 pt-8 border-t border-[#3e484f]/10 flex flex-col md:flex-row justify-between items-center gap-4">
-<span class="text-[#c2cde5] font-['Inter'] text-[10px] uppercase tracking-widest">© 2026 Data Parse. Precision through data.</span>
+<div class="max-w-7xl mx-auto px-8 mt-20 pt-8 border-t border-[#27272a]/10 flex flex-col md:flex-row justify-between items-center gap-4">
+<span class="text-zinc-400 font-['Inter'] text-[10px] uppercase tracking-widest">© 2026 Data Parse. Precision through data.</span>
 <div class="flex gap-6">
-<a class="text-[#c2cde5] hover:text-[#8AAEE0] transition-colors text-[10px] uppercase tracking-widest" href="#">Privacy Policy</a>
-<a class="text-[#c2cde5] hover:text-[#8AAEE0] transition-colors text-[10px] uppercase tracking-widest" href="#">Terms of Service</a>
+<a class="text-zinc-400 hover:text-zinc-300 transition-colors text-[10px] uppercase tracking-widest" href="#">Privacy Policy</a>
+<a class="text-zinc-400 hover:text-zinc-300 transition-colors text-[10px] uppercase tracking-widest" href="#">Terms of Service</a>
 </div>
 </div>
 </footer>

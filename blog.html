@@ -16,41 +16,101 @@
         theme: {
             extend: {
                 colors: {
-                    "surface-container-high": "#222a3d", "background": "#080f1e", "on-background": "#F0F3FA",
-                    "surface-variant": "#1f3a6d", "primary": "#8AAEE0", "surface-container-lowest": "#050c18",
-                    "outline-variant": "#395886", "tertiary": "#B1C9EF", "surface-container-low": "#0e1f3a",
-                    "primary-container": "#628ECB", "surface": "#080f1e", "surface-container": "#12274a",
-                    "on-surface": "#F0F3FA", "surface-container-highest": "#1f3a6d",
-                    "on-primary": "#080f1e", "on-primary-container": "#F0F3FA", "secondary": "#D5DEEF", "on-secondary": "#0d1b35",
-                },
-                fontFamily: { "headline": ["Space Grotesk"], "body": ["Inter"], "label": ["Inter"] },
+            background: "var(--background)",
+            "on-background": "var(--on-background)",
+            surface: "var(--surface)",
+            "surface-container-lowest": "#050505",
+            "surface-container-low": "#0A0A0A",
+            "surface-container": "#111111",
+            "surface-container-high": "#18181A",
+            "surface-container-highest": "#222224",
+            "surface-variant": "#222224",
+            "on-surface": "var(--on-surface)",
+            primary: "#E2E8F0",
+            "on-primary": "#000000",
+            "primary-container": "#FFFFFF",
+            "on-primary-container": "#000000",
+            secondary: "#A1A1AA",
+            "on-secondary": "#000000",
+            tertiary: "#71717A",
+            outline: "#27272A",
+            "outline-variant": "#18181B",
+            accent: "#00E5FF",
+            accent2: "#8b5cf6"
+          },
+          fontFamily: { "headline": ["Space Grotesk"], "body": ["Inter"], "label": ["Inter"] },
                 borderRadius: {"DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem"},
             },
         },
     }
 </script>
 <style>
-    html.light body { background-color: #f0f4ff !important; color: #0b1326 !important; }
-    html.light .glass-card { background: rgba(255,255,255,0.75); border-top-color: rgba(98,142,203,0.2); }
+    :root {
+      --background: #D5DEEF;
+      --on-background: #050505;
+      --surface: #000000;
+      --on-surface: #EDEDED;
+    }
+    html.dark {
+      --background: #000000;
+      --on-background: #EDEDED;
+      --surface: #000000;
+      --on-surface: #EDEDED;
+    }
+    html.light {
+      --background: #D5DEEF;
+      --on-background: #050505;
+      --surface: #D5DEEF;
+      --on-surface: #050505;
+    }
+
+      
+      
+      
+    body {
+      background-color: var(--background) !important;
+      color: var(--on-background) !important;
+      transition: background 0.4s, color 0.4s;
+    }
+    html.dark .glass-card {
+      background: rgba(255, 255, 255, 0.02) !important;
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border: 1px solid rgba(255, 255, 255, 0.08) !important;
+    }
+    html.light .glass-card {
+      background: rgba(255, 255, 255, 0.7) !important;
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border: 1px solid rgba(0, 0, 0, 0.05) !important;
+    }
+
+      
+      
+
+      .grid-bg {
+        background-image:
+          linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+        background-size: 32px 32px;
+      }
+      .text-glow {
+        text-shadow: 0 0 20px rgba(255, 255, 255, 0.15);
+      }
     html.light #main-nav { background: rgba(240,244,255,0.96) !important; border-bottom: 1px solid rgba(98,142,203,0.12); }
     html.light .text-tertiary { color: #4a5568; }
     html.light .bg-surface-container-low { background-color: #e2eaf8; }
     html.light .bg-surface-container-lowest { background-color: #d4ddf5; }
     html.light .bg-surface-container { background-color: #e8effe; }
-
-    body { background-color:#080f1e; color:#dae2fd; font-family:'Inter',sans-serif; transition:background 0.4s,color 0.4s; }
     .material-symbols-outlined { font-variation-settings:'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 24; }
-    .glass-card { background:rgba(18,39,74,0.7); backdrop-filter:blur(20px); border:1px solid rgba(57,88,134,0.4); }
-    .grid-bg { background-image:linear-gradient(to right,rgba(62,72,79,0.05) 1px,transparent 1px),linear-gradient(to bottom,rgba(62,72,79,0.05) 1px,transparent 1px); background-size:24px 24px; }
-    .text-glow { text-shadow:0 0 20px rgba(138,174,224,0.3); }
 
-    #page-loader { position:fixed;inset:0;z-index:9999;background:#060e20;display:flex;align-items:center;justify-content:center;transition:opacity 0.6s,visibility 0.6s; }
+    #page-loader { position:fixed;inset:0;z-index:9999;background: #000000;display:flex;align-items:center;justify-content:center;transition:opacity 0.6s,visibility 0.6s; }
     #page-loader.hidden-loader { opacity:0;visibility:hidden; }
     .loader-pulse { animation:loaderPulse 1.2s ease-in-out infinite; }
     @keyframes loaderPulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.5;transform:scale(0.95)} }
 
     #main-nav { transition:background 0.3s,box-shadow 0.3s; }
-    #main-nav.scrolled { background:rgba(11,19,38,0.96)!important; backdrop-filter:blur(20px); box-shadow:0 1px 0 rgba(62,72,79,0.3); }
+    #main-nav.scrolled { background: rgba(0, 0, 0, 0.8) !important; backdrop-filter: blur(20px); border-bottom: 1px solid rgba(255, 255, 255, 0.05); }
 
     #mobile-menu { transform:translateX(100%); transition:transform 0.35s cubic-bezier(0.22,1,0.36,1); }
     #mobile-menu.open { transform:translateX(0); }
@@ -69,20 +129,20 @@
       html.light footer {
         background-color: #060e20 !important;
       }
-      html.light footer .text-\[\#628ECB\] {
-        color: #628ECB !important;
+      html.light footer .text-\[\#52525b\] {
+        color: #52525b !important;
       }
       html.light footer .text-\[\#c2cde5\] {
         color: #c2cde5 !important;
       }
-      html.light footer a.hover\:text-\[\#8AAEE0\]:hover {
-        color: #8AAEE0 !important;
+      html.light footer a.hover\:text-\[\#a1a1aa\]:hover {
+        color: #a1a1aa !important;
       }
       html.light footer .text-on-background,
       html.light footer .text-on-surface,
-      html.light footer .text-on-primary,
-      html.light footer .text-on-secondary,
-      html.light footer .text-on-primary-container,
+      html.light footer .text-white,
+      html.light footer .text-white,
+      html.light footer .text-white-container,
       html.light footer .text-primary,
       html.light footer .text-primary-container,
       html.light footer .text-secondary,
@@ -104,44 +164,145 @@
         color: #4edea3 !important;
       }
       html.light footer a.hover\:text-secondary:hover {
-        color: #8aaee0 !important;
+        color: #a1a1aa !important;
       }
       html.light footer span.text-primary-container {
-        color: #8aaee0 !important;
+        color: #a1a1aa !important;
       }
 
+    
+    html.light #main-nav a { 
+      color: #1e293b !important; 
+    }
+    html.light #main-nav a.text-\[\#38bdf8\] {
+      color: #0284c7 !important;
+      border-bottom-color: #0284c7 !important;
+    }
+    
+    /* Dark Mode Content Pass - Brighten zinc colors for readability */
+    html.dark .text-zinc-400 { color: #cbd5e1 !important; } /* zinc-400 -> slate-300 */
+    html.dark .text-zinc-300 { color: #f1f5f9 !important; } /* zinc-300 -> slate-100 */
+    html.dark .text-zinc-500 { color: #94a3b8 !important; } /* zinc-500 -> slate-400 */
+    
+    /* High contrast headers in Dark Mode */
+    html.dark h1, html.dark h2, html.dark h3, html.dark h4 { 
+      color: #ffffff !important; 
+    }
+    
+    /* Button Text Fixes in Light Mode */
+    html.light .btn-primary { 
+      color: #ffffff !important; 
+      background: linear-gradient(to bottom right, #0F172A, #334155) !important;
+    }
+    html.light .btn-secondary, 
+    html.light a.border-secondary\/40 {
+      color: #0F172A !important;
+      border-color: #0F172A !important;
+    }
+    
+    /* Glass card adjustment - darker border in dark mode for definition */
+    html.dark .glass-card {
+      border: 1px solid rgba(255, 255, 255, 0.12) !important;
+    }
+    
+    /* --- Perfect Contrast Fixes --- */
+    html.light #main-nav a { 
+      color: #0f172a !important; 
+      font-weight: 500;
+    }
+    html.light #main-nav a.text-\[\#38bdf8\] {
+      color: #0284c7 !important;
+      border-bottom-color: #0284c7 !important;
+      font-weight: 700;
+    }
+    
+    /* Nav Button Light Mode visibility */
+    html.light #main-nav a.btn-primary {
+      background: #0f172a !important;
+      color: #ffffff !important;
+      box-shadow: 0 4px 12px rgba(15, 23, 42, 0.15) !important;
+    }
+    
+    /* Hero Typing Text Light Mode */
+    html.light #typing-word {
+      color: #0f172a !important;
+      -webkit-text-fill-color: #0f172a !important;
+      text-shadow: none !important;
+    }
+    
+    /* Solutions Matrix legibility */
+    html.light .glass-card {
+      background: #ffffff !important;
+      border: 1px solid #e2e8f0 !important;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04) !important;
+    }
+    html.light .glass-card p {
+      color: #334155 !important;
+    }
+    html.light .glass-card h3, 
+    html.light .glass-card h4 {
+      color: #0f172a !important;
+    }
+    
+    /* Tech Badges in Light Mode */
+    html.light .glass-card .tech-badge {
+      background: #f1f5f9 !important;
+      color: #475569 !important;
+      border: 1px solid #cbd5e1 !important;
+    }
+    
+    /* Dark Mode Content Pass - Slate-300 for readability */
+    html.dark .glass-card p { color: #cbd5e1 !important; } 
+    html.dark .glass-card h3, 
+    html.dark .glass-card h4 { color: #ffffff !important; }
+    
+    /* CTA Section Fix - Start Your Project Visibility */
+    html.light a.btn-primary {
+      color: #ffffff !important;
+    }
+    html.light a.border-secondary\/40 {
+      color: #0f172a !important;
+      border-color: #0f172a !important;
+      background: rgba(15, 23, 42, 0.05) !important;
+    }
+
+    /* Partner Testimonials Header visibility in Dark Mode */
+    html.dark h2, html.dark h3 {
+      color: #ffffff !important;
+      opacity: 1 !important;
+    }
     </style>
 </head>
 <body class="bg-background text-on-background font-body selection:bg-primary/30">
 
 <div id="page-loader">
     <div class="loader-pulse text-center">
-        <span class="font-headline text-2xl font-bold tracking-tighter" style="background:linear-gradient(to right,#8AAEE0,#628ECB);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent">Data Parse</span>
+        <span class="font-headline text-2xl font-bold tracking-tighter" style="background:linear-gradient(to right,#a1a1aa,#52525b);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent">Data Parse</span>
     </div>
 </div>
 
 <!-- NAV -->
-<nav id="main-nav" class="fixed top-0 w-full z-50 bg-[#080f1e]/90 flex justify-between items-center px-6 md:px-8 h-20">
+<nav id="main-nav" class="fixed top-0 w-full z-50 bg-[#000000]/90 flex justify-between items-center px-6 md:px-8 h-20">
     <div class="flex items-center gap-10">
         <a href="index.html" class="flex items-center gap-3">
-            <img src="logo.jpg" alt="Data Parse Logo" class="h-9 w-9 object-contain rounded-lg" style="filter:drop-shadow(0 0 8px rgba(98,142,203,0.5));">
+            <img src="logo.jpg" alt="Data Parse Logo" class="h-9 w-9 object-contain rounded-lg" style="filter:drop-shadow(0 0 8px rgba(255, 255, 255, 0.15));">
             <span class="font-headline text-xl font-bold tracking-tighter text-primary">Data Parse</span>
         </a>
         <div class="hidden md:flex items-center gap-7">
-            <a class="text-tertiary hover:text-[#628ECB] transition-colors font-body text-sm" href="index.html">Home</a>
-            <a class="text-tertiary hover:text-[#628ECB] transition-colors font-body text-sm" href="about.html">About</a>
-            <a class="text-tertiary hover:text-[#628ECB] transition-colors font-body text-sm" href="work.html">Projects</a>
-            <a class="text-tertiary hover:text-[#628ECB] transition-colors font-body text-sm" href="schedule.html">Schedule</a>
-            <a class="text-tertiary hover:text-[#628ECB] transition-colors font-body text-sm" href="services.html">Resources</a>
-            <a class="text-[#628ECB] border-b-2 border-[#628ECB] pb-1 font-bold font-body text-sm" href="blog.html">Blog</a>
+            <a class="text-tertiary hover:text-zinc-100 transition-colors font-body text-sm" href="index.html">Home</a>
+            <a class="text-tertiary hover:text-zinc-100 transition-colors font-body text-sm" href="about.html">About</a>
+            <a class="text-tertiary hover:text-zinc-100 transition-colors font-body text-sm" href="work.html">Projects</a>
+            <a class="text-tertiary hover:text-zinc-100 transition-colors font-body text-sm" href="schedule.html">Schedule</a>
+            <a class="text-tertiary hover:text-zinc-100 transition-colors font-body text-sm" href="services.html">Resources</a>
+            <a class="text-zinc-100 border-b-2 border-zinc-100 pb-1 font-bold font-body text-sm" href="blog.html">Blog</a>
         </div>
     </div>
     <div class="flex items-center gap-3">
         <button id="theme-toggle" title="Toggle theme" class="w-9 h-9 rounded-lg border border-outline-variant/30 flex items-center justify-center text-tertiary hover:text-primary transition-all">
             <span id="theme-icon" class="material-symbols-outlined text-lg">dark_mode</span>
         </button>
-        <a href="join.html" class="hidden md:block btn-primary bg-gradient-to-br from-secondary to-primary-container text-on-secondary font-bold px-5 py-2.5 rounded-lg text-sm hover:scale-105 transition-all duration-300">
-            Join the Club
+        <a href="join.html" class="hidden md:block btn-primary bg-gradient-to-br from-secondary to-primary-container text-white font-bold px-5 py-2.5 rounded-lg text-sm hover:scale-[1.02] transition-all duration-300">
+            Partner With Us
         </a>
         <button id="hamburger" class="md:hidden w-9 h-9 flex flex-col items-center justify-center gap-1.5">
             <span class="w-6 h-0.5 bg-primary"></span>
@@ -151,7 +312,7 @@
     </div>
 </nav>
 
-<div id="mobile-menu" class="fixed top-0 right-0 bottom-0 w-72 z-50 bg-[#050c18] border-l border-outline-variant/20 flex flex-col px-8 pt-24 pb-8 gap-6">
+<div id="mobile-menu" class="fixed top-0 right-0 bottom-0 w-72 z-50 bg-[#050505] border-l border-outline-variant/20 flex flex-col px-8 pt-24 pb-8 gap-6">
     <button id="close-menu" class="absolute top-5 right-5 text-tertiary hover:text-primary"><span class="material-symbols-outlined">close</span></button>
     <a class="text-tertiary hover:text-primary font-body text-lg border-b border-outline-variant/20 pb-4 transition-colors" href="index.html">Home</a>
     <a class="text-tertiary hover:text-primary font-body text-lg border-b border-outline-variant/20 pb-4 transition-colors" href="about.html">About</a>
@@ -159,7 +320,7 @@
     <a class="text-tertiary hover:text-primary font-body text-lg border-b border-outline-variant/20 pb-4 transition-colors" href="schedule.html">Schedule</a>
     <a class="text-tertiary hover:text-primary font-body text-lg border-b border-outline-variant/20 pb-4 transition-colors" href="services.html">Resources</a>
     <a class="text-primary font-bold font-body text-lg border-b border-outline-variant/20 pb-4" href="blog.html">Blog</a>
-    <a href="join.html" class="mt-4 bg-gradient-to-br from-secondary to-primary-container text-on-secondary font-bold px-6 py-3 rounded-lg text-center">Join the Club</a>
+    <a href="join.html" class="mt-4 bg-gradient-to-br from-secondary to-primary-container text-white font-bold px-6 py-3 rounded-lg text-center">Partner With Us</a>
 </div>
 <div id="menu-overlay" class="fixed inset-0 z-40 bg-black/60 hidden"></div>
 
@@ -176,7 +337,7 @@
     </div>
     <!-- Category filter pills -->
     <div class="mt-10 flex flex-wrap gap-3">
-        <button onclick="filterCategory('all')" id="cat-all" class="category-badge bg-primary/20 text-primary border border-primary/40 cursor-pointer transition-all hover:scale-105">All Topics</button>
+        <button onclick="filterCategory('all')" id="cat-all" class="category-badge bg-primary/20 text-primary border border-primary/40 cursor-pointer transition-all hover:scale-[1.02]">All Topics</button>
         <button onclick="filterCategory('strategy')" id="cat-strategy" class="category-badge bg-surface-container border border-outline-variant/30 text-tertiary cursor-pointer transition-all hover:border-primary/40 hover:text-primary">Strategy</button>
         <button onclick="filterCategory('engineering')" id="cat-engineering" class="category-badge bg-surface-container border border-outline-variant/30 text-tertiary cursor-pointer transition-all hover:border-primary/40 hover:text-primary">Engineering</button>
         <button onclick="filterCategory('ai')" id="cat-ai" class="category-badge bg-surface-container border border-outline-variant/30 text-tertiary cursor-pointer transition-all hover:border-primary/40 hover:text-primary">AI & ML</button>
@@ -211,7 +372,7 @@
             </div>
             <div class="flex items-center justify-between">
                 <div class="flex items-center gap-3">
-                    <div class="w-8 h-8 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center text-on-primary font-bold text-xs">SC</div>
+                    <div class="w-8 h-8 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center text-white font-bold text-xs">SC</div>
                     <div>
                         <div class="text-xs font-bold text-on-surface">Sarah Chen</div>
                         <div class="text-[10px] text-tertiary">Chief Technology Officer</div>
@@ -242,7 +403,7 @@
                 <p class="text-tertiary text-sm leading-relaxed mb-5">From siloed spreadsheets to ignoring data quality — these five mistakes are costing companies millions. Here's how to avoid them all.</p>
                 <div class="flex items-center justify-between">
                     <div class="flex items-center gap-2">
-                        <div class="w-6 h-6 rounded-full bg-gradient-to-br from-secondary to-primary flex items-center justify-center text-on-secondary text-[10px] font-bold">EV</div>
+                        <div class="w-6 h-6 rounded-full bg-gradient-to-br from-secondary to-primary flex items-center justify-center text-white text-[10px] font-bold">EV</div>
                         <span class="text-[11px] text-tertiary">Dr. Elias Vance</span>
                     </div>
                     <a href="#" class="text-primary text-xs font-bold flex items-center gap-1 hover:gap-2 transition-all">Read <span class="material-symbols-outlined text-xs">chevron_right</span></a>
@@ -263,7 +424,7 @@
                 <p class="text-tertiary text-sm leading-relaxed mb-5">A deep technical walkthrough on architecting sub-second data pipelines using Apache Kafka and Apache Flink for production workloads.</p>
                 <div class="flex items-center justify-between">
                     <div class="flex items-center gap-2">
-                        <div class="w-6 h-6 rounded-full bg-gradient-to-br from-primary-container to-primary flex items-center justify-center text-on-primary-container text-[10px] font-bold">MT</div>
+                        <div class="w-6 h-6 rounded-full bg-gradient-to-br from-primary-container to-primary flex items-center justify-center text-white-container text-[10px] font-bold">MT</div>
                         <span class="text-[11px] text-tertiary">Marcus Thorne</span>
                     </div>
                     <a href="#" class="text-primary text-xs font-bold flex items-center gap-1 hover:gap-2 transition-all">Read <span class="material-symbols-outlined text-xs">chevron_right</span></a>
@@ -284,7 +445,7 @@
                 <p class="text-tertiary text-sm leading-relaxed mb-5">AI-native data stacks, vector databases, and streaming ML — here's what the next generation of real-time analytics looks like and how to prepare now.</p>
                 <div class="flex items-center justify-between">
                     <div class="flex items-center gap-2">
-                        <div class="w-6 h-6 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center text-on-primary text-[10px] font-bold">ER</div>
+                        <div class="w-6 h-6 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center text-white text-[10px] font-bold">ER</div>
                         <span class="text-[11px] text-tertiary">Elena Rodriguez</span>
                     </div>
                     <a href="#" class="text-primary text-xs font-bold flex items-center gap-1 hover:gap-2 transition-all">Read <span class="material-symbols-outlined text-xs">chevron_right</span></a>
@@ -305,7 +466,7 @@
                 <p class="text-tertiary text-sm leading-relaxed mb-5">A step-by-step tutorial for connecting BigQuery, building your first schema, and running your first transformations using dbt.</p>
                 <div class="flex items-center justify-between">
                     <div class="flex items-center gap-2">
-                        <div class="w-6 h-6 rounded-full bg-gradient-to-br from-secondary to-primary-container flex items-center justify-center text-on-secondary text-[10px] font-bold">SC</div>
+                        <div class="w-6 h-6 rounded-full bg-gradient-to-br from-secondary to-primary-container flex items-center justify-center text-white text-[10px] font-bold">SC</div>
                         <span class="text-[11px] text-tertiary">Sarah Chen</span>
                     </div>
                     <a href="#" class="text-primary text-xs font-bold flex items-center gap-1 hover:gap-2 transition-all">Read <span class="material-symbols-outlined text-xs">chevron_right</span></a>
@@ -326,7 +487,7 @@
                 <p class="text-tertiary text-sm leading-relaxed mb-5">85% of AI projects fail at production — and 90% of those failures trace back to dirty data. Here's our battle-tested data quality checklist.</p>
                 <div class="flex items-center justify-between">
                     <div class="flex items-center gap-2">
-                        <div class="w-6 h-6 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center text-on-primary text-[10px] font-bold">ER</div>
+                        <div class="w-6 h-6 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center text-white text-[10px] font-bold">ER</div>
                         <span class="text-[11px] text-tertiary">Elena Rodriguez</span>
                     </div>
                     <a href="#" class="text-primary text-xs font-bold flex items-center gap-1 hover:gap-2 transition-all">Read <span class="material-symbols-outlined text-xs">chevron_right</span></a>
@@ -347,7 +508,7 @@
                 <p class="text-tertiary text-sm leading-relaxed mb-5">A technical breakdown of the security architecture required to handle enterprise-grade data at scale — without sacrificing performance.</p>
                 <div class="flex items-center justify-between">
                     <div class="flex items-center gap-2">
-                        <div class="w-6 h-6 rounded-full bg-gradient-to-br from-primary-container to-secondary flex items-center justify-center text-on-primary-container text-[10px] font-bold">MT</div>
+                        <div class="w-6 h-6 rounded-full bg-gradient-to-br from-primary-container to-secondary flex items-center justify-center text-white-container text-[10px] font-bold">MT</div>
                         <span class="text-[11px] text-tertiary">Marcus Thorne</span>
                     </div>
                     <a href="#" class="text-primary text-xs font-bold flex items-center gap-1 hover:gap-2 transition-all">Read <span class="material-symbols-outlined text-xs">chevron_right</span></a>
@@ -367,7 +528,7 @@
         <p class="text-tertiary text-sm mb-6">Join 8,000+ data professionals. One email per week — expert insights, no spam.</p>
         <div class="flex flex-col sm:flex-row gap-3 max-w-sm mx-auto">
             <input type="email" placeholder="your@email.com" class="flex-1 bg-surface-container-lowest border border-outline-variant/30 rounded-lg px-4 py-3 text-sm text-on-surface focus:outline-none focus:border-primary/50 placeholder:text-tertiary/50"/>
-            <button class="btn-primary bg-gradient-to-br from-secondary to-primary-container text-on-secondary font-bold px-5 py-3 rounded-lg text-sm whitespace-nowrap hover:scale-105 transition-all">Subscribe Free</button>
+            <button class="btn-primary bg-gradient-to-br from-secondary to-primary-container text-white font-bold px-5 py-3 rounded-lg text-sm whitespace-nowrap hover:scale-[1.02] transition-all">Subscribe Free</button>
         </div>
     </div>
 </section>
@@ -375,14 +536,14 @@
 </main>
 
 <!-- FOOTER -->
-<footer class="bg-[#050c18] w-full pt-16 pb-10 border-t border-[#3e484f]/15">
+<footer class="bg-[#050505] w-full pt-16 pb-10 border-t border-[#27272a]/15">
     <div class="grid grid-cols-1 md:grid-cols-4 gap-10 px-8 max-w-7xl mx-auto">
         <div>
-            <span class="text-lg font-bold text-[#628ECB] font-headline mb-4 block">Data Parse</span>
+            <span class="text-lg font-bold text-zinc-100 font-headline mb-4 block">Data Parse</span>
             <p class="text-tertiary text-sm leading-relaxed">Precision through data. Building the future of automated intelligence.</p>
         </div>
         <div>
-            <h4 class="font-body text-xs uppercase tracking-widest text-[#628ECB] font-bold mb-5">Platform</h4>
+            <h4 class="font-body text-xs uppercase tracking-widest text-zinc-100 font-bold mb-5">Platform</h4>
             <ul class="space-y-3">
                 <li><a class="text-tertiary text-xs hover:text-secondary transition-colors" href="services.html">Services</a></li>
                 <li><a class="text-tertiary text-xs hover:text-secondary transition-colors" href="work.html">Our Work</a></li>
@@ -390,7 +551,7 @@
             </ul>
         </div>
         <div>
-            <h4 class="font-body text-xs uppercase tracking-widest text-[#628ECB] font-bold mb-5">Connect</h4>
+            <h4 class="font-body text-xs uppercase tracking-widest text-zinc-100 font-bold mb-5">Connect</h4>
             <ul class="space-y-3">
                 <li><a class="text-tertiary text-xs hover:text-secondary transition-colors" href="https://web.facebook.com/profile.php?id=61575740000776" target="_blank" rel="noopener">Facebook</a></li>
                 <li><a class="text-tertiary text-xs hover:text-secondary transition-colors" href="https://www.linkedin.com/company/data-parsee/" target="_blank" rel="noopener">LinkedIn</a></li>
@@ -400,7 +561,7 @@
             </ul>
         </div>
         <div>
-            <h4 class="font-body text-xs uppercase tracking-widest text-[#628ECB] font-bold mb-5">Legal</h4>
+            <h4 class="font-body text-xs uppercase tracking-widest text-zinc-100 font-bold mb-5">Legal</h4>
             <ul class="space-y-3">
                 <li><a class="text-tertiary text-xs hover:text-secondary transition-colors" href="#">Privacy Policy</a></li>
                 <li><a class="text-tertiary text-xs hover:text-secondary transition-colors" href="#">Terms of Service</a></li>
@@ -444,7 +605,7 @@ menuOverlay.addEventListener('click', closeFn);
 function filterCategory(cat) {
     document.querySelectorAll('[id^="cat-"]').forEach(b => { b.style.background = ''; b.style.color = ''; b.style.borderColor = ''; });
     const activeBtn = document.getElementById('cat-' + cat);
-    if (activeBtn) { activeBtn.style.background = 'rgba(138,174,224,0.2)'; activeBtn.style.color = '#8AAEE0'; activeBtn.style.borderColor = 'rgba(138,174,224,0.4)'; }
+    if (activeBtn) { activeBtn.style.background = 'rgba(0, 229, 255, 0.1)'; activeBtn.style.color = '#a1a1aa'; activeBtn.style.borderColor = 'rgba(138,174,224,0.4)'; }
     document.querySelectorAll('#articles-grid > div').forEach(card => {
         if (cat === 'all' || card.dataset.category === cat) {
             card.style.display = '';
