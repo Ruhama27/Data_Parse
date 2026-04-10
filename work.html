@@ -6,7 +6,7 @@
 <title>Our Work | Data Parse — Real Case Studies & Results</title>
 <meta name="description" content="Explore Data Parse case studies. See how we helped clients achieve +42% growth, $12M savings, and 60% faster reporting through AI-powered data solutions."/>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
 <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 <link href="animations.css" rel="stylesheet">
@@ -19,671 +19,166 @@
             background: "var(--background)",
             "on-background": "var(--on-background)",
             surface: "var(--surface)",
-            "surface-container-lowest": "#050505",
-            "surface-container-low": "#0A0A0A",
-            "surface-container": "#111111",
-            "surface-container-high": "#18181A",
-            "surface-container-highest": "#222224",
-            "surface-variant": "#222224",
-            "on-surface": "var(--on-surface)",
-            primary: "#E2E8F0",
-            "on-primary": "#000000",
-            "primary-container": "#FFFFFF",
-            "on-primary-container": "#000000",
-            secondary: "#A1A1AA",
-            "on-secondary": "#000000",
+            primary: "#ffffff",
+            accent: "#38bdf8",
             tertiary: "#71717A",
-            outline: "#27272A",
-            "outline-variant": "#18181B",
-            accent: "#00E5FF",
-            accent2: "#8b5cf6"
           },
-          fontFamily: { "headline": ["Space Grotesk"], "body": ["Inter"], "label": ["Inter"] },
-                borderRadius: {"DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem"},
-            },
+          fontFamily: {
+            headline: ["Inter", "sans-serif"],
+            body: ["Inter", "sans-serif"],
+          },
         },
-    }
+      },
+    };
 </script>
 <style>
-    :root {
-      --background: #D5DEEF;
-      --on-background: #050505;
-      --surface: #000000;
-      --on-surface: #EDEDED;
-    }
-    html.dark {
-      --background: #000000;
-      --on-background: #EDEDED;
-      --surface: #000000;
-      --on-surface: #EDEDED;
-    }
-    html.light {
-      --background: #D5DEEF;
-      --on-background: #050505;
-      --surface: #D5DEEF;
-      --on-surface: #050505;
-    }
+    :root { --background: #000000; --on-background: #EDEDED; }
+    html.light { --background: #D5DEEF; --on-background: #050505; }
+    body { background-color: var(--background) !important; color: var(--on-background) !important; transition: background 0.4s; }
 
-      
-      
-      
-    body {
-      background-color: var(--background) !important;
-      color: var(--on-background) !important;
-      transition: background 0.4s, color 0.4s;
-    }
-    html.dark .glass-card {
-      background: rgba(255, 255, 255, 0.02) !important;
-      backdrop-filter: blur(24px);
-      -webkit-backdrop-filter: blur(24px);
-      border: 1px solid rgba(255, 255, 255, 0.08) !important;
-    }
-    html.light .glass-card {
-      background: rgba(255, 255, 255, 0.7) !important;
-      backdrop-filter: blur(24px);
-      -webkit-backdrop-filter: blur(24px);
-      border: 1px solid rgba(0, 0, 0, 0.05) !important;
-    }
-
-      
-      
-
-      .grid-bg {
-        background-image:
-          linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-          linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
-        background-size: 32px 32px;
-      }
-      .text-glow {
-        text-shadow: 0 0 20px rgba(255, 255, 255, 0.15);
-      }
-    html.light #main-nav { background: rgba(240,244,255,0.96) !important; border-bottom: 1px solid rgba(98,142,203,0.12); }
-    html.light .text-tertiary { color: #4a5568; }
-    html.light .bg-surface-container-low { background-color: #e2eaf8; }
-    html.light .bg-surface-container-lowest { background-color: #d4ddf5; }
-    html.light .bg-surface-container { background-color: #e8effe; }
-    .material-symbols-outlined { font-variation-settings:'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 24; }
-
-    /* Page loader */
-    #page-loader { position:fixed;inset:0;z-index:9999;background: #000000;display:flex;align-items:center;justify-content:center;transition:opacity 0.6s,visibility 0.6s; }
-    #page-loader.hidden-loader { opacity:0;visibility:hidden; }
-    .loader-pulse { animation:loaderPulse 1.2s ease-in-out infinite; }
-    @keyframes loaderPulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.5;transform:scale(0.95)} }
-
-    /* Nav scroll */
-    #main-nav { transition:background 0.3s,box-shadow 0.3s; }
-    #main-nav.scrolled { background: rgba(0, 0, 0, 0.8) !important; backdrop-filter: blur(20px); border-bottom: 1px solid rgba(255, 255, 255, 0.05); }
-
-    /* Mobile menu */
-    #mobile-menu { transform:translateX(100%); transition:transform 0.35s cubic-bezier(0.22,1,0.36,1); }
-    #mobile-menu.open { transform:translateX(0); }
-
-    /* Case study accordion */
-    .case-detail { max-height:0; overflow:hidden; transition:max-height 0.6s cubic-bezier(0.22,1,0.36,1); }
-    .case-detail.open { max-height:600px; }
-
-    /* Card hover */
-    .project-card { transition:all 0.5s cubic-bezier(0.22,1,0.36,1); }
-    .project-card:hover { transform:translateY(-6px); box-shadow:0 24px 70px rgba(98,142,203,0.12); }
-
-    /* Metric pill */
-    .metric-pill { display:inline-flex; align-items:center; gap:6px; padding:4px 12px; border-radius:100px; font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:0.1em; }
-
-    /* Star */
-    .star { color:#f59e0b; }
-
-    .btn-primary { position:relative; overflow:hidden; }
-    .btn-primary::after { content:'';position:absolute;inset:0;background:rgba(255,255,255,0.08);opacity:0;transition:opacity 0.2s; }
-    .btn-primary:hover::after { opacity:1; }
-
-      
-      /* ── FOOTER COLOR FIX ── */
-      html.light footer {
-        background-color: #060e20 !important;
-      }
-      html.light footer .text-\[\#52525b\] {
-        color: #52525b !important;
-      }
-      html.light footer .text-\[\#c2cde5\] {
-        color: #c2cde5 !important;
-      }
-      html.light footer a.hover\:text-\[\#a1a1aa\]:hover {
-        color: #a1a1aa !important;
-      }
-      html.light footer .text-on-background,
-      html.light footer .text-on-surface,
-      html.light footer .text-white,
-      html.light footer .text-white,
-      html.light footer .text-white-container,
-      html.light footer .text-primary,
-      html.light footer .text-primary-container,
-      html.light footer .text-secondary,
-      html.light footer .text-tertiary,
-      html.light footer h1,
-      html.light footer h2,
-      html.light footer h3,
-      html.light footer h4 {
-        color: unset !important;
-      }
-      html.light footer .text-tertiary {
-        color: #c2cde5 !important;
-      }
-      html.light footer .text-secondary, 
-      html.light footer h4.text-secondary {
-        color: #4edea3 !important;
-      }
-      html.light footer h4 {
-        color: #4edea3 !important;
-      }
-      html.light footer a.hover\:text-secondary:hover {
-        color: #a1a1aa !important;
-      }
-      html.light footer span.text-primary-container {
-        color: #a1a1aa !important;
-      }
-
-    
-    html.light #main-nav a { 
-      color: #1e293b !important; 
-    }
-    html.light #main-nav a.text-\[\#38bdf8\] {
-      color: #0284c7 !important;
-      border-bottom-color: #0284c7 !important;
-    }
-    
-    /* Dark Mode Content Pass - Brighten zinc colors for readability */
-    html.dark .text-zinc-400 { color: #cbd5e1 !important; } /* zinc-400 -> slate-300 */
-    html.dark .text-zinc-300 { color: #f1f5f9 !important; } /* zinc-300 -> slate-100 */
-    html.dark .text-zinc-500 { color: #94a3b8 !important; } /* zinc-500 -> slate-400 */
-    
-    /* High contrast headers in Dark Mode */
-    html.dark h1, html.dark h2, html.dark h3, html.dark h4 { 
-      color: #ffffff !important; 
-    }
-    
-    /* Button Text Fixes in Light Mode */
-    html.light .btn-primary { 
-      color: #ffffff !important; 
-      background: linear-gradient(to bottom right, #0F172A, #334155) !important;
-    }
-    html.light .btn-secondary, 
-    html.light a.border-secondary\/40 {
-      color: #0F172A !important;
-      border-color: #0F172A !important;
-    }
-    
-    /* Glass card adjustment - darker border in dark mode for definition */
-    html.dark .glass-card {
-      border: 1px solid rgba(255, 255, 255, 0.12) !important;
-    }
-    
-    /* --- Perfect Contrast Fixes --- */
-    html.light #main-nav a { 
-      color: #0f172a !important; 
-      font-weight: 500;
-    }
-    html.light #main-nav a.text-\[\#38bdf8\] {
-      color: #0284c7 !important;
-      border-bottom-color: #0284c7 !important;
-      font-weight: 700;
-    }
-    
-    /* Nav Button Light Mode visibility */
-    html.light #main-nav a.btn-primary {
-      background: #0f172a !important;
-      color: #ffffff !important;
-      box-shadow: 0 4px 12px rgba(15, 23, 42, 0.15) !important;
-    }
-    
-    /* Hero Typing Text Light Mode */
-    html.light #typing-word {
-      color: #0f172a !important;
-      -webkit-text-fill-color: #0f172a !important;
-      text-shadow: none !important;
-    }
-    
-    /* Solutions Matrix legibility */
-    html.light .glass-card {
-      background: #ffffff !important;
-      border: 1px solid #e2e8f0 !important;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04) !important;
-    }
-    html.light .glass-card p {
-      color: #334155 !important;
-    }
-    html.light .glass-card h3, 
-    html.light .glass-card h4 {
-      color: #0f172a !important;
-    }
-    
-    /* Tech Badges in Light Mode */
-    html.light .glass-card .tech-badge {
-      background: #f1f5f9 !important;
-      color: #475569 !important;
-      border: 1px solid #cbd5e1 !important;
-    }
-    
-    /* Dark Mode Content Pass - Slate-300 for readability */
-    html.dark .glass-card p { color: #cbd5e1 !important; } 
-    html.dark .glass-card h3, 
-    html.dark .glass-card h4 { color: #ffffff !important; }
-    
-    /* CTA Section Fix - Start Your Project Visibility */
-    html.light a.btn-primary {
-      color: #ffffff !important;
-    }
-    html.light a.border-secondary\/40 {
-      color: #0f172a !important;
-      border-color: #0f172a !important;
-      background: rgba(15, 23, 42, 0.05) !important;
-    }
-
-    /* Partner Testimonials Header visibility in Dark Mode */
-    html.dark h2, html.dark h3 {
-      color: #ffffff !important;
-      opacity: 1 !important;
+    /* --- CRISPNESS PASS: Disable all unintended blurs --- */
+    .dp-reveal, .visible, .dp-mask-reveal, .progressive-text-word {
+      filter: none !important;
+      -webkit-filter: none !important;
+      backdrop-filter: none !important;
     }
     </style>
+
+  <!-- PREMIUM CORE -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="https://unpkg.com/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
 </head>
-<body class="bg-background text-on-background font-body selection:bg-primary/30">
+<body class="bg-background selection:bg-primary/30">
 
-<!-- PAGE LOADER -->
-<div id="page-loader">
-    <div class="loader-pulse text-center">
-        <span class="font-headline text-2xl font-bold tracking-tighter" style="background:linear-gradient(to right,#a1a1aa,#52525b);-webkit-background-clip:text;-webkit-text-fill-color:transparent">Data Parse</span>
-    </div>
-</div>
+  <nav id="main-nav" class="fixed top-0 w-full z-50 bg-background/80 backdrop-blur-xl flex justify-between items-center px-6 md:px-8 h-20 border-b border-white/5">
+    <a href="index.html" class="flex items-center gap-3">
+      <img src="logo.jpg" alt="Data Parse" class="h-8 w-8 rounded-lg" />
+      <span class="font-headline text-lg font-bold tracking-tight text-white">Data Parse</span>
+    </a>
+          <div class="hidden md:flex gap-8 items-center">
+        <a class="text-tertiary hover:text-white transition-colors font-body text-xs uppercase tracking-widest" href="index.html">Home</a>
+        <a class="text-tertiary hover:text-white transition-colors font-body text-xs uppercase tracking-widest" href="about.html">About</a>
+        <a class="text-tertiary hover:text-white transition-colors font-body text-xs uppercase tracking-widest" href="work.html">Projects</a>
+        <a class="text-tertiary hover:text-white transition-colors font-body text-xs uppercase tracking-widest" href="services.html">Services</a>
+        <a class="text-tertiary hover:text-white transition-colors font-body text-xs uppercase tracking-widest" href="resources.html">Resources</a>
+        <a class="text-tertiary hover:text-white transition-colors font-body text-xs uppercase tracking-widest" href="contact.html">Contact</a>
+      </div>
+    <a href="join.html" class="hidden md:block btn-primary bg-white text-black font-bold px-6 py-2 rounded-lg text-xs uppercase tracking-widest">Get Started</a>
+  </nav>
 
-<!-- TOP NAV -->
-<nav id="main-nav" class="fixed top-0 w-full z-50 bg-[#131b2e]/95 flex justify-between items-center px-6 md:px-8 h-20">
-    <div class="flex items-center gap-10">
-        <a href="index.html" class="flex items-center gap-3">
-            <img src="logo.jpg" alt="Data Parse Logo" class="h-9 w-9 object-contain rounded-lg" style="filter:drop-shadow(0 0 8px rgba(255, 255, 255, 0.15));">
-            <span class="font-headline text-xl font-bold tracking-tighter text-primary">Data Parse</span>
-        </a>
-        <div class="hidden md:flex items-center gap-7">
-            <a class="text-tertiary hover:text-zinc-100 transition-colors font-body text-sm" href="index.html">Home</a>
-            <a class="text-tertiary hover:text-zinc-100 transition-colors font-body text-sm" href="about.html">About</a>
-            <a class="text-zinc-100 border-b-2 border-zinc-100 pb-1 font-bold font-body text-sm" href="work.html">Projects</a>
-            <a class="text-tertiary hover:text-zinc-100 transition-colors font-body text-sm" href="schedule.html">Schedule</a>
-            <a class="text-tertiary hover:text-zinc-100 transition-colors font-body text-sm" href="services.html">Resources</a>
-            <a class="text-tertiary hover:text-zinc-100 transition-colors font-body text-sm" href="blog.html">Blog</a>
-        </div>
-    </div>
-    <div class="flex items-center gap-3">
-        <button id="theme-toggle" title="Toggle theme" class="w-9 h-9 rounded-lg border border-outline-variant/30 flex items-center justify-center text-tertiary hover:text-primary transition-all">
-            <span id="theme-icon" class="material-symbols-outlined text-lg">dark_mode</span>
-        </button>
-        <a href="join.html" class="hidden md:block btn-primary bg-gradient-to-br from-secondary to-primary-container text-white font-bold px-5 py-2.5 rounded-lg text-sm hover:scale-[1.02] transition-all duration-300">
-            Partner With Us
-        </a>
-        <button id="hamburger" class="md:hidden w-9 h-9 flex flex-col items-center justify-center gap-1.5">
-            <span class="w-6 h-0.5 bg-primary transition-all duration-300"></span>
-            <span class="w-6 h-0.5 bg-primary transition-all duration-300"></span>
-            <span class="w-6 h-0.5 bg-primary transition-all duration-300"></span>
-        </button>
-    </div>
-</nav>
+  <main class="pt-40 pb-24 px-6 md:px-24 grid-bg">
+    <!-- ===== CASE STUDIES HERO ===== -->
+    <header class="max-w-4xl mx-auto text-center mb-32 dp-reveal">
+      <h4 class="text-[10px] uppercase tracking-widest text-accent mb-6">Case Studies / 2026 Archive</h4>
+      <h1 class="font-headline text-6xl md:text-8xl font-bold tracking-tighter leading-[0.95] mb-8">
+        Precision Through <span class="text-accent">Data.</span>
+      </h1>
+      <p class="text-tertiary text-lg md:text-xl max-w-2xl mx-auto leading-relaxed">
+        We transform chaotic data into high-fidelity operational intelligence. Explore our technical solutions for global enterprise partners.
+      </p>
+    </header>
 
-<!-- MOBILE MENU -->
-<div id="mobile-menu" class="fixed top-0 right-0 bottom-0 w-72 z-50 bg-[#050505] border-l border-outline-variant/20 flex flex-col px-8 pt-24 pb-8 gap-6">
-    <button id="close-menu" class="absolute top-5 right-5 text-tertiary hover:text-primary"><span class="material-symbols-outlined">close</span></button>
-    <a class="text-tertiary hover:text-primary font-body text-lg border-b border-outline-variant/20 pb-4 transition-colors" href="index.html">Home</a>
-    <a class="text-tertiary hover:text-primary font-body text-lg border-b border-outline-variant/20 pb-4 transition-colors" href="about.html">About Us</a>
-    <a class="text-tertiary hover:text-primary font-body text-lg border-b border-outline-variant/20 pb-4 transition-colors" href="services.html">Services</a>
-    <a class="text-primary font-bold font-body text-lg border-b border-outline-variant/20 pb-4" href="work.html">Our Work</a>
-    <a class="text-tertiary hover:text-primary font-body text-lg border-b border-outline-variant/20 pb-4 transition-colors" href="blog.html">Blog</a>
-    <a href="index.html#lead-capture" class="mt-4 bg-gradient-to-br from-primary to-primary-container text-white font-bold px-6 py-3 rounded-lg text-center">Get Started</a>
-</div>
-<div id="menu-overlay" class="fixed inset-0 z-40 bg-black/60 hidden"></div>
-
-<main class="pt-20 grid-bg min-h-screen">
-
-<!-- HERO -->
-<section class="px-6 md:px-8 py-24 max-w-7xl mx-auto">
-    <div class="flex flex-col md:flex-row items-end justify-between gap-8 mb-6">
-        <div class="max-w-2xl">
-            <span class="font-label text-secondary text-xs uppercase tracking-widest mb-4 block">Case Studies</span>
-            <h1 data-aos="zoom-in" class="font-headline text-5xl md:text-7xl font-bold tracking-tight text-on-surface leading-none text-glow">
-                Precision<br>Through Data.
-            </h1>
+    <!-- ===== ENTERPRISE STATS STRIP ===== -->
+    <section class="max-w-7xl mx-auto mb-20 dp-reveal" style="transition-delay: 200ms;">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-px bg-white/5 border border-white/5 rounded-3xl overflow-hidden">
+        <div class="bg-background p-8 text-center group">
+          <div class="font-headline text-4xl font-bold text-white mb-2 group-hover:text-accent transition-colors">40+</div>
+          <div class="text-[9px] uppercase tracking-[0.2em] text-tertiary">Fortune 500 Clients</div>
         </div>
-        <div class="max-w-md pb-2">
-            <p class="text-tertiary text-lg leading-relaxed">We transform chaotic data into high-fidelity operational intelligence. Real problems, real solutions, measurable results.</p>
+        <div class="bg-background p-8 text-center group">
+          <div class="font-headline text-4xl font-bold text-white mb-2 group-hover:text-accent transition-colors">$50M+</div>
+          <div class="text-[9px] uppercase tracking-[0.2em] text-tertiary">Client Savings</div>
         </div>
-    </div>
-    <!-- Quick stats bar -->
-    <div data-aos="fade-up" class="mt-12 glass-card rounded-xl p-6 grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
-        <div>
-            <div class="font-headline text-3xl font-bold text-primary mb-1">40+</div>
-            <div class="text-[10px] uppercase tracking-widest text-tertiary">Fortune 500 Clients</div>
+        <div class="bg-background p-8 text-center group">
+          <div class="font-headline text-4xl font-bold text-white mb-2 group-hover:text-accent transition-colors">500PB+</div>
+          <div class="text-[9px] uppercase tracking-[0.2em] text-tertiary">Data Processed</div>
         </div>
-        <div>
-            <div class="font-headline text-3xl font-bold text-secondary mb-1">$50M+</div>
-            <div class="text-[10px] uppercase tracking-widest text-tertiary">Client Savings</div>
+        <div class="bg-background p-8 text-center group">
+          <div class="font-headline text-4xl font-bold text-white mb-2 group-hover:text-accent transition-colors">99.9%</div>
+          <div class="text-[9px] uppercase tracking-[0.2em] text-tertiary">Uptime Delivery</div>
         </div>
-        <div>
-            <div class="font-headline text-3xl font-bold text-on-surface mb-1">500PB+</div>
-            <div class="text-[10px] uppercase tracking-widest text-tertiary">Data Processed</div>
-        </div>
-        <div>
-            <div class="font-headline text-3xl font-bold text-primary-container mb-1">99.9%</div>
-            <div class="text-[10px] uppercase tracking-widest text-tertiary">Uptime Delivery</div>
-        </div>
-    </div>
+      </div>
+    </section>
 </section>
 
-<!-- CASE STUDIES GRID -->
-<section class="px-6 md:px-8 pb-20 max-w-7xl mx-auto">
+    <!-- CASE STUDIES GRID -->
+    <section class="max-w-7xl mx-auto space-y-24">
 
-    <!-- Case Study 1: Finance -->
-    <div data-aos="fade-up" class="project-card glass-card card-hover shimmer-card rounded-2xl overflow-hidden mb-8 border border-outline-variant/15">
-        <div class="grid md:grid-cols-5">
-            <!-- Image -->
-            <div class="md:col-span-2 relative min-h-[260px] overflow-hidden">
-                <div class="absolute inset-0 opacity-50" style="background-image:url('https://lh3.googleusercontent.com/aida-public/AB6AXuDPyoze3ipQ1RSkOjD-NYXBwI_V1lBoeBy97F7ni8_3siBu4fTsYmdL5CE3tHdwCw8tumn_bKKyefqh3mHozprZDfGf548EDdrcyKTkJhTd90Uoq85YCVgUYT5UUBBUAA31le_g1BsJtRT2sjyF793LQhlC6btvIvcttXWNrQ1GnUtQtzuQw-Jj7WR9OWoy3gLxJLyAPcv10MtOwrK3hzGLryH92v-gsdijeRgsniNwajA8VG5wWMZnaQuOsdUlzDwSBIQJbbpxLU8');background-size:cover;background-position:center;"></div>
-                <div class="absolute inset-0 bg-gradient-to-r from-transparent to-surface-container-low/80"></div>
-                <div class="absolute bottom-4 left-4 flex flex-col gap-2">
-                    <span class="metric-pill bg-primary/20 text-primary border border-primary/30">Finance</span>
-                    <span class="metric-pill bg-secondary/20 text-secondary border border-secondary/30">Tier-1 Bank</span>
-                </div>
-            </div>
-            <!-- Content -->
-            <div class="md:col-span-3 p-8 md:p-10 flex flex-col justify-between">
-                <div>
-                    <h2 class="font-headline text-2xl md:text-3xl font-bold text-on-surface mb-4">Streamlining Global Finance Data</h2>
-                    <div class="grid grid-cols-3 gap-4 mb-6">
-                        <div class="bg-surface-container-lowest rounded-xl p-3 text-center">
-                            <div class="text-primary font-headline font-bold text-2xl">-40%</div>
-                            <div class="text-[9px] uppercase text-tertiary tracking-widest mt-1">Latency</div>
-                        </div>
-                        <div class="bg-surface-container-lowest rounded-xl p-3 text-center">
-                            <div class="text-secondary font-headline font-bold text-2xl">1 src</div>
-                            <div class="text-[9px] uppercase text-tertiary tracking-widest mt-1">of truth</div>
-                        </div>
-                        <div class="bg-surface-container-lowest rounded-xl p-3 text-center">
-                            <div class="text-on-surface font-headline font-bold text-2xl">6 wks</div>
-                            <div class="text-[9px] uppercase text-tertiary tracking-widest mt-1">Delivery</div>
-                        </div>
-                    </div>
-                    <p class="text-tertiary text-sm leading-relaxed mb-6">Implementing a unified real-time processing engine for a Tier-1 investment bank, reducing latency by 40% and consolidating cross-border liquidity reporting into a single source of truth.</p>
-                </div>
-                <div class="flex items-center justify-between gap-4 flex-wrap">
-                    <button onclick="toggleCase('case1')" class="flex items-center gap-2 text-primary font-bold text-sm hover:gap-3 transition-all group">
-                        <span>View Full Case Study</span>
-                        <span id="case1-icon" class="material-symbols-outlined text-sm transition-transform">expand_more</span>
-                    </button>
-                    <div class="flex gap-1">
-                        <span class="star material-symbols-outlined text-sm" style="font-variation-settings:'FILL' 1">star</span>
-                        <span class="star material-symbols-outlined text-sm" style="font-variation-settings:'FILL' 1">star</span>
-                        <span class="star material-symbols-outlined text-sm" style="font-variation-settings:'FILL' 1">star</span>
-                        <span class="star material-symbols-outlined text-sm" style="font-variation-settings:'FILL' 1">star</span>
-                        <span class="star material-symbols-outlined text-sm" style="font-variation-settings:'FILL' 1">star</span>
-                    </div>
-                </div>
-            </div>
+      <!-- Case Study 1 -->
+      <div class="grid lg:grid-cols-2 gap-16 items-center dp-reveal">
+        <div class="aspect-video rounded-3xl overflow-hidden bg-white/5 border border-white/10 group shadow-md hover:shadow-xl hover:-translate-y-2 transition-all duration-500 cursor-pointer">
+          <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuDPyoze3ipQ1RSkOjD-NYXBwI_V1lBoeBy97F7ni8_3siBu4fTsYmdL5CE3tHdwCw8tumn_bKKyefqh3mHozprZDfGf548EDdrcyKTkJhTd90Uoq85YCVgUYT5UUBBUAA31le_g1BsJtRT2sjyF793LQhlC6btvIvcttXWNrQ1GnUtQtzuQw-Jj7WR9OWoy3gLxJLyAPcv10MtOwrK3hzGLryH92v-gsdijeRgsniNwajA8VG5wWMZnaQuOsdUlzDwSBIQJbbpxLU8" 
+               class="w-full h-full object-cover grayscale opacity-50 group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700" alt="Finance Data" />
         </div>
-        <!-- Expandable Case Detail -->
-        <div id="case1" class="case-detail border-t border-outline-variant/15">
-            <div class="p-8 md:p-10 grid md:grid-cols-3 gap-8">
-                <div class="bg-surface-container rounded-xl p-6">
-                    <div class="flex items-center gap-2 mb-4">
-                        <span class="material-symbols-outlined text-error text-xl">warning</span>
-                        <h4 class="font-headline font-bold text-base">The Problem</h4>
-                    </div>
-                    <p class="text-tertiary text-sm leading-relaxed">The bank's 12 regional divisions operated entirely separate data stacks. Cross-border liquidity reporting took 3+ hours per day and was plagued by reconciliation errors costing millions in compliance fines.</p>
-                </div>
-                <div class="bg-surface-container rounded-xl p-6">
-                    <div class="flex items-center gap-2 mb-4">
-                        <span class="material-symbols-outlined text-primary text-xl">construction</span>
-                        <h4 class="font-headline font-bold text-base">Our Solution</h4>
-                    </div>
-                    <p class="text-tertiary text-sm leading-relaxed">We deployed a real-time Kafka-based streaming engine with a unified schema layer. All 12 regional feeds merged into one live dashboard with sub-second reconciliation and automated compliance alerts.</p>
-                </div>
-                <div class="bg-surface-container rounded-xl p-6">
-                    <div class="flex items-center gap-2 mb-4">
-                        <span class="material-symbols-outlined text-secondary text-xl">trending_up</span>
-                        <h4 class="font-headline font-bold text-base">The Results</h4>
-                    </div>
-                    <ul class="text-tertiary text-sm space-y-2">
-                        <li class="flex items-center gap-2"><span class="text-secondary">✓</span> 40% reduction in data latency</li>
-                        <li class="flex items-center gap-2"><span class="text-secondary">✓</span> $8M+ savings in compliance costs</li>
-                        <li class="flex items-center gap-2"><span class="text-secondary">✓</span> 3h → 4min reporting time</li>
-                        <li class="flex items-center gap-2"><span class="text-secondary">✓</span> 100% audit trail coverage</li>
-                    </ul>
-                </div>
+        <div>
+          <h4 class="text-[10px] uppercase tracking-widest text-accent mb-4">Finance / Tier-1 Bank</h4>
+          <h2 class="font-headline text-4xl font-bold tracking-tight mb-6">Streamlining Global Finance Data</h2>
+          <ul class="text-tertiary text-lg leading-relaxed mb-8 list-none space-y-2">
+            <li class="flex items-start gap-2"><span class="material-symbols-outlined text-[20px] mt-0.5 text-accent">check_circle</span> Unified cross-border liquidity reporting</li>
+            <li class="flex items-start gap-2"><span class="material-symbols-outlined text-[20px] mt-0.5 text-accent">check_circle</span> Reduced data latency by 40%</li>
+            <li class="flex items-start gap-2"><span class="material-symbols-outlined text-[20px] mt-0.5 text-accent">check_circle</span> Consolidated 12 regional stacks</li>
+          </ul>
+          <div class="grid grid-cols-2 gap-8 mb-10">
+            <div>
+              <div class="text-2xl font-bold text-white">-40%</div>
+              <div class="text-[9px] uppercase tracking-widest text-tertiary">Latency Reduction</div>
             </div>
-            <div class="px-8 md:px-10 pb-6 italic text-sm text-tertiary border-t border-outline-variant/10 pt-6">
-                <span class="text-primary">"</span>Data Parse unified what 5 vendors failed to do in 2 years. The ROI was visible within the first quarter.<span class="text-primary">"</span>
-                <span class="ml-2 not-italic font-bold text-on-surface text-xs">— CTO, Tier-1 Investment Bank</span>
+            <div>
+              <div class="text-2xl font-bold text-white">6 Weeks</div>
+              <div class="text-[9px] uppercase tracking-widest text-tertiary">Deployment Time</div>
             </div>
+          </div>
+          <a href="#" class="inline-flex items-center gap-2 text-white font-medium hover:text-accent transition-colors group">
+            Read Case Study <span class="material-symbols-outlined text-sm group-hover:translate-x-1 transition-transform">arrow_forward</span>
+          </a>
         </div>
-    </div>
+      </div>
 
-    <!-- Case Study 2: Retail / Supply Chain -->
-    <div data-aos="fade-up" data-aos-delay="50" class="project-card glass-card card-hover shimmer-card rounded-2xl overflow-hidden mb-8 border border-outline-variant/15">
-        <div class="grid md:grid-cols-5">
-            <div class="md:col-span-2 relative min-h-[260px] overflow-hidden">
-                <div class="absolute inset-0 opacity-50" style="background-image:url('https://lh3.googleusercontent.com/aida-public/AB6AXuAKElD6bfIWWg39zl6sqO8Rng9NHLdtJ6RdAC4f4DrhmINXeZijqh08XkB_c3sD8eMBllgYlnbT6iwoct6OSUyurH3aLB3eJcrnaerAX5wragdL7OqFfxW6o8nFBL9ZAQ6ErDrWTo6q_k79XWBGCx_iuzXV75i3sYJvmsZZvuVD86NjBAkEFN-I_32o7kVu1pOqIoE1Ol8Jn6bp89fhT96kmVjbUMB4J5EqSWDGGhbDg22zRpmOo7LtEjLVIvIHiPpj-4R5a7m-ah8');background-size:cover;background-position:center;"></div>
-                <div class="absolute inset-0 bg-gradient-to-r from-transparent to-surface-container-low/80"></div>
-                <div class="absolute bottom-4 left-4 flex flex-col gap-2">
-                    <span class="metric-pill bg-secondary/20 text-secondary border border-secondary/30">Supply Chain</span>
-                    <span class="metric-pill bg-primary/20 text-primary border border-primary/30">E-Commerce</span>
-                </div>
-            </div>
-            <div class="md:col-span-3 p-8 md:p-10 flex flex-col justify-between">
-                <div>
-                    <h2 class="font-headline text-2xl md:text-3xl font-bold text-on-surface mb-4">Optimizing E-Commerce Supply Chains</h2>
-                    <div class="grid grid-cols-3 gap-4 mb-6">
-                        <div class="bg-surface-container-lowest rounded-xl p-3 text-center">
-                            <div class="text-secondary font-headline font-bold text-2xl">$12M</div>
-                            <div class="text-[9px] uppercase text-tertiary tracking-widest mt-1">Annual Savings</div>
-                        </div>
-                        <div class="bg-surface-container-lowest rounded-xl p-3 text-center">
-                            <div class="text-primary font-headline font-bold text-2xl">-28%</div>
-                            <div class="text-[9px] uppercase text-tertiary tracking-widest mt-1">Overstock</div>
-                        </div>
-                        <div class="bg-surface-container-lowest rounded-xl p-3 text-center">
-                            <div class="text-on-surface font-headline font-bold text-2xl">+18%</div>
-                            <div class="text-[9px] uppercase text-tertiary tracking-widest mt-1">Fill Rate</div>
-                        </div>
-                    </div>
-                    <p class="text-tertiary text-sm leading-relaxed mb-6">Predictive inventory modeling that saved a major retailer $12M in annual overhead through precision stock allocation and AI-powered demand forecasting.</p>
-                </div>
-                <button onclick="toggleCase('case2')" class="flex items-center gap-2 text-primary font-bold text-sm hover:gap-3 transition-all group w-fit">
-                    <span>View Full Case Study</span>
-                    <span id="case2-icon" class="material-symbols-outlined text-sm transition-transform">expand_more</span>
-                </button>
-            </div>
+      <!-- Case Study 2 -->
+      <div class="grid lg:grid-cols-2 gap-16 items-center dp-reveal" style="transition-delay: 200ms;">
+        <div class="lg:order-last aspect-video rounded-3xl overflow-hidden bg-white/5 border border-white/10 group shadow-md hover:shadow-xl hover:-translate-y-2 transition-all duration-500 cursor-pointer">
+          <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuAKElD6bfIWWg39zl6sqO8Rng9NHLdtJ6RdAC4f4DrhmINXeZijqh08XkB_c3sD8eMBllgYlnbT6iwoct6OSUyurH3aLB3eJcrnaerAX5wragdL7OqFfxW6o8nFBL9ZAQ6ErDrWTo6q_k79XWBGCx_iuzXV75i3sYJvmsZZvuVD86NjBAkEFN-I_32o7kVu1pOqIoE1Ol8Jn6bp89fhT96kmVjbUMB4J5EqSWDGGhbDg22zRpmOo7LtEjLVIvIHiPpj-4R5a7m-ah8" 
+               class="w-full h-full object-cover grayscale opacity-50 group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700" alt="Retail AI" />
         </div>
-        <div id="case2" class="case-detail border-t border-outline-variant/15">
-            <div class="p-8 md:p-10 grid md:grid-cols-3 gap-8">
-                <div class="bg-surface-container rounded-xl p-6">
-                    <div class="flex items-center gap-2 mb-4">
-                        <span class="material-symbols-outlined text-error text-xl">warning</span>
-                        <h4 class="font-headline font-bold text-base">The Problem</h4>
-                    </div>
-                    <p class="text-tertiary text-sm leading-relaxed">A top-20 global retailer was losing $12M per year to overstock and stockouts. Their legacy ERP gave 48-hour-old inventory data, making real-time decisions impossible.</p>
-                </div>
-                <div class="bg-surface-container rounded-xl p-6">
-                    <div class="flex items-center gap-2 mb-4">
-                        <span class="material-symbols-outlined text-primary text-xl">construction</span>
-                        <h4 class="font-headline font-bold text-base">Our Solution</h4>
-                    </div>
-                    <p class="text-tertiary text-sm leading-relaxed">We built a real-time inventory intelligence layer connecting POS, warehouse, and supplier APIs. An ML model predicted demand by SKU/region with 94% accuracy 30 days out.</p>
-                </div>
-                <div class="bg-surface-container rounded-xl p-6">
-                    <div class="flex items-center gap-2 mb-4">
-                        <span class="material-symbols-outlined text-secondary text-xl">trending_up</span>
-                        <h4 class="font-headline font-bold text-base">The Results</h4>
-                    </div>
-                    <ul class="text-tertiary text-sm space-y-2">
-                        <li class="flex items-center gap-2"><span class="text-secondary">✓</span> $12M in annual overhead saved</li>
-                        <li class="flex items-center gap-2"><span class="text-secondary">✓</span> 28% reduction in overstock</li>
-                        <li class="flex items-center gap-2"><span class="text-secondary">✓</span> 18% improvement in fill rates</li>
-                        <li class="flex items-center gap-2"><span class="text-secondary">✓</span> 94% demand forecast accuracy</li>
-                    </ul>
-                </div>
+        <div>
+          <h4 class="text-[10px] uppercase tracking-widest text-white/40 mb-4">Supply Chain / Retail</h4>
+          <h2 class="font-headline text-4xl font-bold tracking-tight mb-6">Optimizing E-Commerce Chains</h2>
+          <ul class="text-tertiary text-lg leading-relaxed mb-8 list-none space-y-2">
+            <li class="flex items-start gap-2"><span class="material-symbols-outlined text-[20px] mt-0.5 text-accent">check_circle</span> Predictive inventory modeling</li>
+            <li class="flex items-start gap-2"><span class="material-symbols-outlined text-[20px] mt-0.5 text-accent">check_circle</span> Precision stock allocation</li>
+            <li class="flex items-start gap-2"><span class="material-symbols-outlined text-[20px] mt-0.5 text-accent">check_circle</span> AI-powered demand forecasting</li>
+          </ul>
+          <div class="grid grid-cols-2 gap-8 mb-10">
+            <div>
+              <div class="text-2xl font-bold text-white">$12M</div>
+              <div class="text-[9px] uppercase tracking-widest text-tertiary">Annual Savings</div>
             </div>
-            <div class="px-8 md:px-10 pb-6 italic text-sm text-tertiary border-t border-outline-variant/10 pt-6">
-                <span class="text-primary">"</span>Their predictive model outperformed every tool we tried. We recouped the project cost in 8 weeks.<span class="text-primary">"</span>
-                <span class="ml-2 not-italic font-bold text-on-surface text-xs">— Thomas Kim, COO · RetailAI Global</span>
+            <div>
+              <div class="text-2xl font-bold text-white">94%</div>
+              <div class="text-[9px] uppercase tracking-widest text-tertiary">Forecasting Accuracy</div>
             </div>
+          </div>
+          <a href="#" class="inline-flex items-center gap-2 text-white font-medium hover:text-accent transition-colors group">
+            Read Case Study <span class="material-symbols-outlined text-sm group-hover:translate-x-1 transition-transform">arrow_forward</span>
+          </a>
         </div>
-    </div>
+      </div>
 
-    <!-- Case Study 3: Predictive Maintenance -->
-    <div data-aos="fade-up" data-aos-delay="100" class="project-card glass-card card-hover shimmer-card rounded-2xl overflow-hidden mb-8 border border-outline-variant/15">
-        <div class="grid md:grid-cols-5">
-            <div class="md:col-span-2 relative min-h-[260px] overflow-hidden bg-surface-container flex items-center justify-center">
-                <span class="material-symbols-outlined text-primary" style="font-size:80px;opacity:0.15">precision_manufacturing</span>
-                <div class="absolute bottom-4 left-4 flex flex-col gap-2">
-                    <span class="metric-pill bg-primary/20 text-primary border border-primary/30">Logistics</span>
-                    <span class="metric-pill bg-secondary/20 text-secondary border border-secondary/30">IoT / AI</span>
-                </div>
-            </div>
-            <div class="md:col-span-3 p-8 md:p-10 flex flex-col justify-between">
-                <div>
-                    <h2 class="font-headline text-2xl md:text-3xl font-bold text-on-surface mb-4">Predictive Maintenance AI</h2>
-                    <div class="grid grid-cols-3 gap-4 mb-6">
-                        <div class="bg-surface-container-lowest rounded-xl p-3 text-center">
-                            <div class="text-primary font-headline font-bold text-2xl">-22%</div>
-                            <div class="text-[9px] uppercase text-tertiary tracking-widest mt-1">Downtime</div>
-                        </div>
-                        <div class="bg-surface-container-lowest rounded-xl p-3 text-center">
-                            <div class="text-secondary font-headline font-bold text-2xl">48h</div>
-                            <div class="text-[9px] uppercase text-tertiary tracking-widest mt-1">Before Failure</div>
-                        </div>
-                        <div class="bg-surface-container-lowest rounded-xl p-3 text-center">
-                            <div class="text-on-surface font-headline font-bold text-2xl">+$4M</div>
-                            <div class="text-[9px] uppercase text-tertiary tracking-widest mt-1">Annual ROI</div>
-                        </div>
-                    </div>
-                    <p class="text-tertiary text-sm leading-relaxed mb-6">Reducing fleet downtime by 22% using IoT sensor integration and anomaly detection algorithms for a global shipping operator managing 800+ vessels.</p>
-                </div>
-                <button onclick="toggleCase('case3')" class="flex items-center gap-2 text-primary font-bold text-sm hover:gap-3 transition-all group w-fit">
-                    <span>View Full Case Study</span>
-                    <span id="case3-icon" class="material-symbols-outlined text-sm">expand_more</span>
-                </button>
-            </div>
-        </div>
-        <div id="case3" class="case-detail border-t border-outline-variant/15">
-            <div class="p-8 md:p-10 grid md:grid-cols-3 gap-8">
-                <div class="bg-surface-container rounded-xl p-6">
-                    <div class="flex items-center gap-2 mb-4">
-                        <span class="material-symbols-outlined text-error text-xl">warning</span>
-                        <h4 class="font-headline font-bold text-base">The Problem</h4>
-                    </div>
-                    <p class="text-tertiary text-sm leading-relaxed">Unplanned vessel breakdowns cost the client $18M/year. Maintenance was calendar-based, not condition-based, leading to 22% unnecessary downtime and expensive emergency repairs.</p>
-                </div>
-                <div class="bg-surface-container rounded-xl p-6">
-                    <div class="flex items-center gap-2 mb-4">
-                        <span class="material-symbols-outlined text-primary text-xl">construction</span>
-                        <h4 class="font-headline font-bold text-base">Our Solution</h4>
-                    </div>
-                    <p class="text-tertiary text-sm leading-relaxed">We built an IoT data pipeline pulling vibration, temperature, and pressure sensors from 800 vessels. An anomaly-detection model flagged failures 48 hours in advance with 91% precision.</p>
-                </div>
-                <div class="bg-surface-container rounded-xl p-6">
-                    <div class="flex items-center gap-2 mb-4">
-                        <span class="material-symbols-outlined text-secondary text-xl">trending_up</span>
-                        <h4 class="font-headline font-bold text-base">The Results</h4>
-                    </div>
-                    <ul class="text-tertiary text-sm space-y-2">
-                        <li class="flex items-center gap-2"><span class="text-secondary">✓</span> 22% reduction in fleet downtime</li>
-                        <li class="flex items-center gap-2"><span class="text-secondary">✓</span> $4M+ annual maintenance savings</li>
-                        <li class="flex items-center gap-2"><span class="text-secondary">✓</span> 48h advance failure detection</li>
-                        <li class="flex items-center gap-2"><span class="text-secondary">✓</span> 91% anomaly precision rate</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Case Study 4: Healthcare -->
-    <div data-aos="fade-up" data-aos-delay="150" class="project-card glass-card card-hover shimmer-card rounded-2xl overflow-hidden border border-outline-variant/15">
-        <div class="grid md:grid-cols-5">
-            <div class="md:col-span-2 relative min-h-[260px] overflow-hidden">
-                <div class="absolute inset-0 opacity-30" style="background-image:url('https://lh3.googleusercontent.com/aida-public/AB6AXuC-7Us5b2kPEgyFPqykHfuiAmGwLZhr7maFepNqRtHdlVhAf7OG6zncqKLh8gUliPbZ_XuPzeM9CQN6py68c4luzYjYHvaIt3fI67GJFGZz3yi7-ME9vIHu_upysuQCaT_L7CPtbb5H0Pq1cgw-FPX3MWNVnU_0Z3yfLtpHSt18qo6-Mhl_k9nfj_w9pUkq_x4pWE_zaDDj-NOP95nr7ZpSruW4M5esaO-szKemiY7PnNWlc9FB8iEmEKJq1tXFpRvlctOb6si0Fag');background-size:cover;background-position:center;"></div>
-                <div class="absolute inset-0 bg-gradient-to-r from-transparent to-surface-container-low/80"></div>
-                <div class="absolute bottom-4 left-4 flex flex-col gap-2">
-                    <span class="metric-pill bg-primary/20 text-primary border border-primary/30">Healthcare</span>
-                    <span class="metric-pill bg-secondary/20 text-secondary border border-secondary/30">40+ Facilities</span>
-                </div>
-            </div>
-            <div class="md:col-span-3 p-8 md:p-10 flex flex-col justify-between">
-                <div>
-                    <h2 class="font-headline text-2xl md:text-3xl font-bold text-on-surface mb-4">Patient Outcome Synthesis</h2>
-                    <div class="grid grid-cols-3 gap-4 mb-6">
-                        <div class="bg-surface-container-lowest rounded-xl p-3 text-center">
-                            <div class="text-secondary font-headline font-bold text-2xl">98.4%</div>
-                            <div class="text-[9px] uppercase text-tertiary tracking-widest mt-1">Data Integrity</div>
-                        </div>
-                        <div class="bg-surface-container-lowest rounded-xl p-3 text-center">
-                            <div class="text-primary font-headline font-bold text-2xl">1.2s</div>
-                            <div class="text-[9px] uppercase text-tertiary tracking-widest mt-1">Query Speed</div>
-                        </div>
-                        <div class="bg-surface-container-lowest rounded-xl p-3 text-center">
-                            <div class="text-on-surface font-headline font-bold text-2xl">40+</div>
-                            <div class="text-[9px] uppercase text-tertiary tracking-widest mt-1">Facilities</div>
-                        </div>
-                    </div>
-                    <p class="text-tertiary text-sm leading-relaxed mb-6">Aggregating fragmented EHR data across 40+ facilities to create a 360-degree patient view, improving diagnostic accuracy and reducing readmission rates by 19%.</p>
-                </div>
-                <button onclick="toggleCase('case4')" class="flex items-center gap-2 text-primary font-bold text-sm hover:gap-3 transition-all group w-fit">
-                    <span>View Full Case Study</span>
-                    <span id="case4-icon" class="material-symbols-outlined text-sm">expand_more</span>
-                </button>
-            </div>
-        </div>
-        <div id="case4" class="case-detail border-t border-outline-variant/15">
-            <div class="p-8 md:p-10 grid md:grid-cols-3 gap-8">
-                <div class="bg-surface-container rounded-xl p-6">
-                    <div class="flex items-center gap-2 mb-4">
-                        <span class="material-symbols-outlined text-error text-xl">warning</span>
-                        <h4 class="font-headline font-bold text-base">The Problem</h4>
-                    </div>
-                    <p class="text-tertiary text-sm leading-relaxed">Patient records were siloed across 40+ facilities using 7 different EHR systems. Doctors lacked a unified patient history, leading to duplicate tests, medication errors, and 19% preventable readmissions.</p>
-                </div>
-                <div class="bg-surface-container rounded-xl p-6">
-                    <div class="flex items-center gap-2 mb-4">
-                        <span class="material-symbols-outlined text-primary text-xl">construction</span>
-                        <h4 class="font-headline font-bold text-base">Our Solution</h4>
-                    </div>
-                    <p class="text-tertiary text-sm leading-relaxed">We built a HIPAA-compliant data mesh that unified all 7 EHR formats into a single patient timeline. Real-time clinical alerts and a physician dashboard gave instant 360° visibility.</p>
-                </div>
-                <div class="bg-surface-container rounded-xl p-6">
-                    <div class="flex items-center gap-2 mb-4">
-                        <span class="material-symbols-outlined text-secondary text-xl">trending_up</span>
-                        <h4 class="font-headline font-bold text-base">The Results</h4>
-                    </div>
-                    <ul class="text-tertiary text-sm space-y-2">
-                        <li class="flex items-center gap-2"><span class="text-secondary">✓</span> 19% drop in readmission rates</li>
-                        <li class="flex items-center gap-2"><span class="text-secondary">✓</span> 98.4% cross-facility data integrity</li>
-                        <li class="flex items-center gap-2"><span class="text-secondary">✓</span> 1.2s average query response time</li>
-                        <li class="flex items-center gap-2"><span class="text-secondary">✓</span> HIPAA + SOC2 compliant on day 1</li>
-                    </ul>
-                </div>
-            </div>
-            <div class="px-8 md:px-10 pb-6 italic text-sm text-tertiary border-t border-outline-variant/10 pt-6">
-                <span class="text-primary">"</span>For the first time, our physicians see a patient's full history in one screen. It's transforming how we practice medicine.<span class="text-primary">"</span>
-                <span class="ml-2 not-italic font-bold text-on-surface text-xs">— Dr. Sofia Rahman, VP Engineering · MediCore Systems</span>
-            </div>
-        </div>
-    </div>
-
-</section>
+    </section>
 
 <!-- CTA -->
 <section class="py-28 px-8 max-w-5xl mx-auto text-center">
-    <div class="glass-card rounded-2xl p-12 relative overflow-hidden">
+    <div class="glass-card shadow-lg rounded-3xl p-12 relative overflow-hidden">
         <div class="absolute top-0 left-1/2 -translate-x-1/2 w-full h-0.5 bg-gradient-to-r from-transparent via-primary to-transparent"></div>
         <h2 data-aos="fade-up" class="font-headline text-4xl md:text-5xl font-bold mb-6 text-on-surface">Ready to be our next case study?</h2>
         <p class="text-tertiary text-lg mb-10 max-w-xl mx-auto">Our specialists are ready to architect your high-precision data future.</p>
         <div class="flex flex-col sm:flex-row justify-center gap-4">
-            <a href="index.html#lead-capture" class="btn-primary bg-primary-container text-white-container px-8 py-4 rounded-xl font-bold hover:scale-[1.02] transition-all">
+            <a href="index.html#lead-capture" class="btn-primary bg-primary-container text-white-container px-8 py-4 rounded-2xl shadow-md font-bold hover:scale-105 hover:shadow-lg transition-all duration-300">
                 Start Your Project
             </a>
-            <a href="services.html" class="glass-card text-on-surface px-8 py-4 rounded-xl font-bold border border-outline-variant/30 hover:bg-surface-container-highest transition-all">
+            <a href="services.html" class="glass-card text-on-surface px-8 py-4 rounded-2xl shadow-md font-bold border border-outline-variant/30 hover:-translate-y-1 hover:shadow-lg transition-all duration-300">
                 View Services
             </a>
         </div>
@@ -692,42 +187,41 @@
 </main>
 
 <!-- FOOTER -->
-<footer class="bg-[#050505] w-full pt-16 pb-10 border-t border-[#27272a]/15">
-    <div class="grid grid-cols-1 md:grid-cols-4 gap-10 px-8 max-w-7xl mx-auto">
-        <div>
-            <span class="text-lg font-bold text-zinc-100 font-headline mb-4 block">Data Parse</span>
-            <p class="text-tertiary text-sm leading-relaxed">Precision through data. Building the future of automated intelligence.</p>
-        </div>
-        <div>
-            <h4 class="font-body text-xs uppercase tracking-widest text-zinc-100 font-bold mb-5">Platform</h4>
-            <ul class="space-y-3">
-                <li><a class="text-tertiary text-xs hover:text-secondary transition-colors" href="services.html">Services</a></li>
-                <li><a class="text-tertiary text-xs hover:text-secondary transition-colors" href="work.html">Our Work</a></li>
-                <li><a class="text-tertiary text-xs hover:text-secondary transition-colors" href="blog.html">Blog</a></li>
-            </ul>
-        </div>
-        <div>
-            <h4 class="font-body text-xs uppercase tracking-widest text-zinc-100 font-bold mb-5">Connect</h4>
-            <ul class="space-y-3">
-                <li><a class="text-tertiary text-xs hover:text-secondary transition-colors" href="https://web.facebook.com/profile.php?id=61575740000776" target="_blank" rel="noopener">Facebook</a></li>
-                <li><a class="text-tertiary text-xs hover:text-secondary transition-colors" href="https://www.linkedin.com/company/data-parsee/" target="_blank" rel="noopener">LinkedIn</a></li>
-                <li><a class="text-tertiary text-xs hover:text-secondary transition-colors" href="https://t.me/DataparseEt" target="_blank" rel="noopener">Telegram</a></li>
-                <li><a class="text-tertiary text-xs hover:text-secondary transition-colors" href="https://github.com/DataParse-git" target="_blank" rel="noopener">GitHub</a></li>
-                <li><a class="text-tertiary text-xs hover:text-secondary transition-colors" href="mailto:dataparsee@gmail.com">Email Us</a></li>
-            </ul>
-        </div>
-        <div>
-            <h4 class="font-body text-xs uppercase tracking-widest text-zinc-100 font-bold mb-5">Legal</h4>
-            <ul class="space-y-3">
-                <li><a class="text-tertiary text-xs hover:text-secondary transition-colors" href="#">Privacy Policy</a></li>
-                <li><a class="text-tertiary text-xs hover:text-secondary transition-colors" href="#">Terms of Service</a></li>
-            </ul>
-        </div>
+  <footer class="bg-background border-t border-white/5 pt-24 pb-12 px-6 md:px-24">
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-12 mb-24">
+      <div class="col-span-2">
+        <a href="index.html" class="flex items-center gap-3 mb-6">
+          <img src="logo.jpg" class="h-8 w-8 rounded-lg" />
+          <span class="font-headline text-xl font-bold tracking-tight">Data Parse</span>
+        </a>
+        <p class="text-tertiary max-w-sm text-sm leading-relaxed">Precision intelligence and scalable data architecture for the modern business world. Built for reliability.</p>
+      </div>
+      <div>
+                <h4 class="text-[10px] uppercase tracking-widest text-white mb-6">Navigation</h4>
+        <ul class="space-y-4 text-tertiary text-sm">
+          <li><a href="about.html" class="hover:text-white transition-colors">About</a></li>
+          <li><a href="work.html" class="hover:text-white transition-colors">Projects</a></li>
+          <li><a href="services.html" class="hover:text-white transition-colors">Services</a></li>
+          <li><a href="resources.html" class="hover:text-white transition-colors">Resources</a></li>
+          <li><a href="contact.html" class="hover:text-white transition-colors">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="text-[10px] uppercase tracking-widest text-white mb-6">Legal</h4>
+        <ul class="space-y-4 text-tertiary text-sm">
+          <li><a href="privacy-policy.html" class="hover:text-white transition-colors">Privacy Policy</a></li>
+          <li><a href="terms-of-service.html" class="hover:text-white transition-colors">Terms of Service</a></li>
+        </ul>
+      </div>
     </div>
-    <div class="mt-12 px-8 text-center">
-        <p class="font-body text-[10px] uppercase tracking-widest text-tertiary opacity-50">© 2026 Data Parse. Precision through data.</p>
+    <div class="border-t border-white/5 pt-12 flex flex-col md:flex-row justify-between items-center gap-6 text-[10px] uppercase tracking-widest text-tertiary font-bold">
+      <p>© 2026 Data Parse Enterprise. All rights reserved.</p>
+      <div class="flex gap-8">
+        <a href="https://github.com/DataParse-git" class="hover:text-white transition-colors">GitHub</a>
+        <a href="https://www.linkedin.com/company/data-parsee/" class="hover:text-white transition-colors">LinkedIn</a>
+      </div>
     </div>
-</footer>
+  </footer>
 
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <script src="animations.js" defer></script>

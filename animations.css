@@ -2,6 +2,61 @@
    DATA PARSE — 3D ANIMATIONS & INTERACTIVE EFFECTS
    ================================================ */
 
+/* ── ICOMAT MOTION SYSTEM ── */
+.overflow-hidden-mask {
+  overflow: hidden;
+  display: inline-block;
+  vertical-align: top;
+}
+.dp-mask-reveal {
+  display: inline-block;
+  will-change: transform, opacity;
+  transform: translateY(100%); /* Initial state for GSAP */
+  opacity: 0;
+}
+.progressive-text-word {
+  color: #3f3f46; /* text-zinc-700 equivalent */
+  display: inline-block;
+  margin-right: 0.25em;
+}
+.tech-line {
+  background-color: rgba(255, 255, 255, 0.15);
+  transform-origin: left;
+  transform: scaleX(0); /* Initial state for horizontal line */
+  will-change: transform;
+}
+.tech-line.vertical {
+  transform-origin: top;
+  transform: scaleY(0); /* Initial state for vertical line */
+}
+
+/* ── LIGHT MODE OVERRIDES FOR ICOMAT SYSTEM ── */
+html.light .progressive-text-word { color: #a1a1aa; }
+html.light .tech-line { background-color: rgba(0, 0, 0, 0.15); }
+
+:root {
+  --icomat-stripes: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='16'%3E%3Cpath d='M0,16 L100,0 M0,0 L100,-16 M0,32 L100,16' stroke='rgba(138,174,224,0.08)' stroke-width='2.5' fill='none'/%3E%3C/svg%3E");
+}
+html.light {
+  --icomat-stripes: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='16'%3E%3Cpath d='M0,16 L100,0 M0,0 L100,-16 M0,32 L100,16' stroke='rgba(98,142,203,0.1)' stroke-width='2.5' fill='none'/%3E%3C/svg%3E");
+}
+
+/* ── GRID + STRIPE BACKGROUND ── */
+.grid-bg {
+  background-image: 
+    linear-gradient(rgba(138,174,224,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(138,174,224,0.03) 1px, transparent 1px),
+    var(--icomat-stripes);
+  background-size: 32px 32px, 32px 32px, 100px 16px;
+  background-attachment: fixed;
+  animation: stripeDrift 20s linear infinite;
+}
+
+@keyframes stripeDrift {
+  from { background-position: 0 0, 0 0, 0 0; }
+  to   { background-position: 0 0, 0 0, 100px 16px; }
+}
+
 /* ── CUSTOM CURSOR ── */
 #dp-cursor {
   position: fixed;
@@ -54,7 +109,7 @@ body.cursor-click #dp-cursor { transform: translate(-50%,-50%) scale(.7); }
 .dp-orb {
   position: absolute;
   border-radius: 50%;
-  filter: blur(80px);
+  filter: blur(20px);
   pointer-events: none;
   animation: orbFloat 10s ease-in-out infinite alternate;
   z-index: 0;
@@ -98,6 +153,29 @@ body.cursor-click #dp-cursor { transform: translate(-50%,-50%) scale(.7); }
 }
 @keyframes rippleAnim {
   to { transform: scale(4); opacity: 0; }
+}
+
+.grid-bg {
+  background-color: var(--background) !important;
+  background-image: var(--icomat-stripes) !important;
+  background-size: 100px 16px !important;
+  animation: bgDrift 8s linear infinite;
+}
+
+@keyframes bgDrift {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: -100px 0;
+  }
+}
+
+.grid-bg-heavy {
+  background-color: var(--background) !important;
+  background-image: var(--icomat-stripes) !important;
+  background-size: 100px 16px !important;
+  animation: bgDrift 8s linear infinite;
 }
 
 /* ── 3D HERO PARALLAX ── */
@@ -170,12 +248,39 @@ nav a.nav-link:hover::after { width: 100%; }
 /* ── SECTION REVEAL FADE ── */
 .dp-reveal {
   opacity: 0;
-  transform: translateY(32px);
-  transition: opacity .8s ease, transform .8s cubic-bezier(.22,1,.36,1);
+  transform: translateY(20px);
+  filter: none !important;
+  transition: opacity 1.2s cubic-bezier(0.22, 1, 0.36, 1), transform 1.2s cubic-bezier(0.22, 1, 0.36, 1);
 }
-.dp-reveal.visible {
+.dp-reveal.visible, [data-aos].aos-animate {
   opacity: 1;
   transform: translateY(0);
+  filter: none !important;
+}
+
+/* Forcing crispness on all AOS elements */
+[data-aos] {
+  filter: none !important;
+}
+
+/* ── TECHNICAL TYPOGRAPHY ── */
+.tech-label {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: #71717a;
+}
+.headline-xl {
+  font-size: clamp(3rem, 8vw, 7.5rem);
+  line-height: 0.9;
+  letter-spacing: -0.04em;
+  font-weight: 800;
+}
+.subheadline-lg {
+  font-size: clamp(1.5rem, 4vw, 3rem);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
 }
 
 /* ── CTA GLOW PULSE ── */
@@ -355,3 +460,81 @@ html.light .text-primary-container { color: #1f3a6d !important; }
 html.light .text-secondary { color: #15406b !important; }
 html.light .text-tertiary { color: #395886 !important; }
 html.light h1, html.light h2, html.light h3, html.light h4, html.light h5, html.light h6 { color: #080f1e !important; }
+
+/* ── PREMIUM SIDE DOT NAV ── */
+.dot-nav-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+  group;
+}
+.dot-nav-item .dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(138,174,224,0.3);
+  transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.dot-nav-item .dot-label {
+  font-family: 'Inter', sans-serif;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: #a1a1aa;
+  opacity: 0;
+  transform: translateX(10px);
+  transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.dot-nav-item:hover .dot-label {
+  opacity: 1;
+  transform: translateX(0);
+}
+.dot-nav-item.active .dot {
+  background: #38bdf8;
+  transform: scale(1.5);
+  box-shadow: 0 0 15px rgba(56,189,248,0.5);
+}
+.dot-nav-item.active .dot-label {
+  color: #38bdf8;
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* ── TECHNICAL OVERLAYS ── */
+.corner-bracket {
+  position: absolute;
+  width: 15px; height: 15px;
+  border: 1px solid rgba(138,174,224,0.3);
+  pointer-events: none;
+}
+.bracket-tl { top: 0; left: 0; border-right: 0; border-bottom: 0; }
+.bracket-tr { top: 0; right: 0; border-left: 0; border-bottom: 0; }
+.bracket-bl { bottom: 0; left: 0; border-right: 0; border-top: 0; }
+.bracket-br { bottom: 0; right: 0; border-left: 0; border-top: 0; }
+
+/* ── LENIS SMOOTHING ── */
+html.lenis {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto;
+}
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+.lenis.lenis-scrolling iframe {
+  pointer-events: none;
+}
+
+/* ── ADVANCED GLASSMORPHISM ── */
+.glass-panel {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+}

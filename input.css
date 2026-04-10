@@ -17,14 +17,37 @@
     background-size: 24px 24px;
   }
   .glass-card {
-    background: rgba(45, 52, 73, 0.6);
-    backdrop-filter: blur(20px);
-    border-top: 1px solid rgba(196, 231, 255, 0.1);
+    background: rgba(45, 52, 73, 0.4);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border-top: 1px solid rgba(196, 231, 255, 0.15);
+    border-left: 1px solid rgba(196, 231, 255, 0.05);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+    position: relative;
+    overflow: hidden;
+  }
+  .glass-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -150%;
+    width: 200%;
+    height: 100%;
+    background: linear-gradient(
+      115deg,
+      transparent 0%,
+      transparent 35%,
+      rgba(255, 255, 255, 0.02) 40%,
+      rgba(255, 255, 255, 0.08) 45%,
+      rgba(255, 255, 255, 0.02) 50%,
+      transparent 55%,
+      transparent 100%
+    );
+    pointer-events: none;
+    z-index: 1;
   }
   .hero-gradient {
     background: radial-gradient(circle at 50% 50%, rgba(56, 189, 248, 0.08) 0%, transparent 70%);
   }
-  .text-glow {
-    text-shadow: 0 0 20px rgba(142, 213, 255, 0.3);
-  }
+  
 }

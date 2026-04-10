@@ -32,14 +32,16 @@
     el.addEventListener("mouseleave", () => document.body.classList.remove("cursor-hover"));
   });
 
-  /* ── 2. SCROLL PROGRESS BAR ── */
+  /* ── 2. SCROLL PROGRESS BAR (Handled by Lenis below if present) ── */
   const bar = document.createElement("div");
   bar.id = "dp-progress";
   document.body.prepend(bar);
-  window.addEventListener("scroll", () => {
-    const pct = window.scrollY / (document.body.scrollHeight - window.innerHeight) * 100;
-    bar.style.width = Math.min(pct, 100) + "%";
-  });
+  if (typeof Lenis === 'undefined') { // Fallback if no lenis
+    window.addEventListener("scroll", () => {
+      const pct = window.scrollY / (document.body.scrollHeight - window.innerHeight) * 100;
+      bar.style.width = Math.min(pct, 100) + "%";
+    });
+  }
 
   /* ── 3. GLOWING BACKGROUND ORBS (hero) ── */
   const hero = document.querySelector("section");
@@ -136,18 +138,27 @@
   });
 
   /* ── 7. HERO 3D PARALLAX ON MOUSE ── */
-  const heroContent = document.querySelector("section .max-w-7xl");
-  if (heroContent) {
-    heroContent.style.transition = "transform .15s ease";
+  const heroLeft = document.querySelector("#hero .md\\:max-w-\\[70\\%\\]");
+  const heroRight = document.querySelector("#hero .md\\:max-w-md");
+  
+  if (heroLeft && heroRight) {
     document.addEventListener("mousemove", (e) => {
-      const cx = (e.clientX / window.innerWidth - 0.5) * 14;
-      const cy = (e.clientY / window.innerHeight - 0.5) * 8;
-      heroContent.style.transform = `perspective(1000px) rotateY(${cx}deg) rotateX(${-cy}deg)`;
-    });
-    document.querySelector("section")?.addEventListener("mouseleave", () => {
-      heroContent.style.transition = "transform .6s ease";
-      heroContent.style.transform = "perspective(1000px) rotateY(0) rotateX(0)";
-      setTimeout(() => heroContent.style.transition = "transform .15s ease", 600);
+      const cx = (e.clientX / window.innerWidth - 0.5);
+      const cy = (e.clientY / window.innerHeight - 0.5);
+      
+      gsap.to(heroLeft, {
+        x: cx * 30,
+        y: cy * 20,
+        duration: 1.2,
+        ease: "power2.out"
+      });
+      
+      gsap.to(heroRight, {
+        x: cx * -40,
+        y: cy * -30,
+        duration: 1.5,
+        ease: "power2.out"
+      });
     });
   }
 
@@ -176,14 +187,124 @@
   }, { threshold: 0.5 });
   statEls.forEach(el => statObserver.observe(el));
 
-  /* ── 9. SECTION REVEAL (complementing AOS) ── */
-  document.querySelectorAll("section > div > *:not([data-aos])").forEach(el => {
-    el.classList.add("dp-reveal");
-  });
-  const revealObs = new IntersectionObserver((entries) => {
-    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add("visible"); });
-  }, { threshold: 0.12 });
-  document.querySelectorAll(".dp-reveal").forEach(el => revealObs.observe(el));
+  /* ── 9. ICOMAT-STYLE SCROLL REVEALS & LENIS ── */
+  if (typeof Lenis !== 'undefined' && typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
+    // A. Initialize Lenis
+    const lenis = new Lenis({
+      duration: 1.5,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // expo.out feeling
+      direction: 'vertical',
+      gestureDirection: 'vertical',
+      smooth: true,
+      mouseMultiplier: 1,
+      smoothTouch: false,
+      touchMultiplier: 2,
+      infinite: false,
+    });
+
+    lenis.on('scroll', ScrollTrigger.update);
+    gsap.ticker.add((time) => { lenis.raf(time * 1000) });
+    gsap.ticker.lagSmoothing(0);
+
+    // B. Link Scroll Progress Bar
+    const pbar = document.getElementById("dp-progress");
+    if (pbar) {
+      lenis.on('scroll', ({ progress }) => {
+        pbar.style.width = (progress * 100) + "%";
+      });
+    }
+
+    // C. Masked Text Reveals
+    gsap.utils.toArray('.dp-mask-reveal').forEach(el => {
+      gsap.fromTo(el, 
+        { y: "100%", opacity: 0 },
+        {
+          y: "0%", 
+          opacity: 1,
+          duration: 1.2,
+          ease: "power4.out",
+          scrollTrigger: {
+            trigger: el,
+            start: "top 90%",
+            toggleActions: "play none none reverse"
+          }
+        }
+      );
+    });
+
+    // D. Progressive Text Highlights
+    gsap.utils.toArray('.progressive-text').forEach(block => {
+      // Split text into words dynamically
+      const text = block.innerText;
+      block.innerHTML = "";
+      const words = text.split(/\s+/);
+      words.forEach(w => {
+        const span = document.createElement("span");
+        span.className = "progressive-text-word";
+        span.innerText = w + " ";
+        block.appendChild(span);
+      });
+
+      const wordSpans = block.querySelectorAll('.progressive-text-word');
+      const isLight = document.documentElement.classList.contains("light");
+      const targetColor = isLight ? "#0f172a" : "#ffffff";
+      
+      gsap.to(wordSpans, {
+        color: targetColor,
+        stagger: 0.05,
+        ease: "none",
+        scrollTrigger: {
+          trigger: block,
+          start: "top 85%",
+          end: "bottom 60%",
+          scrub: 0.5,
+        }
+      });
+    });
+
+    // E. Technical Line Drawings
+    gsap.utils.toArray('.tech-line').forEach(line => {
+      const isVertical = line.classList.contains('vertical');
+      gsap.fromTo(line,
+         { scaleX: isVertical ? 1 : 0, scaleY: isVertical ? 0 : 1 },
+         {
+           scaleX: 1, scaleY: 1,
+           duration: 1.5,
+           ease: "power3.inOut",
+           scrollTrigger: {
+             trigger: line,
+             start: "top 95%",
+           }
+         }
+      );
+    });
+
+    // F. Fallback element reveals
+    gsap.utils.toArray('.dp-reveal').forEach(el => {
+      gsap.fromTo(el,
+        { opacity: 0, y: 30 },
+        { 
+          opacity: 1, y: 0, 
+          duration: 1.2, 
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: el,
+            start: "top 85%",
+            toggleActions: "play none none reverse"
+          }
+        }
+      );
+    });
+  } else {
+    // Standard intersection observer fallback if GSAP/Lenis missing
+    document.querySelectorAll("section > div > *:not([data-aos])").forEach(el => {
+      el.classList.add("dp-reveal");
+    });
+    const revealObs = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add("visible"); });
+    }, { threshold: 0.12 });
+    document.querySelectorAll(".dp-reveal").forEach(el => revealObs.observe(el));
+  }
 
   /* ── 10. GLITCH EFFECT ON LOGO / HERO TITLE ── */
   const glitchTargets = document.querySelectorAll(".text-glow, .font-headline.text-xl");

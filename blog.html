@@ -6,7 +6,7 @@
 <title>Insights & Blog | Data Parse — Data Strategy Articles</title>
 <meta name="description" content="Expert insights on data analytics, ETL pipelines, AI, and business intelligence. Learn from the Data Parse team."/>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
 <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 <link href="animations.css" rel="stylesheet">
@@ -38,7 +38,7 @@
             accent: "#00E5FF",
             accent2: "#8b5cf6"
           },
-          fontFamily: { "headline": ["Space Grotesk"], "body": ["Inter"], "label": ["Inter"] },
+          fontFamily: { "headline": ["Inter"], "body": ["Inter"], "label": ["Inter"] },
                 borderRadius: {"DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem"},
             },
         },
@@ -74,14 +74,14 @@
     }
     html.dark .glass-card {
       background: rgba(255, 255, 255, 0.02) !important;
-      backdrop-filter: blur(24px);
-      -webkit-backdrop-filter: blur(24px);
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
       border: 1px solid rgba(255, 255, 255, 0.08) !important;
     }
     html.light .glass-card {
       background: rgba(255, 255, 255, 0.7) !important;
-      backdrop-filter: blur(24px);
-      -webkit-backdrop-filter: blur(24px);
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
       border: 1px solid rgba(0, 0, 0, 0.05) !important;
     }
 
@@ -94,9 +94,7 @@
           linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
         background-size: 32px 32px;
       }
-      .text-glow {
-        text-shadow: 0 0 20px rgba(255, 255, 255, 0.15);
-      }
+      
     html.light #main-nav { background: rgba(240,244,255,0.96) !important; border-bottom: 1px solid rgba(98,142,203,0.12); }
     html.light .text-tertiary { color: #4a5568; }
     html.light .bg-surface-container-low { background-color: #e2eaf8; }
@@ -271,7 +269,20 @@
       color: #ffffff !important;
       opacity: 1 !important;
     }
+    
+    /* --- CRISPNESS PASS: Disable all unintended blurs --- */
+    .dp-reveal, .visible, .dp-mask-reveal, .progressive-text-word {
+      filter: none !important;
+      -webkit-filter: none !important;
+      backdrop-filter: none !important;
+    }
     </style>
+
+  <!-- PREMIUM CORE -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="https://unpkg.com/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
 </head>
 <body class="bg-background text-on-background font-body selection:bg-primary/30">
 
@@ -288,21 +299,24 @@
             <img src="logo.jpg" alt="Data Parse Logo" class="h-9 w-9 object-contain rounded-lg" style="filter:drop-shadow(0 0 8px rgba(255, 255, 255, 0.15));">
             <span class="font-headline text-xl font-bold tracking-tighter text-primary">Data Parse</span>
         </a>
-        <div class="hidden md:flex items-center gap-7">
-            <a class="text-tertiary hover:text-zinc-100 transition-colors font-body text-sm" href="index.html">Home</a>
-            <a class="text-tertiary hover:text-zinc-100 transition-colors font-body text-sm" href="about.html">About</a>
-            <a class="text-tertiary hover:text-zinc-100 transition-colors font-body text-sm" href="work.html">Projects</a>
-            <a class="text-tertiary hover:text-zinc-100 transition-colors font-body text-sm" href="schedule.html">Schedule</a>
-            <a class="text-tertiary hover:text-zinc-100 transition-colors font-body text-sm" href="services.html">Resources</a>
-            <a class="text-zinc-100 border-b-2 border-zinc-100 pb-1 font-bold font-body text-sm" href="blog.html">Blog</a>
-        </div>
+      <div class="hidden md:flex gap-10 items-center">
+        <a class="text-tertiary hover:text-[#38bdf8] transition-colors font-body text-[11px] uppercase tracking-[0.2em]"
+          href="index.html">Home</a>
+        <a class="text-tertiary hover:text-[#38bdf8] transition-colors font-body text-[11px] uppercase tracking-[0.2em]" href="about.html">About</a>
+        <a class="text-tertiary hover:text-[#38bdf8] transition-colors font-body text-[11px] uppercase tracking-[0.2em]" href="work.html">Projects</a>
+        <a class="text-tertiary hover:text-[#38bdf8] transition-colors font-body text-[11px] uppercase tracking-[0.2em]"
+          href="schedule.html">Schedule</a>
+        <a class="text-tertiary hover:text-[#38bdf8] transition-colors font-body text-[11px] uppercase tracking-[0.2em]"
+          href="services.html">Resources</a>
+        <a class="text-[#38bdf8] border-b-2 border-[#38bdf8] pb-1 font-bold font-body text-[11px] uppercase tracking-[0.2em]" href="blog.html">Blog</a>
+      </div>
     </div>
     <div class="flex items-center gap-3">
         <button id="theme-toggle" title="Toggle theme" class="w-9 h-9 rounded-lg border border-outline-variant/30 flex items-center justify-center text-tertiary hover:text-primary transition-all">
             <span id="theme-icon" class="material-symbols-outlined text-lg">dark_mode</span>
         </button>
         <a href="join.html" class="hidden md:block btn-primary bg-gradient-to-br from-secondary to-primary-container text-white font-bold px-5 py-2.5 rounded-lg text-sm hover:scale-[1.02] transition-all duration-300">
-            Partner With Us
+            Get Started
         </a>
         <button id="hamburger" class="md:hidden w-9 h-9 flex flex-col items-center justify-center gap-1.5">
             <span class="w-6 h-0.5 bg-primary"></span>
@@ -314,34 +328,35 @@
 
 <div id="mobile-menu" class="fixed top-0 right-0 bottom-0 w-72 z-50 bg-[#050505] border-l border-outline-variant/20 flex flex-col px-8 pt-24 pb-8 gap-6">
     <button id="close-menu" class="absolute top-5 right-5 text-tertiary hover:text-primary"><span class="material-symbols-outlined">close</span></button>
-    <a class="text-tertiary hover:text-primary font-body text-lg border-b border-outline-variant/20 pb-4 transition-colors" href="index.html">Home</a>
-    <a class="text-tertiary hover:text-primary font-body text-lg border-b border-outline-variant/20 pb-4 transition-colors" href="about.html">About</a>
-    <a class="text-tertiary hover:text-primary font-body text-lg border-b border-outline-variant/20 pb-4 transition-colors" href="work.html">Projects</a>
-    <a class="text-tertiary hover:text-primary font-body text-lg border-b border-outline-variant/20 pb-4 transition-colors" href="schedule.html">Schedule</a>
-    <a class="text-tertiary hover:text-primary font-body text-lg border-b border-outline-variant/20 pb-4 transition-colors" href="services.html">Resources</a>
-    <a class="text-primary font-bold font-body text-lg border-b border-outline-variant/20 pb-4" href="blog.html">Blog</a>
-    <a href="join.html" class="mt-4 bg-gradient-to-br from-secondary to-primary-container text-white font-bold px-6 py-3 rounded-lg text-center">Partner With Us</a>
+    <a class="text-tertiary hover:text-primary font-body text-[11px] uppercase tracking-[0.2em] border-b border-outline-variant/20 pb-4 transition-colors" href="index.html">Home</a>
+    <a class="text-tertiary hover:text-primary font-body text-[11px] uppercase tracking-[0.2em] border-b border-outline-variant/20 pb-4 transition-colors" href="about.html">About Us</a>
+    <a class="text-tertiary hover:text-primary font-body text-[11px] uppercase tracking-[0.2em] border-b border-outline-variant/20 pb-4 transition-colors" href="services.html">Services</a>
+    <a class="text-tertiary hover:text-primary font-body text-[11px] uppercase tracking-[0.2em] border-b border-outline-variant/20 pb-4 transition-colors" href="work.html">Our Work</a>
+    <a class="text-primary font-bold font-body text-[11px] uppercase tracking-[0.2em] border-b border-outline-variant/20 pb-4 transition-colors" href="blog.html">Blog</a>
+    <a href="join.html" class="mt-4 bg-gradient-to-br from-secondary to-primary-container text-white font-bold px-6 py-3 rounded-lg text-center">Get Started</a>
 </div>
 <div id="menu-overlay" class="fixed inset-0 z-40 bg-black/60 hidden"></div>
 
 <main class="pt-20 grid-bg min-h-screen">
 
 <!-- HERO -->
-<section class="px-6 md:px-8 py-24 max-w-7xl mx-auto">
-    <div class="max-w-3xl">
-        <span class="text-secondary text-xs uppercase tracking-[0.3em] font-bold mb-4 block">Data Parse Insights</span>
-        <h1 data-aos="fade-up" class="font-headline text-5xl md:text-7xl font-bold tracking-tight leading-none mb-6 text-glow">
-            Data Intelligence<br>Starts Here.
-        </h1>
-        <p class="text-tertiary text-xl max-w-xl leading-relaxed">Expert articles on data strategy, analytics engineering, AI, and business intelligence — written by practitioners, for practitioners.</p>
-    </div>
+<section class="max-w-screen-2xl mx-auto px-10 md:px-20 py-24 mb-16">
+<div class="flex flex-col md:flex-row items-end gap-16 justify-between">
+<div class="max-w-3xl">
+    <span class="tech-label mb-6 block">Intelligence Journal / ARCHIVE_2024</span>
+    <h1 data-aos="fade-up" class="font-headline headline-xl text-on-surface leading-none mb-10 ">
+        DATA INTELLIGENCE<br>STARTS HERE.
+    </h1>
+    <p class="text-tertiary subheadline-lg max-w-xl leading-relaxed">Expert articles on data strategy, analytics engineering, AI, and business intelligence — written by practitioners, for practitioners.</p>
+</div>
+</div>
     <!-- Category filter pills -->
     <div class="mt-10 flex flex-wrap gap-3">
         <button onclick="filterCategory('all')" id="cat-all" class="category-badge bg-primary/20 text-primary border border-primary/40 cursor-pointer transition-all hover:scale-[1.02]">All Topics</button>
-        <button onclick="filterCategory('strategy')" id="cat-strategy" class="category-badge bg-surface-container border border-outline-variant/30 text-tertiary cursor-pointer transition-all hover:border-primary/40 hover:text-primary">Strategy</button>
-        <button onclick="filterCategory('engineering')" id="cat-engineering" class="category-badge bg-surface-container border border-outline-variant/30 text-tertiary cursor-pointer transition-all hover:border-primary/40 hover:text-primary">Engineering</button>
-        <button onclick="filterCategory('ai')" id="cat-ai" class="category-badge bg-surface-container border border-outline-variant/30 text-tertiary cursor-pointer transition-all hover:border-primary/40 hover:text-primary">AI & ML</button>
-        <button onclick="filterCategory('tutorials')" id="cat-tutorials" class="category-badge bg-surface-container border border-outline-variant/30 text-tertiary cursor-pointer transition-all hover:border-primary/40 hover:text-primary">Tutorials</button>
+        <button onclick="filterCategory('strategy')" id="cat-strategy" class="glass-card category-badge border border-outline-variant/30 text-tertiary cursor-pointer transition-all hover:border-primary/40 hover:text-primary">Strategy</button>
+        <button onclick="filterCategory('engineering')" id="cat-engineering" class="glass-card category-badge border border-outline-variant/30 text-tertiary cursor-pointer transition-all hover:border-primary/40 hover:text-primary">Engineering</button>
+        <button onclick="filterCategory('ai')" id="cat-ai" class="glass-card category-badge border border-outline-variant/30 text-tertiary cursor-pointer transition-all hover:border-primary/40 hover:text-primary">AI & ML</button>
+        <button onclick="filterCategory('tutorials')" id="cat-tutorials" class="glass-card category-badge border border-outline-variant/30 text-tertiary cursor-pointer transition-all hover:border-primary/40 hover:text-primary">Tutorials</button>
     </div>
 </section>
 
@@ -365,9 +380,9 @@
                 <h2 class="font-headline text-2xl md:text-3xl font-bold mb-4 leading-tight">How to Analyze Business Data Effectively: A 2024 Framework</h2>
                 <p class="text-tertiary text-sm leading-relaxed mb-6">Most companies collect mountains of data but extract almost no value. Learn the exact framework our analysts use to turn messy raw data into decisions that drive revenue — in 5 actionable steps.</p>
                 <div class="flex flex-wrap gap-2 mb-6">
-                    <span class="px-2 py-1 bg-surface-container text-tertiary text-[10px] rounded uppercase tracking-wider">ETL</span>
-                    <span class="px-2 py-1 bg-surface-container text-tertiary text-[10px] rounded uppercase tracking-wider">Analytics</span>
-                    <span class="px-2 py-1 bg-surface-container text-tertiary text-[10px] rounded uppercase tracking-wider">Business Intelligence</span>
+                    <span class="glass-card px-2 py-1 text-tertiary text-[10px] rounded uppercase tracking-wider">ETL</span>
+                    <span class="glass-card px-2 py-1 text-tertiary text-[10px] rounded uppercase tracking-wider">Analytics</span>
+                    <span class="glass-card px-2 py-1 text-tertiary text-[10px] rounded uppercase tracking-wider">Business Intelligence</span>
                 </div>
             </div>
             <div class="flex items-center justify-between">
@@ -527,7 +542,7 @@
         <h2 class="font-headline text-2xl font-bold mb-3">Get the Data Intelligence Weekly</h2>
         <p class="text-tertiary text-sm mb-6">Join 8,000+ data professionals. One email per week — expert insights, no spam.</p>
         <div class="flex flex-col sm:flex-row gap-3 max-w-sm mx-auto">
-            <input type="email" placeholder="your@email.com" class="flex-1 bg-surface-container-lowest border border-outline-variant/30 rounded-lg px-4 py-3 text-sm text-on-surface focus:outline-none focus:border-primary/50 placeholder:text-tertiary/50"/>
+            <input type="email" placeholder="your@email.com" class="glass-card flex-1 -lowest border border-outline-variant/30 rounded-lg px-4 py-3 text-sm text-on-surface focus:outline-none focus:border-primary/50 placeholder:text-tertiary/50"/>
             <button class="btn-primary bg-gradient-to-br from-secondary to-primary-container text-white font-bold px-5 py-3 rounded-lg text-sm whitespace-nowrap hover:scale-[1.02] transition-all">Subscribe Free</button>
         </div>
     </div>
@@ -536,42 +551,41 @@
 </main>
 
 <!-- FOOTER -->
-<footer class="bg-[#050505] w-full pt-16 pb-10 border-t border-[#27272a]/15">
-    <div class="grid grid-cols-1 md:grid-cols-4 gap-10 px-8 max-w-7xl mx-auto">
-        <div>
-            <span class="text-lg font-bold text-zinc-100 font-headline mb-4 block">Data Parse</span>
-            <p class="text-tertiary text-sm leading-relaxed">Precision through data. Building the future of automated intelligence.</p>
-        </div>
-        <div>
-            <h4 class="font-body text-xs uppercase tracking-widest text-zinc-100 font-bold mb-5">Platform</h4>
-            <ul class="space-y-3">
-                <li><a class="text-tertiary text-xs hover:text-secondary transition-colors" href="services.html">Services</a></li>
-                <li><a class="text-tertiary text-xs hover:text-secondary transition-colors" href="work.html">Our Work</a></li>
-                <li><a class="text-tertiary text-xs hover:text-secondary transition-colors" href="blog.html">Blog</a></li>
-            </ul>
-        </div>
-        <div>
-            <h4 class="font-body text-xs uppercase tracking-widest text-zinc-100 font-bold mb-5">Connect</h4>
-            <ul class="space-y-3">
-                <li><a class="text-tertiary text-xs hover:text-secondary transition-colors" href="https://web.facebook.com/profile.php?id=61575740000776" target="_blank" rel="noopener">Facebook</a></li>
-                <li><a class="text-tertiary text-xs hover:text-secondary transition-colors" href="https://www.linkedin.com/company/data-parsee/" target="_blank" rel="noopener">LinkedIn</a></li>
-                <li><a class="text-tertiary text-xs hover:text-secondary transition-colors" href="https://t.me/DataparseEt" target="_blank" rel="noopener">Telegram</a></li>
-                <li><a class="text-tertiary text-xs hover:text-secondary transition-colors" href="https://github.com/DataParse-git" target="_blank" rel="noopener">GitHub</a></li>
-                <li><a class="text-tertiary text-xs hover:text-secondary transition-colors" href="mailto:dataparsee@gmail.com">Email Us</a></li>
-            </ul>
-        </div>
-        <div>
-            <h4 class="font-body text-xs uppercase tracking-widest text-zinc-100 font-bold mb-5">Legal</h4>
-            <ul class="space-y-3">
-                <li><a class="text-tertiary text-xs hover:text-secondary transition-colors" href="#">Privacy Policy</a></li>
-                <li><a class="text-tertiary text-xs hover:text-secondary transition-colors" href="#">Terms of Service</a></li>
-            </ul>
-        </div>
+  <footer class="bg-background border-t border-white/5 pt-24 pb-12 px-6 md:px-24">
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-12 mb-24">
+      <div class="col-span-2">
+        <a href="index.html" class="flex items-center gap-3 mb-6">
+          <img src="logo.jpg" class="h-8 w-8 rounded-lg" />
+          <span class="font-headline text-xl font-bold tracking-tight">Data Parse</span>
+        </a>
+        <p class="text-tertiary max-w-sm text-sm leading-relaxed">Precision intelligence and scalable data architecture for the modern business world. Built for reliability.</p>
+      </div>
+      <div>
+                <h4 class="text-[10px] uppercase tracking-widest text-white mb-6">Navigation</h4>
+        <ul class="space-y-4 text-tertiary text-sm">
+          <li><a href="about.html" class="hover:text-white transition-colors">About</a></li>
+          <li><a href="work.html" class="hover:text-white transition-colors">Projects</a></li>
+          <li><a href="services.html" class="hover:text-white transition-colors">Services</a></li>
+          <li><a href="resources.html" class="hover:text-white transition-colors">Resources</a></li>
+          <li><a href="contact.html" class="hover:text-white transition-colors">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="text-[10px] uppercase tracking-widest text-white mb-6">Legal</h4>
+        <ul class="space-y-4 text-tertiary text-sm">
+          <li><a href="privacy-policy.html" class="hover:text-white transition-colors">Privacy Policy</a></li>
+          <li><a href="terms-of-service.html" class="hover:text-white transition-colors">Terms of Service</a></li>
+        </ul>
+      </div>
     </div>
-    <div class="mt-12 px-8 text-center">
-        <p class="font-body text-[10px] uppercase tracking-widest text-tertiary opacity-50">© 2026 Data Parse. Precision through data.</p>
+    <div class="border-t border-white/5 pt-12 flex flex-col md:flex-row justify-between items-center gap-6 text-[10px] uppercase tracking-widest text-tertiary font-bold">
+      <p>© 2026 Data Parse Enterprise. All rights reserved.</p>
+      <div class="flex gap-8">
+        <a href="https://github.com/DataParse-git" class="hover:text-white transition-colors">GitHub</a>
+        <a href="https://www.linkedin.com/company/data-parsee/" class="hover:text-white transition-colors">LinkedIn</a>
+      </div>
     </div>
-</footer>
+  </footer>
 
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <script src="animations.js" defer></script>
