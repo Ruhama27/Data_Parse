@@ -81,7 +81,7 @@
       const rx = cx * 16;
       const ry = -cy * 10;
       el.style.transform = `perspective(1000px) rotateY(${rx}deg) rotateX(${ry}deg) scale3d(1.02, 1.02, 1.02)`;
-      shine.style.background = `radial-gradient(circle at ${e.clientX - r.left}px ${e.clientY - r.top}px, rgba(255,255,255,.14) 0%, transparent 60%)`;
+      shine.style.background = `radial-gradient(circle at ${e.clientX - r.left}px ${e.clientY - r.top}px, rgba(138,174,224,.15) 0%, transparent 80%)`;
       
       // Nested 3D effect: children translate out
       Array.from(el.children).forEach(child => {
