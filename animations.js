@@ -78,15 +78,33 @@
       const r = el.getBoundingClientRect();
       const cx = (e.clientX - r.left) / r.width - 0.5;  // -0.5 … 0.5
       const cy = (e.clientY - r.top) / r.height - 0.5;
-      el.style.transform = `perspective(700px) rotateY(${cx * 16}deg) rotateX(${-cy * 10}deg) translateZ(10px)`;
+      const rx = cx * 16;
+      const ry = -cy * 10;
+      el.style.transform = `perspective(1000px) rotateY(${rx}deg) rotateX(${ry}deg) scale3d(1.02, 1.02, 1.02)`;
       shine.style.background = `radial-gradient(circle at ${e.clientX - r.left}px ${e.clientY - r.top}px, rgba(255,255,255,.14) 0%, transparent 60%)`;
+      
+      // Nested 3D effect: children translate out
+      Array.from(el.children).forEach(child => {
+          if(!child.classList.contains('tilt-shine') && !child.classList.contains('dp-ripple')) {
+              child.style.transform = `translateZ(30px)`;
+              child.style.transition = `transform 0.1s ease-out`;
+          }
+      });
     });
     el.addEventListener("mouseleave", () => {
       el.style.transition = "transform .5s cubic-bezier(.22,1,.36,1)";
-      el.style.transform = "perspective(700px) rotateY(0deg) rotateX(0deg) translateZ(0)";
+      el.style.transform = "perspective(1000px) rotateY(0deg) rotateX(0deg) scale3d(1, 1, 1)";
+      Array.from(el.children).forEach(child => {
+          if(!child.classList.contains('tilt-shine') && !child.classList.contains('dp-ripple')) {
+              child.style.transform = `translateZ(0px)`;
+              child.style.transition = `transform 0.5s cubic-bezier(.22,1,.36,1)`;
+          }
+      });
       setTimeout(() => el.style.transition = "", 500);
     });
-    el.addEventListener("mousemove", () => { el.style.transition = ""; });
+    el.addEventListener("mouseenter", () => { 
+        el.style.transition = "transform .1s cubic-bezier(.22,1,.36,1)"; 
+    });
   }
   document.querySelectorAll(".glass-card, .card-hover, .member-card").forEach(makeTilt);
 

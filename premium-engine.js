@@ -9,24 +9,7 @@
     // Register ScrollTrigger
     gsap.registerPlugin(ScrollTrigger);
 
-    // 1. LENIS SMOOTH SCROLL
-    const lenis = new Lenis({
-        duration: 1.2,
-        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-        orientation: 'vertical',
-        gestureOrientation: 'vertical',
-        smoothWheel: true,
-        wheelMultiplier: 1,
-        smoothTouch: false,
-        touchMultiplier: 2,
-        infinite: false,
-    });
-
-    function raf(time) {
-        lenis.raf(time);
-        requestAnimationFrame(raf);
-    }
-    requestAnimationFrame(raf);
+    // Lenis is initialized centrally in animations.js
 
     // 2. THREE.JS SCENE SETUP
     const canvas = document.querySelector('#canvas-3d');
@@ -54,15 +37,15 @@
     pointLight2.position.set(-5, -5, 2);
     scene.add(pointLight2);
 
-    // 3. THE DATA PRISM (Visual Anchor)
+    // 3. THE DATA PRISM -> PREMIUM TORUS NODE NETWORK
     // Core geometry
-    const geometry = new THREE.IcosahedronGeometry(2, 0);
+    const geometry = new THREE.TorusKnotGeometry(1.5, 0.4, 128, 32);
     const material = new THREE.MeshPhysicalMaterial({
-        color: 0xffffff,
-        metalness: 0.1,
-        roughness: 0.05,
-        transmission: 0.95, // Glass effect
-        thickness: 0.5,
+        color: 0x8aaee0,
+        metalness: 0.2,
+        roughness: 0.1,
+        transmission: 0.9, // Glass effect
+        thickness: 0.8,
         clearcoat: 1,
         clearcoatRoughness: 0.1,
         wireframe: false,
@@ -74,32 +57,52 @@
     scene.add(prism);
 
     // Wireframe overlay
-    const wireGeo = new THREE.IcosahedronGeometry(2.02, 0);
+    const wireGeo = new THREE.TorusKnotGeometry(1.52, 0.42, 64, 16);
     const wireMat = new THREE.MeshBasicMaterial({
         color: 0x38bdf8,
         wireframe: true,
         transparent: true,
-        opacity: 0.2
+        opacity: 0.15
     });
     const wireprism = new THREE.Mesh(wireGeo, wireMat);
     scene.add(wireprism);
 
     // Floating particles around prism
-    const particlesCount = 100;
+    const particlesCount = 300;
     const positions = new Float32Array(particlesCount * 3);
     for(let i = 0; i < particlesCount * 3; i++) {
-        positions[i] = (Math.random() - 0.5) * 10;
+        // distribute within a sphere
+        const r = 8 * Math.cbrt(Math.random());
+        const theta = Math.random() * 2 * Math.PI;
+        const phi = Math.acos(2 * Math.random() - 1);
+        positions[i*3] = r * Math.sin(phi) * Math.cos(theta);
+        positions[i*3+1] = r * Math.sin(phi) * Math.sin(theta);
+        positions[i*3+2] = r * Math.cos(phi);
     }
     const particlesGeo = new THREE.BufferGeometry();
     particlesGeo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
     const particlesMat = new THREE.PointsMaterial({
-        size: 0.02,
+        size: 0.04,
         color: 0x38bdf8,
         transparent: true,
-        opacity: 0.6
+        opacity: 0.6,
+        blending: THREE.AdditiveBlending
     });
     const particles = new THREE.Points(particlesGeo, particlesMat);
     scene.add(particles);
+    
+    // Mouse Interaction
+    let mouseX = 0;
+    let mouseY = 0;
+    let targetX = 0;
+    let targetY = 0;
+    const windowHalfX = window.innerWidth / 2;
+    const windowHalfY = window.innerHeight / 2;
+
+    document.addEventListener('mousemove', (event) => {
+        mouseX = (event.clientX - windowHalfX) * 0.001;
+        mouseY = (event.clientY - windowHalfY) * 0.001;
+    });
 
     // Resize handler
     window.addEventListener('resize', () => {
@@ -175,45 +178,89 @@
     }
 
     // Animation Loop
+    const clock = new THREE.Clock();
+
     function animate() {
         requestAnimationFrame(animate);
+        
+        const elapsedTime = clock.getElapsedTime();
+
+        // Mouse Parallax
+        targetX = mouseX * 0.5;
+        targetY = mouseY * 0.5;
+        prism.rotation.x += 0.05 * (targetY - prism.rotation.x);
+        prism.rotation.y += 0.05 * (targetX - prism.rotation.y);
         
         // Subtle constant rotation
         prism.rotation.y += 0.002;
         wireprism.rotation.y -= 0.002;
+        wireprism.rotation.x = prism.rotation.x;
+        wireprism.rotation.y = prism.rotation.y;
         
+        // Undulate Torus Knot
+        const time = elapsedTime * 0.5;
+        prism.scale.set(1 + Math.sin(time)*0.05, 1 + Math.cos(time)*0.05, 1);
+        wireprism.scale.copy(prism.scale);
+
         particles.rotation.y += 0.0005;
+        particles.rotation.x += 0.0002;
 
         renderer.render(scene, camera);
     }
     animate();
 
-    // 5. TECHNICAL TYPOGRAPHY REVEAL
-    // Split text effect (char by char) - excluding elements with typing animations
+    // 5. TECHNICAL TYPOGRAPHY REVEAL (Scramble Effect)
+    const chars = "!<>-_\\\\/[]{}—=+*^?#________";
     document.querySelectorAll('h2, h3, .dp-premium-reveal').forEach(el => {
-        if(el.closest('#hero')) return; // skip hero for now to preserve typing effect
+        if(el.closest('#hero')) return; 
         
         const text = el.innerText;
         el.innerHTML = '';
+        const spans = [];
         text.split('').forEach(char => {
             const span = document.createElement('span');
             span.innerText = char === ' ' ? '\u00A0' : char;
             span.style.opacity = '0';
             span.style.display = 'inline-block';
+            span.dataset.char = char; // original chart
             el.appendChild(span);
+            spans.push(span);
         });
 
-        gsap.to(el.querySelectorAll('span'), {
-            opacity: 1,
-            y: 0,
-            duration: 0.05,
-            stagger: 0.01,
-            ease: "power2.out",
-            scrollTrigger: {
-                trigger: el,
-                start: "top 90%",
-            },
-            startAt: { y: 10 }
+        ScrollTrigger.create({
+            trigger: el,
+            start: "top 90%",
+            onEnter: () => {
+                spans.forEach((span, i) => {
+                    const original = span.dataset.char;
+                    if(original === ' ') {
+                        gsap.to(span, { opacity: 1, duration: 0.1 });
+                        return;
+                    }
+                    
+                    // The dummy object prevents timeline conflicts
+                    const dummy = { value: 0 };
+                    gsap.to(dummy, {
+                        value: 1,
+                        duration: 0.6,
+                        delay: i * 0.02,
+                        ease: "power2.out",
+                        onStart: () => {
+                            span.style.opacity = '1';
+                        },
+                        onUpdate: () => {
+                            if(dummy.value < 0.8) {
+                                span.innerText = chars[Math.floor(Math.random() * chars.length)];
+                            } else {
+                                span.innerText = original;
+                            }
+                        },
+                        onComplete: () => {
+                            span.innerText = original; // Guarantee original
+                        }
+                    });
+                });
+            }
         });
     });
 
